@@ -1,0 +1,351 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hui</title>
+		<link href="../../css/Hui.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="result"></div>
+		<script type="text/html" id="tppl">
+			<% for(var i=0; i < list.length; i++){ %>
+			<div class="wan-list-item H-vertical-middle H-overflow-hidden" id='<%=list[i].id%>'>
+			<div class="H-flexbox-horizontal H-box-sizing-border-box H-theme-background-color-white H-border-vertical-bottom-after H-clear-both H-padding-horizontal-both-10 H-padding-vertical-both-3 H-touch-active">
+			<!--图片-->
+			<div style="width:60px;height:60px;margin-top: 6px;">   <!--margin-top: 8px;-->
+			<img src="<%=list[i].img %>" class="H-width-100-percent H-height-100-percent H-display-block H-border-radius-circle H-border-both" />
+			</div>
+			<div class="H-flex-item H-padding-horizontal-both-10 H-vertical-middle H-overflow-hidden">
+			<div class="H-width-100-percent">
+			<strong class="H-font-weight-normal H-display-block H-font-weight-500 H-font-size-18 H-text-show-row-1"><%=list[i].job%></strong>
+			<div class="H-theme-font-color-666 H-font-size-14 H-padding-vertical-top-3 H-text-show-row-1"><%=list[i].company%></div>
+			<div class="H-theme-font-color-ccc H-font-size-14 H-padding-vertical-top-3 H-text-show-row-1"><%=list[i].city%>  <%=list[i].workyears%>  <%=list[i].degree%>  <%=list[i].NatureName%>  <%=list[i].size%>
+			<!--  <span class="H-badge H-display-inline-block ">
+			<label class="H-display-inline-block H-vertical-middle H-theme-border-color10  H-theme-font-color-ccc H-font-size-12">
+			<%=list[i].size%>
+			</label></span> -->
+			</div>
+			</div>
+			</div>
+			<div class="H-font-size-12 H-theme-font-color-999 white-space-nowrap H-text-align-right">
+			<label class="H-display-block"><%=list[i].pushtime%></label>
+			<label class="H-margin-vertical-top-8 H-vertical-middle H-theme-font-color-red H-font-size-16"><%=list[i].salary%></label>
+			</div>
+			</div>
+			<div class="wan-list-menu H-vertical-middle H-position-relative H-overflow-hidden">
+			<div class="wan-list-btn H-font-size-16 H-padding-horizontal-both-20 H-theme-background-color1 H-display-block H-theme-font-color-white white-space-nowrap" id="1">收藏</div>
+			<!-- <div class="wan-list-btn H-font-size-16 H-padding-horizontal-both-20 H-theme-background-color-red H-display-block H-theme-font-color-white white-space-nowrap" id="2">删除</div> -->
+			</div>
+			</div>
+			<% } %>
+		</script>
+		<script src="../../script/jquery.js" type="text/javascript"></script>
+		<script src="../../script/api.js" type="text/javascript" ></script>
+		<script src="../../script/H.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var retdata = '',data,Httpconnect=1;
+			var userId, jobIds, industryId, jobFunctionId, workLocationId, degreeId, workexperienceId, salaryRangeId, jobNatureId;
+			industryId = 12;
+			jobFunctionId = 0;
+			workLocationId = 3202;
+			degreeId = 0;
+			workexperienceId = 0;
+			salaryRangeId = 0;
+			jobNatureId = 0;
+			function getPrefs() {
+				api.getPrefs({
+					key : 'userId'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						userId = ret.value;
+					}
+				});
+			}
+
+
+			H.ready(function() {
+				getPrefs();
+				getapslist();
+				api.addEventListener({
+					name : 'reload_list'
+				}, function(ret, err) {
+					if (ret) {
+						
+						industryId = ret.value.industryid;
+						jobFunctionId = ret.value.jobFunctionid;
+						workLocationId = ret.value.cityid;
+						degreeId = ret.value.degreeid;
+						workexperienceId = ret.value.workexperienceid;
+						salaryRangeId =ret.value.salaryid;
+								//alert(workLocationId + "  " + industryId + "  " + degreeId + "  " + workexperienceId + "  " + salaryRangeId + "  " + jobFunctionId);
+						
+						getapslist();
+					}
+				});
+			});
+			function getapslist() {
+				Httpconnect=1;
+				api.showProgress();
+				var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+				"<soap:Body>" + 
+				"<GetJobs xmlns='http://tempuri.org/'>" + "<pageSize>40</pageSize>" + "<pageIndex>1</pageIndex>" + 
+				"<industryId>" + industryId + "</industryId>" + //行业
+				"<jobFunctionId>" + jobFunctionId + "</jobFunctionId>" + //职能
+				"<workLocationId>" + workLocationId + "</workLocationId>" + //城市
+				"<keywords></keywords>" + //关键字
+				"<degreeId>" + degreeId + "</degreeId>" + //学历
+				"<workexperienceId>" + workexperienceId + "</workexperienceId>" + //工作年限
+				"<salaryRangeId>" + salaryRangeId + "</salaryRangeId>" + //薪资范围
+				"<jobNatureId>" + jobNatureId + "</jobNatureId>" + //职位性质
+				"</GetJobs>" + "</soap:Body>" + "</soap:Envelope>";
+				$.ajax({
+					url : "http://58.215.179.167/JobManageInterface.asmx?op=GetJobs",
+					type : "POST",
+					dataType : "xml",
+					contentType : "text/xml; charset=utf-8",
+					data : soapXML,
+					complete : deal_listdata
+				})
+			}
+
+			function deal_listdata(xmlHttpRequest, status) {
+			//超时判断
+				setTimeout(function() {
+				if(Httpconnect==1){
+				H.alertTip( '连接超时,请重试！');
+				api.hideProgress();
+				return;
+				}
+				},8000);
+				var json = $(xmlHttpRequest.responseXML).find('GetJobsResult').text();
+			//	alert(json.replace(/"display:none"/g, "").replace(/href="/g, "").replace(/">/g, ""));
+				//data = (new Function("", "return " + json.replace(/"display:none"/g, "\\\"display:none\"").replace(/href="/g, "href=\"").replace(/">/g, "\">")))();//JSON.parse(json);
+			//	data = (new Function("", "return " + json.replace(/"display:none"/g, "").replace(/href="/g, "").replace(/">/g, "")))();//JSON.parse(json);
+				while (new RegExp('<div').test(json)){
+				  var x=json.indexOf("<div");
+		 	 	  var y=json.indexOf("</div>");
+		 	 	  json=json.substring(0,x)+json.substring(y+6,json.length);
+		 	 	 
+				
+				}
+			//		alert(json.replace(/“/g, "").replace(/”/g, ""));
+				data = (new Function("", "return " + json.replace(/“/g, "").replace(/”/g, "")))();
+			
+			//	alert(data);
+					
+				if(data.total>0)H.D(".result").innerHTML = '';
+				else {
+				Httpconnect=0;
+				api.hideProgress();
+				H.alertTip( '没有搜索到匹配的数据'); 
+				return;
+				}
+				var abc=40;
+				if (abc>data.total)abc=data.total;
+				retdata="";
+				for (var i = 0; i < abc; i++) {
+					var salary = data.rows[i].SalaryName;
+					var workyears = data.rows[i].WorkYears;
+					if (salary == '')
+						salary = "面议";
+					if (workyears == '')
+						workyears = "不限";
+					retdata = retdata + '{id:' + JSON.stringify(data.rows[i].Row) + ",img : '../../image/aui/demo1.png'" + ',job : ' + JSON.stringify(data.rows[i].JobName) + ',company : ' + JSON.stringify(data.rows[i].CompanyName) + ',pushtime : ' + '\'' + JSON.stringify(data.rows[i].UpdateDate).substring(6, 10) + '\'' + ',salary : ' + JSON.stringify(salary) + ',city : ' + JSON.stringify(data.rows[i].CityName) + ',degree : ' + JSON.stringify(data.rows[i].DegreeName) + ',NatureName : ' + JSON.stringify(data.rows[i].NatureName) + ',IndustryName : ' + JSON.stringify(data.rows[i].IndustryName) + ',workyears : ' + JSON.stringify(workyears) + ',size : ' + JSON.stringify(data.rows[i].CompanySizeName) + '},';
+				}
+			//	retdata = retdata + "{id: 1,img: '',job: '平面设计师',company: '天津软通动力有限公司',pushtime: '05-15',salary:'面议',city:'天津',degree:'本科',workyears:'2年',size:'15-50人'},";
+				retdata = '[' + retdata + ']';
+				H.tppl_flag = ["<%", "%>"];
+				var listdata = {
+					list : (new Function("", "return " + retdata))()
+				};
+				Httpconnect=0;
+				api.hideProgress();
+				//		alert(JSON.stringify(listdata));
+				var render = H.tppl(H.D("#tppl").innerHTML);
+				H.D(".result").innerHTML = render(listdata);
+				H.D("#ser").addEventListener("touchend", function(e) {
+					this.style.cssText = "display:none;";
+					H.D(".btn").removeAttribute("style");
+					H.D("#ipt").setAttribute("placeholder", "请输入关键字");
+				});
+				H.D(".btn").addEventListener("touchend", function(e) {
+					this.style.cssText = "display:none;";
+					H.D("#ipt").setAttribute("placeholder", "");
+					H.D("#ser").removeAttribute("style");
+				});
+			}
+
+			//################## 侧滑全部代码
+			//返回角度
+			function GetSlideAngle(dx, dy) {
+				return Math.atan2(dy, dx) * 180 / Math.PI;
+			}
+
+			//根据起点和终点返回方向 1：向上，2：向下，3：向左，4：向右,0：未滑动
+			function GetSlideDirection(startX, startY, endX, endY) {
+				var dy = startY - endY;
+				var dx = endX - startX;
+				var result = 0;
+				//如果滑动距离太短
+				if (Math.abs(dx) < 1 && Math.abs(dy) < 1) {
+					return result;
+				}
+				//		var angle = GetSlideAngle(dx, dy);
+				/*
+				 if (angle >= -45 && angle < 45) {
+				 result = 4;
+				 } else if (angle >= 45 && angle < 135) {
+				 result = 1;
+				 } else if (angle >= -135 && angle < -45) {
+				 result = 2;
+				 } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+				 result = 3;
+				 }*/
+				if (dx < 0) {
+					if (Math.abs(dx) > Math.abs(dy) + wrong) {
+						result = 3;
+					}
+				} else {
+					if (Math.abs(dx) > Math.abs(dy) + wrong) {
+						result = 4;
+					}
+				}
+				return result;
+			}
+
+			var _startX = 0;
+			var _startY = 0;
+			var wrong = 30;
+			var scrollHeight = 0;
+			var scrollWidth = 0;
+			var currentRange = 0;
+			var parentEle = null;
+			var direction = 1;
+			// 设置侧滑动画
+			function setScroll(parentElement, value, time) {
+				parentElement.firstElementChild.style.cssText = "-webkit-transition: transform " + time + "s;-webkit-transform:translateX(" + value + "px);";
+				parentElement.lastElementChild.style.cssText = "-webkit-transition: transform " + time + "s;-webkit-transform:translateX(" + value + "px);";
+			}
+
+			// 触摸开始
+			window.addEventListener("touchstart", function(event) {
+				if (event.targetTouches.length == 1) {
+					var touch = event.targetTouches[0];
+					parentEle = H.getParents(event.target, "wan-list-item");
+					if (H.isElement(parentEle)) {
+						// 其他兄弟隐藏
+						var siblings = H.siblings(parentEle);
+						for (var i = 0; i < siblings.length; i++) {
+							var _siblingObj = siblings[i];
+							setScroll(_siblingObj, 0, 0);
+						}
+						scrollHeight = parentEle.firstElementChild.clientHeight;
+						scrollWidth = H.D(".wan-list-menu", parentEle).clientWidth;
+						for (var i = 0; i < parentEle.lastElementChild.childNodes.length; i++) {
+							var child = parentEle.lastElementChild.childNodes[i];
+							if (H.isElement(child)) {
+								child.style.cssText = "height:" + scrollHeight + "px;line-height:" + scrollHeight + "px;";
+							}
+						}
+						currentRange = Number(parentEle.firstElementChild.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, ""));
+						_startX = touch.pageX;
+						_startY = touch.pageY;
+					}
+				}
+			}, false);
+			// 触摸过程
+			window.addEventListener("touchmove", function(event) {
+				if (event.targetTouches.length == 1) {
+					var touch = event.targetTouches[0];
+					direction = GetSlideDirection(_startX, _startY, touch.pageX, touch.pageY);
+					if (direction == 3 || direction == 4) {
+						event.preventDefault();
+						if (H.isElement(parentEle)) {
+							var range = touch.pageX - _startX + wrong;
+							if (range <= 0) {
+								if (range - currentRange >= -scrollWidth && range - currentRange <= 0) {
+									setScroll(parentEle, (range - currentRange), 0);
+								}
+							} else {
+								if (range + currentRange <= 0) {
+									setScroll(parentEle, (range + currentRange), 0);
+								}
+							}
+						}
+					}
+				}
+			}, false);
+			// 触摸结束
+			window.addEventListener("touchend", function(event) {
+				var touch = event.targetTouches[0];
+				if (H.isElement(parentEle)) {
+					currentRange = Number(parentEle.firstElementChild.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, ""));
+					if (direction == 3 && (currentRange < 0)) {
+						setScroll(parentEle, -scrollWidth, 0.4);
+					} else if (direction == 4 && currentRange < 80) {
+						setScroll(parentEle, 0, 0.4);
+					} else {
+						setScroll(parentEle, 0, 0.4);
+					}
+				}
+			}, false);
+			// 点击
+			window.addEventListener("click", function(event) {
+				var parentEle = H.getParents(event.target, "wan-list-btn");
+				if (H.isElement(parentEle)) {//按钮被点击
+					if (parentEle.id == 1) {
+						parentEle = H.getParents(event.target, "wan-list-item");
+						jobIds = data.rows[parentEle.id - 1].JobId;
+						addFavJob(userId, jobIds);
+					}
+					parentEle = H.getParents(event.target, "wan-list-item");
+					setScroll(parentEle, 0, 0.4);
+					/*
+					 var target = event.target|| event.srcElement;
+					 alert(target.id);
+					 */
+				} else {//内容被点击
+					parentEle = H.getParents(event.target, "wan-list-item");
+					setScroll(parentEle, 0, 0.4);
+//					alert(parentEle.id);
+//					alert(JSON.stringify(data));
+					api.openWin({
+						name : 'list_win',
+						url : 'list_win.html',
+						pageParam : {
+							id : parentEle.id,
+							detail : data,
+							type : 0
+						},
+						animation : {
+							type : "push",
+							subType : "from_right",
+							duration : 300
+						}
+					});
+				}
+			}, false);
+			function addFavJob(userID, jobIds) {
+				var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<AddFavoriteJob   xmlns='http://tempuri.org/'>" + "<userId>" + userID + "</userId>" + "<jobIds>" + jobIds + "</jobIds>" + "</AddFavoriteJob >" + "</soap:Body>" + "</soap:Envelope>";
+				$.ajax({
+					url : "http://58.215.179.167/JobManageInterface.asmx?op=AddFavoriteJob",
+					type : "POST",
+					dataType : "xml",
+					contentType : "text/xml; charset=utf-8",
+					data : soapXML,
+					complete : endFavJob
+				});
+			}
+
+			function endFavJob(xmlHttpRequest, status) {
+				var json = $(xmlHttpRequest.responseXML).find('AddFavoriteJobResult').text();
+				data2 = JSON.parse(json);
+				api.toast({
+					msg : data2.msg
+				});
+			}
+		</script>
+	</body>
+</html>

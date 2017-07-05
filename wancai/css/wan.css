@@ -1,0 +1,90 @@
+/*switch开关*/
+.wan-switch-title {
+	float: left;
+	line-height: 26px;
+}
+.wan-switch {
+	width: 46px;
+	height: 26px;
+	margin: 0 10px;
+	position: relative;
+	border: 1px solid #dddddd;
+	background-color: #ffffff;
+	box-shadow: #dfdfdf 0 0 0 0 inset;
+	border-radius: 13px;
+	background-clip: content-box;
+	display: inline-block;
+	-webkit-appearance: none;
+	user-select: none;
+	outline: none;
+	transition: border cubic-bezier(0, 0, 0, 1) 0.2s,
+				box-shadow cubic-bezier(0, 0, 0, 1) 0.2s;
+}
+.wan-switch:before {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	border-radius: 13px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+	content: '';
+	transition: left 0.2s;
+}
+.wan-switch:checked {
+	border-color: #1abc9c;
+	box-shadow: #1abc9c 0 0 0 26px inset;
+	background-color: #1abc9c;
+	transition: border ease 0.2s,
+				box-shadow ease 0.2s,
+				background-color ease 0.6s;
+}
+.wan-switch.wan-switch-info:checked {
+	border-color: #3498db;
+	box-shadow: #3498db 0 0 0 26px inset;
+	background-color: #3498db;
+}
+.wan-switch.wan-switch-success:checked {
+	border-color: #2ecc71;
+	box-shadow: #2ecc71 0 0 0 26px inset;
+	background-color: #2ecc71;
+}
+.wan-switch.wan-switch-danger:checked {
+	border-color: #e74c3c;
+	box-shadow: #e74c3c 0 0 0 26px inset;
+	background-color: #e74c3c;
+}
+.wan-switch.wan-switch-warning:checked {
+	border-color: #f1c40f;
+	box-shadow: #f1c40f 0 0 0 26px inset;
+	background-color: #f1c40f;
+}
+.wan-switch:checked:before {
+	left: 20px;
+	transition: left 0.2s;
+}
+
+/*对齐,显示，隐藏等*/
+.wan-pull-right {
+	float: right !important;
+}
+.wan-pull-left {
+	float: left !important;
+}
+.wan-hide {
+	display: none !important;
+}
+.wan-show {
+	display: block !important;
+}
+.wan-invisible {
+	visibility: hidden;
+}
+.wan-inline {
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+

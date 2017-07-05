@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hui</title>
+		<link href="../../css/Hui.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<input type="button" value="导出简历" onclick="printWord()"/>
+		<script type="text/javascript" src="script/jquery.js"></script>
+		<script type="text/javascript">
+			function printWord(flag) {
+				var word;
+				try {
+					word = new ActiveXObject("Word.Application");
+					word.visible = false;
+				} catch(e) {
+					alert("确认是否安装了OFFICE软件，是否添加了受信站点，是否将ActiveX控件启用！");
+					return;
+				}
+	try {//打开模板文件
+
+          word.Visible = false;
+
+       　　var oDocument = word.Documents.open("html/resume_System/word_module/module.doc");
+
+    　}catch(Exception) {
+
+        　　word.quit();
+
+        　　word = null;
+
+           　　return ;
+
+　　}
+
+　　//获取书签位置，填充内容
+
+　　try{
+
+     　　var range = word.Range;
+
+     　　range = word.ActiveDocument.Bookmarks("name").Range;
+
+　　　　range.InsertBefore("万文杰"); //书签后插入内容
+
+　　　　//word.Application.Printout();//打印
+
+　　　　word.quit();
+
+　　　　word=null;
+
+　　}catch(e){
+
+　　　　  alert("书签赋值出现错误"+e.toString());
+  
+　　　　word.quit();
+
+　　　　word=null;
+
+　　}
+			}
+
+			//word.Application.Printout();//打印
+		</script>
+	</body>
+</html>

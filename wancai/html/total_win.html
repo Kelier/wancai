@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>底部</title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+	</head>
+	<body></body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var index_i = 0;
+			var jsonvalue;
+			api.parseTapmode();
+			
+			api.addEventListener({
+				name : 'choose'
+			}, function(ret, err) {
+				jsonvalue = JSON.stringify(ret.value);
+				index_i = jsonvalue[8];
+				api.setFrameGroupIndex({
+					name : 'total_tab',
+					index : index_i,
+					scroll : true
+				});
+				
+			});
+			
+			
+			api.addEventListener({
+				name : 'total_win'
+			}, function(ret, err) {
+				if (ret) {
+					api.closeWin();
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+			
+			
+			api.openFrameGroup({
+				name : 'total_tab',
+				scrollEnabled : false,
+				rect : {
+					x : 0,
+					y : 0,
+					w : 'auto',
+					h : 'auto'
+				},
+				index : index_i,
+				preload : 1,
+				frames : [{
+					name : 'login',
+					url : './login_System/login.html',
+					bounces : false
+				}, {
+					name : 'identity',
+					url : './login_System/identity.html',
+					bounces : false
+				}]
+			}, function(ret, err) {
+			})
+			
+		}
+		
+		
+		
+		
+	</script>
+</html>

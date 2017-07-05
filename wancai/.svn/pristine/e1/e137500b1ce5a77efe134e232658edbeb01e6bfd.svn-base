@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/Hui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui-iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+		<style>
+			#header3 {
+				background: rgba(200,200,200,0);
+				position: fixed;
+				width: 100%;
+				z-index: 99999;
+				height: 69px;
+			}
+			/*#tag{
+			 position:relative;
+			 }*/
+			.my-header {
+				background: url('../../image/mybg.png') no-repeat;
+				background-size: cover;
+				min-height: 245px;
+				position: relative;
+			}
+			.my-info {
+				padding: 50px 0;
+				width: 100%;
+				bottom: 0;
+				text-align: center;
+				vertical-align: center;
+			}
+			.my-info img {
+				margin-top: 15px;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+			}
+			.my-info p.nickname {
+				margin-top: 5px;
+				color: #ffffff;
+				font-size: 18px;
+			}
+			.my-menu {
+				position: absolute;
+				width: 100%;
+				height: 45px;
+				line-height: 45px;
+				left: 0;
+				bottom: 0;
+				text-align: center;
+				background: #ffffff;
+				filter: Alpha(opacity=50);
+				background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+				color: #ffffff;
+				font-size: 14px;
+			}
+			.my-menu .aui-col-xs-3 {
+				border-right: 1px solid #9bd6d5;
+			}
+			.my-menu .aui-col-xs-3:last-child {
+				border-right: none;
+			}
+			.my-menu > div:active {
+				background: #ffffff;
+				filter: Alpha(opacity=50);
+				background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+			}
+			.aui-list-view-cell {
+				line-height: 26px;
+			}
+		</style>
+	</head>
+	<body id="usercontent" style="">
+		<header class="H-header H-theme-background-color9" id="header3">
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent" id="tag" style="top: 25px;">
+				我的中心
+			</div>
+		</header>
+		<div class="aui-content my-header" id="my-header">
+			<div class="my-info">
+				<img src="../../image/noavatar.gif" tapmode="" onclick="getPicture()">
+				<p class="nickname" tapmode="" onclick="changeName()">
+					昵称
+				</p>
+			</div>
+			<div class="my-menu">
+				<div class="aui-col-xs-3">
+					首页
+				</div>
+				<div class="aui-col-xs-3">
+					动态
+				</div>
+				<div class="aui-col-xs-3">
+					关注
+				</div>
+				<div class="aui-col-xs-3">
+					设置
+				</div>
+			</div>
+		</div>
+
+		
+		
+		<div class="aui-content aui-card">
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell" tapmode="" onclick="list_set(1)">
+					<a class="aui-arrow-right"> <i class="aui-iconfont aui-icon-profile aui-bg-info"></i>我的简历 </a>
+				</li>
+				<li class="aui-list-view-cell" tapmode="" onclick="list_set(2)">
+					<a class="aui-arrow-right"> <i class="aui-iconfont aui-icon-form aui-bg-success"></i>已投简历 <span class="aui-badge aui-badge-info">12</span> </a>
+				</li>
+				<li class="aui-list-view-cell" tapmode="" onclick="list_set(3)">
+					<a class="aui-arrow-right"> <i class="aui-iconfont aui-icon-favor aui-bg-warning"></i>我的收藏 </a>
+				</li>
+				<li class="aui-list-view-cell" tapmode="" onclick="list_set(4)">
+					<a class="aui-arrow-right"> <i class="aui-iconfont aui-icon-settings aui-bg-danger"></i>个人设置 </a>
+				</li>
+			</ul>
+		</div>
+		<div class="aui-content aui-card">
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell" tapmode="" onclick="list_set(5)">
+					<a class="aui-arrow-right"> <i class="aui-iconfont aui-icon-release aui-bg-success"></i> 人才测试 </a>
+				</li>
+				<li class="aui-list-view-cell" tapmode="" onclick="list_set(6)">
+					<a class="aui-arrow-right"> <i class="aui-iconfont aui-icon-read aui-bg-warning"></i>求职秘籍 </a>
+				</li>
+				<li class="aui-list-view-cell" onclick="change_win()">
+					<a class="aui-arrow-right"><i class="aui-iconfont aui-icon-activityfill aui-bg-info"></i>入口切换</a>
+				</li>
+				<li class="aui-list-view-cell" onclick="logout()">
+					<a class="aui-arrow-right"><i class="aui-iconfont aui-icon-forward aui-bg-danger"></i>登出账号</a>
+				</li>
+				<li class="aui-list-view-cell" onclick="H.clearCache(function(ret,err){H.D('#cacheSize').innerText='0.0M';H.toast('清除成功！');});">
+					<a class="aui-arrow-right"> <i class="aui-iconfont aui-icon-deletefill aui-bg-info"></i> 清除缓存 <span class="aui-badge aui-badge-info" id="cacheSize">1.2 M</span> </a>
+				</li>
+			</ul>
+		</div>
+		<div class="aui-content aui-card">
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell aui-switch-body">
+					<div class="aui-switch-title">
+						声音提醒
+					</div>
+					<input type="checkbox" class="aui-switch aui-pull-right" checked>
+				</li>
+				<li class="aui-list-view-cell aui-switch-body">
+					<div class="aui-switch-title">
+						自动更新
+					</div>
+					<input type="checkbox" class="aui-switch aui-pull-right">
+				</li>
+			</ul>
+		</div>
+	</body>
+	<body>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script type="text/javascript" src="../../script/H.js" ></script>
+		<script type="text/javascript" src="../../script/close_logout.js" ></script>
+		<script type="text/javascript">
+			apiready = function() {
+			}
+			function clear() {
+				api.clearCache();
+				document.getElementById("cacheSize").innerText = '0.0 M';
+				api.toast('清除成功！');
+			}
+
+			function getPicture() {
+				H.actionSheetTip(function(ret, err) {
+					//	H.alertTip(ret);
+					if (3 == ret.buttonIndex) {// 用户取消.
+						return;
+					}
+					var sourceType = "album";
+					if (2 == ret.buttonIndex) {/* 打开相机*/
+						sourceType = "camera";
+					}
+					api.getPicture({
+						sourceType : sourceType,
+						encodingType : "jpg",
+						mediaValue : "pic"
+					}, function(ret, err) {
+						if (ret) {/*
+							 api.alert({
+							 title : "图片路径",
+							 msg : ret.data
+							 });*/
+						}
+					});
+				}, '请选择图片来源', ['图片选择', '优雅自怕']);
+			}
+
+			function changeName() {
+				H.promptTip(function(ret) {
+					H.alert(ret);
+				}, '修改昵称：', '请输入您的昵称？', "");
+			}
+
+
+			H.ready(function() {
+				api.showProgress();
+				setTimeout(function() {
+					api.hideProgress();
+					document.getElementById("usercontent").style.display = "inline-block";
+				}, 500);
+				//	H.D("#pic").style.margin = "0px 0 0 0";
+				//			document.getElementById("header").offsetHeight;
+				//			document.getElementById("pic").style.margin = "-50px 0 0 0";
+			});
+			//	document.getElementById("header3").style.filter = "alpha(opacity=50%)";
+		</script>
+		<script>
+			var header = H.D("#my-header").offsetHeight - H.D("#header3").offsetHeight;
+			window.onscroll = function() {
+				//变量t就是滚动条滚动时，到顶部的距离
+				var t = document.documentElement.scrollTop || document.body.scrollTop;
+				var tt = document.getElementById("my-header");
+				var opa = t * 1.0 / header;
+				document.getElementById("header3").style.background = "rgba(46,165,165," + opa.toFixed(2);
+				+")";
+			}
+			/*
+			 *功    能：调相机获取照片
+			 */
+			function openCamera() {
+				if (!positionExists())
+					return;
+				api.getPicture({
+					sourceType : 'camera',
+					encodingType : 'jpg',
+					mediaValue : 'pic',
+					destinationType : 'url',
+					allowEdit : true,
+					quality : 50,
+					targetWidth : 100,
+					targetHeight : 100,
+					saveToPhotoAlbum : false
+				}, function(ret, err) {
+					if (ret) {
+						addPicture(ret.data);
+						//添加图片到六宫格
+					} else {
+						api.alert({
+							msg : err.msg
+						});
+					};
+				});
+			};
+			/*
+			 *功    能：调图库获取照片
+			 */
+			function pickPicture() {
+				if (!positionExists())
+					return;
+				api.getPicture({
+					sourceType : 'library',
+					encodingType : 'jpg',
+					mediaValue : 'pic',
+					destinationType : 'url',
+					allowEdit : true,
+					quality : 50,
+					targetWidth : 100,
+					targetHeight : 100,
+					saveToPhotoAlbum : false
+				}, function(ret, err) {
+					if (ret) {
+						addPicture(ret.data);
+						//添加图片到六宫格
+					} else {
+						api.alert({
+							msg : err.msg
+						});
+					};
+				});
+			}
+
+			/*
+			 *功    能：显示图片的六宫格是否还有位置
+			 */
+			function positionExists() {
+				var cellId;
+				var cell;
+				for (var i = 0; i < 6; i++) {
+					cellId = "cell" + i;
+					cell = document.getElementById(cellId);
+					if (cell.src.lastIndexOf("error") == cell.src.length - 5)
+						return true;
+				}
+				return false;
+			}
+
+			/*
+			 *功    能：添加图片到六宫格
+			 */
+			function addPicture(pic) {
+				if (!pic)
+					return;
+				var cellId;
+				var cell;
+				var cellArray = new Array();
+				var fileArray = new Array();
+				for (var i = 0; i < 6; i++) {
+					cellId = "cell" + i;
+					cell = document.getElementById(cellId);
+					cellArray.push(cell);
+					//最后不是error，表示是正确的图片文件
+					if (cell.src.lastIndexOf("error") != cell.src.length - 5)
+						fileArray.push(cell.src.toString());
+				}
+				if (fileArray.length >= 6) {
+					return;
+				}
+				var cellsize = document.getElementById("grid").clientWidth / 3.5;
+				fileArray.push(pic);
+				for (var j = 0; j < fileArray.length; j++) {
+					cell = cellArray[j];
+					cell.src = fileArray[j];
+					cell.style.display = "inline";
+					cell.width = cellsize;
+					cell.height = cellsize;
+				}
+				var errorCount = cellArray.length - fileArray.length;
+				for (var k = 0; k < errorCount; k++) {
+					cell = cellArray[cellArray.length - 1 - k];
+					cell.src = "error";
+				}
+			}
+		</script>
+</html>

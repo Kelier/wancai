@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			* {
+				-webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+				-webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+				outline: none !important;
+			}
+			html, body {
+				height: 100%;
+				min-width: 320px;
+			}
+			.header {
+				display: -webkit-box;
+				height: 50px;
+			}
+			.title {
+				-webkit-box-flex: 1;
+				color: #FFFFFF;
+				text-align: center;
+				/*min-height: 50px;*/
+				line-height: 50px;
+				font-size: 18px;
+			}
+			.detail-header {
+				border-bottom: 1px solid #CDCDCD;
+				background-color: #2EA5A5;
+			}
+			.back {
+				background-size: 40px !important;
+				background-image: url("../../image/weather_back@2x.png");
+				background-position: right !important;
+			}
+			.detail-header a {
+				padding: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="header detail-header">
+			<a class="back" tapmode="" onclick="closeWin()"></a>
+			<div class="title" id="title">
+				职位详情
+			</div>
+			<a></a>
+		</div> -->
+		<div id="test"></div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		var id, data, JobName, JobFunctionName, CityName, PublishDate, DegreeName, WorkYears, NatureName, SalaryName, JobRequirements, JobDescription, UpdateDate, IndustryName;
+		var CompanyId, CompanyName, CompanyNatureName, CompanySizeName, CompanyIntroduce;
+		var CompanyContact, CompanyAddress, Contact;
+		apiready = function() {
+			//	$api.fixIos7Bar($(".header"));
+			id = api.pageParam.id;
+			data = api.pageParam.detail;
+			JobName = data.rows[id - 1].JobName;
+			JobFunctionName = data.rows[id - 1].JobFunctionName;
+			CityName = data.rows[id - 1].CityName;
+			PublishDate = data.rows[id - 1].PublishDate;
+			if ( DegreeName = data.rows[id - 1].DegreeName == '')
+				DegreeName = '无';
+			WorkYears = data.rows[id - 1].WorkYears;
+			NatureName = data.rows[id - 1].NatureName;
+			if ( SalaryName = data.rows[id - 1].SalaryName == '')
+				SalaryName = '无';
+			JobRequirements = data.rows[id - 1].JobRequirements;
+			if ( JobDescription = data.rows[id - 1].JobDescription == '')
+				JobDescription = '无';
+			UpdateDate = data.rows[id - 1].UpdateDate;
+			IndustryName = data.rows[id - 1].IndustryName;
+			CompanyId = data.rows[id - 1].CompanyId;
+			CompanyName = data.rows[id - 1].CompanyName;
+			CompanyNatureName = data.rows[id - 1].CompanyNatureName;
+			CompanySizeName = data.rows[id - 1].CompanySizeName;
+			CompanyIntroduce = data.rows[id - 1].CompanyIntroduce;
+			CompanyContact = data.rows[id - 1].CompanyContact;
+			CompanyAddress = data.rows[id - 1].CompanyAddress;
+			Contact = data.rows[id - 1].Contact;
+			//alert(JSON.stringify(data.rows[id - 1]));
+			//	alert(DegreeName);
+			if (new RegExp('&lt;div&gt;').test(JobRequirements))
+				$("#test").html(JobRequirements.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if(new RegExp('&lt;br&nbsp;\/&gt;').test(JobRequirements))
+				$("#test").html(JobRequirements.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#test").html(JobRequirements.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+			
+		};
+			
+		function closeWin() {
+			api.closeWin()
+		}
+	</script>
+</html>

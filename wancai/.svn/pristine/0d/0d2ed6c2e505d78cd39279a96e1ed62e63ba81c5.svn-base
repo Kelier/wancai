@@ -1,0 +1,221 @@
+*, *:after, *::before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.loan_jm1 {
+	width: 85%;
+	margin: 0 auto;
+	position: relative;
+	margin-top: -60px;
+}
+.wbk_srn {
+	width: 100%;
+	height: 30px;
+	border: 1px solid #ccc;
+	float: left;
+	padding-left: 3%;
+	line-height: 30px;
+	color: #878787;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 70.25%;
+	font-weight: bold;
+	background: #fff;
+}
+.submit_1,
+.submit_1:hover,
+.submit_1:focus {
+	width: 120px;
+	height: 40px;
+	position: relative;
+	top: 40px;
+	right: -70px;
+	background: #DF6659;
+	border: none;
+	color: #fff;
+	border: 2px solid #fff;
+	outline:none;
+}
+.submit_2,
+.submit_2:hover,
+.submit_2:focus {
+	width: 120px;
+	height: 40px;
+	position: relative;
+	top: 40px;
+	right: -70px;
+	background: #43CD80;
+	border: none;
+	color: #fff;
+	border: 2px solid #fff;
+	outline:none;
+}
+
+.city-container {
+	width: 100%;
+	position: relative;
+	top: 45px;
+	left: 0;
+	background-color: #ffffff;
+	z-index: 9999;
+	display: none;
+}
+.letter {
+	width: 10%;
+	overflow: hidden;
+	line-height: 30px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 70.25%;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	text-align: center;
+	background-color: #DF6659;
+}
+.letter ul {
+	list-style-type: none;
+}
+.letter ul li a {
+	text-decoration: none;
+}
+.letter ul li a:link {
+	text-decoration: none;
+	color: #404D5B;
+}
+.city {
+	width: 90%;
+	overflow: hidden;
+}
+.city-list {
+	width: 100%;
+	overflow: hidden;
+}
+.city-list .city-letter {
+	color: #6e6e6e;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 70.25%;
+	display: inline-block;
+	border-bottom: 1px solid #e8ecf1;
+	width: 100%;
+}
+.city-list p {
+	color: #afafaf;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #e8ecf1;
+	cursor: pointer;
+	margin: 10 auto;
+	padding: 0.1em;
+}
+.UISelect {
+	margin-top: 5px
+}
+.ac-custom {
+	padding: 0 3em;
+	max-width: 900px;
+	margin: 0 auto;
+	display: inline;
+	outline:none;
+	
+}
+.ac-custom h2 {
+	font-size: 3em;
+	font-weight: 300;
+	padding: 0 0 0.5em;
+	margin: 0 0 30px;
+	outline:none;
+}
+.ac-custom ul, .ac-custom ol {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	max-width: 600px;
+	outline:none;
+}
+.ac-custom li {
+	width: 100px;
+	text-align: left;
+	margin-left: 10px;
+	padding: 2em 0;
+	position: relative;
+	display: inline-block;
+	outline:none;
+}
+.ac-custom label {
+	margin-left: 30px;
+	position: relative;
+	font-size: 70.25%;
+	font-weight: bold;
+	padding: 0 0 0 50px;
+	vertical-align: top;
+	outline:none;
+	color: rgba(255,255,255,0.8);
+	cursor: pointer;
+	-webkit-transition: color 0s;
+	transition: color 0s;
+}
+.ac-custom input[type="checkbox"], .ac-custom input[type="radio"], .ac-custom label::before {
+	width: 40px;
+	height: 40px;
+	top: 50%;
+	left: 0;
+	margin-top: -25px;
+	position: absolute;
+	cursor: pointer;
+	outline:none;
+}
+.ac-custom input[type="checkbox"], .ac-custom input[type="radio"] {
+	opacity: 0;
+	-webkit-appearance: none;
+	display: inline-block;
+	vertical-align: middle;
+	z-index: 100;
+	outline:none;
+}
+.ac-custom label::before {
+	content: '';
+	border: 4px solid #F0EFEE;
+	-webkit-transition: opacity 0s;
+	transition: opacity 0s;
+	outline:none;
+}
+.ac-radio label::before {
+	border-radius: 50%;
+}
+.ac-custom input[type="checkbox"]:checked + label, .ac-custom input[type="radio"]:checked + label {
+	color: #DF6659;
+	outline:none;
+}
+.ac-custom input[type="checkbox"]:checked + label::before, .ac-custom input[type="radio"]:checked + label::before {
+	border: 4px solid #DF6659;
+	outline:none;
+}
+.checkSex {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 70.25%;
+	font-weight: bold;
+	position: relative;
+	left: -70px;
+	top: 70px;
+	width: 100%;
+	color: white;
+	overflow: hidden;
+	padding: 0;
+	color: #dadada;
+	text-align: left;
+	outline:none;
+}
+.input--sex{
+display:inline-block;
+outline:none;
+}
+.sexTip{
+font-size:18px;
+color:#D8DADB;
+font-weight:700;
+margin-top: 78px;
+margin-left:32px;
+float: left;
+
+}

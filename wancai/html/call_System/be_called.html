@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link href="../../css/Hui.css" rel="stylesheet" type="text/css" />
+		<style>
+			.avatar {
+				margin-top: 20%;
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				text-align: center;
+				color: #FFFFFF;
+			}
+			.squiggle-container {
+				margin-top: 50%;
+				width: 100%;
+				height: 50px;
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				text-align: center;
+				color: #FFFFFF;
+				background: rgba(200,200,200,1);
+			}
+			body {
+				position: fixed;
+				background-image: url(../../image/call/lwx.jpg);
+				/* background: rgba(200,105,200,1); */
+				width: 100%;
+				height: 100%;
+			}
+			.communication {
+			}
+			.cancel_communication {
+				position: fixed;
+				background: rgba(200,200,200,0);
+				width: 100%;
+				height: auto;
+				bottom: 50px;
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				z-index: 99999;
+			}
+			.cancel_btn {
+				/*	background-color: #1abc9c;*/
+				text-align: center;
+				width: 60px;
+				height: 60px;
+				font-size: 18px;
+				color: #ffffff;
+				/* line-height: 60px; */
+				-webkit-user-select: none;
+				/* border: 1px solid #ecf0f1; */
+				border-radius: 3px;
+				/* 	border: 1px solid #1abc9c; */
+			}
+			.call_btn:active {
+				/*	background-color: #1abc9c;*/
+				opacity: 0.55;
+				/* text-align: center;
+				 width: 60px;
+				 height: 60px;
+				 font-size: 18px;
+				 color: #ffffff;
+				 line-height: 60px;
+				 -webkit-user-select: none;
+				 border: 1px solid #ecf0f1;
+				 border-radius: 3px;
+				 border: 1px solid #1abc9c;  */
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="communication" id="communication" > -->
+		<div class="avatar" id="avatar">
+			<img src="../../image/call/user.jpg" width="130px" height="130px" style="border-radius: 100px;">
+			<br />
+			<span id="callInfo">XXXXX</span>
+			<br />
+			<span>视频通话</span>
+		</div>
+		<div class="squiggle-container squiggle-animated" id="svg" style="display:none">
+			<svg xmlns="http://www.w3.org/2000/svg" height="50" width="400" viewBox="0 0 400 98" >
+				<path style="transition: stroke-dashoffset 2s ease-in-out; stroke-dasharray: 988.004, 988.004; stroke-dashoffset: 0;" d="M62.9 14.9c-25-7.74-56.6 4.8-60.4 24.3-3.73 19.6 21.6 35 39.6 37.6 42.8 6.2 72.9-53.4 116-58.9 65-18.2 191 101 215 28.8 5-16.7-7-49.1-34-44-34 11.5-31 46.5-14 69.3 9.38 12.6 24.2 20.6 39.8 22.9 91.4 9.05 102-98.9 176-86.7 18.8 3.81 33 17.3 36.7 34.6 2.01 10.2.124 21.1-5.18 30.1" stroke="#000" stroke-width="4.3" fill="none" ></path>
+		
+			
+			</svg>
+		</div>
+		<div class="cancel_communication" id="accept" style="visibility:visible">
+			<div class="cancel_btn" >
+				<div class="call_btn" tapmode="" onclick="hangUp()">
+					<img src="../../image/call/icc.png" width="60px" height="60px">
+				</div>
+				<span>拒绝</span>
+			</div>
+			<div class="cancel_btn" style="margin-left: 70px;">
+				<div class="call_btn" tapmode="" onclick="accept()" >
+					<img src="../../image/call/iby.png" width="60px" height="60px">
+				</div>
+				<span>接听</span>
+			</div>
+		</div>
+		<div class="cancel_communication" id="accept2" style="visibility:hidden">
+			<div class="cancel_btn" >
+				<div class="call_btn" tapmode="" onclick="hangUp()">
+					<img src="../../image/call/mute.png" width="60px" height="60px">
+				</div>
+				<span>静音</span>
+			</div>
+			<div class="cancel_btn" style="margin-left: 40px">
+				<div class="call_btn" tapmode="" onclick="hangUp()">
+					<img src="../../image/call/icc.png" width="60px" height="60px">
+				</div>
+				<span>拒绝</span>
+			</div>
+			<div class="cancel_btn" style="margin-left: 40px">
+				<div class="call_btn" tapmode="" onclick="hangUp()">
+					<img src="../../image/call/mfb.png" width="60px" height="60px">
+				</div>
+				<span>扬声器</span>
+			</div>
+		</div>
+		<!-- 	</div> -->
+	</body>
+	<script src="../../script/H.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		H.ready(function() {
+		});
+		var callName, callInfo, callType;
+		apiready = function() {
+			callName = api.pageParam.callName;
+			callInfo = api.pageParam.callInfo;
+			callType = api.pageParam.callType;
+			H.D("#callInfo").innerText = callInfo;
+			svgCss();
+		}
+		function svgCss() {
+			var path = document.querySelector('.squiggle-animated path');
+			var length = path.getTotalLength();
+			// 清除之前的动作
+			path.style.transition = path.style.WebkitTransition = 'none';
+			// 设置起始点
+			path.style.strokeDasharray = length + ' ' + length;
+			path.style.strokeDashoffset = length;
+			// 获取一个区域，获取相关的样式，让浏览器寻找一个起始点。
+			path.getBoundingClientRect();
+			// 定义动作
+			path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 2s ease-in-out';
+			// Go!
+			path.style.strokeDashoffset = '0';
+		}
+
+		function hangUp() {
+			api.sendEvent({
+				name : 'hangUp'
+			});
+		}
+
+		function accept() {
+
+			document.getElementById("accept").style.visibility = "hidden";
+			document.getElementById("avatar").style.visibility = "hidden";
+			//document.getElementById("accept2").style.visibility = "visible";
+			api.sendEvent({
+				name : 'accept'
+			});
+			
+		}
+
+	</script>
+</html>

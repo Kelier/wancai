@@ -1,0 +1,41 @@
+/*
+ * =========================================================================
+ * APIClud - AUI UI 框架    流浪男  QQ：343757327  http://www.auicss.com
+ * AUI 图标库
+ * =========================================================================
+ */
+@charset "UTF-8";
+@font-face {
+	font-family: "auiicon";
+	src: url('aui_iconfont.ttf') format('truetype');
+}
+.aui-iconfont {
+	position: relative;
+	font-family:"auiicon" !important;
+	font-size:16px;
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+.aui-icon-favor:before { content: "\e64c"; }
+
+.aui-icon-like:before { content: "\e669"; }
+
+.aui-icon-my:before { content: "\e686"; }
+.aui-icon-left:before { content: "\e679"; }
+
+
+
+.aui-icon-mark:before { content: "\e731"; }
+
+
+
+
+
+
+
+.aui-icon-resume:before { content: "\e6b7"; }
+.aui-icon-extra:before { content: "\e673"; }
+.aui-icon-release:before { content: "\e649"; }

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/Hui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../js/base(1).css" />
+		<link rel="stylesheet" type="text/css" href="../js/jquery.jqChart.css" />
+		<link rel="stylesheet" type="text/css" href="../js/money_check.css" />
+		<link rel="stylesheet" type="text/css" href="http://css1.cdn8.cn/pd/all/salary/css/index.css?t=160715.css">
+		
+		
+		<script type="text/javascript" src="../js/api.js"></script>
+		<script type="text/javascript" src="../js/H.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.jqChart.min.js"></script>
+		<script src="http://js3.cdn8.cn/pd/all/salary/js/highcharts.js?t=160715.js"></script>
+		<script src="http://js1.cdn8.cn/pd/all/salary/js/highcharts_column.js?t=160715.js"></script>
+		<script src="http://js3.cdn8.cn/pd/all/salary/js/emolument.js?t=160715.js"></script>
+
+	</head>
+	<style type="text/css">
+		.aui-content {
+			background: #ffffff;
+			overflow: hidden;
+			padding: 15px;
+		}
+		p {
+			margin: 10px 0;
+			overflow: hidden;
+		}
+		.content {
+			background: #ffffff;
+			overflow: hidden;
+			padding: 20px 0 0 0;
+		}
+		.cancel_xuncha {
+			background: rgba(200,200,200,0);
+			position: fixed;
+			width: 100%;
+			height: auto;
+			bottom: 1px;
+			display: inline-block;
+			display: -webkit-box;
+			-webkit-box-orient: horizontal;
+			-webkit-box-pack: center;
+			-webkit-box-align: center;
+		}
+		.reset_btn {
+			background-color: #f1c40f;
+			text-align: center;
+			width: 70px;
+			height: 45px;
+			font-size: 18px;
+			color: #ffffff;
+			line-height: 45px;
+			-webkit-user-select: none;
+			border: 1px solid #ecf0f1;
+			border-radius: 3px;
+			border: 1px solid #f1c40f;
+			margin-right: 30px;
+		}
+		.reset_btn:active {
+			opacity: 0.7;
+		}
+		.record_btn {
+			background-color: #3498db;
+			text-align: center;
+			width: 70px;
+			height: 45px;
+			font-size: 18px;
+			color: #ffffff;
+			line-height: 45px;
+			-webkit-user-select: none;
+			border: 1px solid #ecf0f1;
+			border-radius: 3px;
+			border: 1px solid #3498db;
+		}
+		.record_btn:active {
+			opacity: 0.7;
+		}
+		.emptyarea {
+			background: #FFFFFF;
+			width: 100%;
+			height: 48px;
+		}
+	</style>
+	<body>
+		<div id="data"></div>
+		<div class="content">
+			<input type="button" onclick="gethttp()" value="获取">
+			<iframe id="text" name="text" src="http://www.buildhr.com/salary/shanghai-241111.html" style="display: none"></iframe>
+			<input type="button" onclick="dl()" value="确定">
+<iframe id="haha" name="haha" src="xx.html"></iframe>
+		</div>
+		<!-- <div style="padding: 10px 0 10px 15px;width: 570px;">
+			<iframe src="118.144.89.195/draw_chart.php?expect=0&amp;area%5B0%5D=1200&amp;jobid%5B0%5D=241111&amp;w=540&amp;h=270&amp;tooltip=1&amp;visitfrom=salary_search" frameborder="0" scrolling="no" width="550" height="370"></iframe>
+		</div> -->
+		
+		<div class="salary_rather" style="width: 350px; height: 270px;">
+		<!--坐标图-->
+	 	<div class="money_img ui-jqchart" id="jqChart" style="width: 540px; height: 270px;">
+		
+		
+		</div> 
+		<body>
+		
+		</body>
+		
+		</div>
+	</body>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+	</script>
+	<script type="text/javascript">
+		function gethttp() {
+			/*var x = document.createElement("SCRIPT");
+			 var t = document.createTextNode("alert('Hello World!')");
+			 x.appendChild(t);
+			 document.body.appendChild(x);*/
+			var len = $("#text").contents().find("head").find('script').length;
+			$("#text").contents().find("head").find('script').each(function(i) {
+				if (i == len - 1) {
+					var dom = document.getElementById("data");
+					var sc = document.createElement("script");
+					//sc.setAttribute("type", "text/javascript");
+					//sc.type= 'text/javascript';
+					//	sc.setAttribute("src", "b.js");
+					var t1 = document.createTextNode($(this).html());
+					sc.appendChild(t1);
+					dom.appendChild(sc);
+				}
+				//alert($(this).html());
+			});
+			//alert(area_arr);
+
+		//$("body").find(".salary_rather").contents().find("iframe").contents().find("body").find("#jqChart");
+alert($("#text").contents().find(".salary_rather").contents().find("iframe").contents().find("body").find("#jqChart").html());
+		$(".salary_rather").html($("#text").contents().find(".salary_rather").contents().find("iframe").contents().find("body").find("#jqChart").html());
+		//$("#jqChart").css('width','200px');
+		
+		}
+	</script>
+</html>

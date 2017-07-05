@@ -1,0 +1,347 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hui</title>
+		<link href="../../css/Hui.css" rel="stylesheet" type="text/css" />
+		<link href="../../css/hzw-city-picker.css" rel="stylesheet" type="text/css" />
+		<style type="text/css"></style>
+	</head>
+	<body>
+		<header class="H-header H-theme-background-color12 H-padding-vertical-top-25" id="header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				条件搜索
+			</div>
+		</header>
+		<div class="H-padding-vertical-bottom-5"></div>
+		<div class="H-border-vertical-both-after">
+			<div tapmode=""  id="industry-menu" data-open="false" class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" >
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					行业类别
+				</div>
+				<span id="industry">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" tapmode="" onclick="showIndustryMenu();" >
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					职位类别
+				</div>
+				<span id="jobFunction">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div tapmode=""  id="city-menu" data-open="false" class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" >
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					工作地点
+				</div>
+				<span id="city">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal H-theme-background-color-white H-vertical-middle">
+				<div class="H-channel-text H-display-inline H-theme-font-color1 H-flex-item H-font-size-16 H-padding-10 H-margin-horizontal-right-10 H-touch-active" tapmode="" onclick="selectSalary()" >
+					<span id="salary">期望薪资</span><i class="H-iconfont H-display-inline H-icon-arrow-down H-font-size-14 H-margin-horizontal-left-3"></i>
+				</div>
+				<div class="H-channel-line H-theme-background-color1 H-padding-vertical-top-15 H-padding-horizontal-left-3  H-margin-horizontal-left-5"></div>
+				<div class="H-channel-text H-display-inline H-theme-font-color1 H-flex-item H-font-size-16 H-theme-font-color-black H-padding-10 H-margin-horizontal-left-10 H-touch-active" tapmode="" onclick="selectDegree()">
+					<span id="degree">学历等第</span><i class="H-iconfont H-display-inline H-icon-arrow-down H-font-size-14 H-margin-horizontal-left-3"></i>
+				</div>
+				<div class="H-channel-line H-theme-background-color1 H-padding-vertical-top-15 H-padding-horizontal-left-3  H-margin-horizontal-left-5"></div>
+				<div class="H-channel-text H-display-inline H-theme-font-color1 H-flex-item H-font-size-16 H-theme-font-color-black H-padding-10 H-margin-horizontal-left-10 H-text-show-row-1 H-touch-active" tapmode="" onclick="selectWork()">
+					<span id="workexperience">工作经历</span><i class="H-iconfont H-display-inline H-icon-arrow-down H-font-size-14 H-margin-horizontal-left-3"></i>
+				</div>
+			</div>
+			<div class="H-padding-vertical-bottom-10"></div>
+			<button class="H-button H-width-100-percent  H-font-size-20 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color12 H-theme-font-color-white H-theme-border-color5 H-theme-border-color5-click H-theme-background-color5-click H-theme-font-color5-click H-border-radius-100" tapmode="" onclick="refresh()">
+				搜索职位
+			</button>
+		</div>
+		<script src="../../script/api.js" type="text/javascript"></script>
+		<script src="../../script/H.js" type="text/javascript"></script>
+		<script src="../../script/jquery.js" type="text/javascript"></script>
+		<script src="../../script/basedata.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var cityid, salaryid, degreeid, workexperienceid, industryid, jobFunctionid;
+			function getPrefs() {
+				//写入已知数据
+				api.getPrefs({
+					key : 'city'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						H.D("#city").innerText = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'cityid'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						cityid = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'salary'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						H.D("#salary").innerText = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'salaryid'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						salaryid = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'degree'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						H.D("#degree").innerText = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'degreeid'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						degreeid = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'workexperience'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						H.D("#workexperience").innerText = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'workexperienceid'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						workexperienceid = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'industry'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						H.D("#industry").innerText = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'industryid'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						industryid = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'jobFunction'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						H.D("#jobFunction").innerText = ret.value;
+					}
+				});
+				api.getPrefs({
+					key : 'jobFunctionid'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						jobFunctionid = ret.value;
+					}
+				});
+			}
+
+
+			H.ready(function() {
+				salaryid = 0, degreeid = 0, workexperienceid = 0, industryid = 0, jobFunctionid = 0;
+				getPrefs();
+				//获取下载省份列表
+				//暂时不用getProvince();
+				//设置监听器
+				/*	api.addEventListener({  暂时废弃
+				 name : 'write_city'
+				 }, function(ret, err) {
+				 if (ret) {
+				 H.D("#city").innerText = ret.value.city;
+				 }
+				 });*/
+			});
+			function showCityMenu() {
+				var openStatu = H.D("#city-menu").getAttribute("data-open");
+				if (openStatu == "false") {
+					H.fixStatusBar(function(offset) {
+						H.openFrame('city_index', 'city.html', null, {
+							rect : {
+								x : 0,
+								y : offset.h + 150,
+								w : H.winWidth,
+								h : H.winHeight - offset.h
+							},
+							bounces : false
+						});
+						H.D("#city-menu").setAttribute("data-open", "true");
+					}, '#header');
+				} else {
+					H.execScript(H.winName, "city_index", "showShare();");
+					H.D("#city-menu").setAttribute("data-open", "false");
+				}
+			}
+
+			// 绑定点击
+			H.D("#city-menu").addEventListener("touchstart", function(e) {
+				if (H.isAPICloud()) {
+					showCityMenu();
+				} else {
+					H.swiperShare(".show-menu", ".city-menu", "show-menu");
+				}
+			});
+			function showIndustryMenu() {
+				var openStatu = H.D("#industry-menu").getAttribute("data-open");
+				if (openStatu == "false") {
+					H.fixStatusBar(function(offset) {
+						H.openFrame('industry_index', 'industry.html', null, {
+							rect : {
+								x : 0,
+								y : 0,
+								w : H.winWidth,
+								h : H.winHeight
+							},
+							bounces : false
+						});
+						//	H.D("#industry-menu").setAttribute("data-open", "true");
+					}, '#header');
+				} else {
+					H.execScript(H.winName, "industry_index", "showShare();");
+					H.D("#industry-menu").setAttribute("data-open", "false");
+				}
+			}
+
+			// 绑定点击
+			H.D("#industry-menu").addEventListener("touchstart", function(e) {
+				if (H.isAPICloud()) {
+					showIndustryMenu();
+				} else {
+					H.swiperShare(".show-menu", ".industry-menu", "show-menu");
+				}
+			});
+			function getProvince() {
+				var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<GetProvince xmlns='http://tempuri.org/' />" + "</soap:Body>" + "</soap:Envelope>";
+				$.ajax({
+					url : "http://58.215.179.167/BasicInfoManageInterface.asmx?op=GetProvince",
+					type : "POST",
+					dataType : "xml",
+					contentType : "text/xml; charset=utf-8",
+					data : soapXML,
+					complete : deal_Province
+				})
+			}
+
+			function deal_Province(xmlHttpRequest, status) {
+				var json = $(xmlHttpRequest.responseXML).find('GetProvinceResult').text();
+				data = (new Function("", "return " + json))();
+				//alert(JSON.stringify(data));
+			}
+
+			function selectSalary() {
+				var salaryStr = '[';
+				for (var i = 0; i < salary_a.length; i++) {
+					if (i == salary_a.length - 1)
+						salaryStr = salaryStr + '\"' + salary_a[i] + '\"' + ']';
+					else
+						salaryStr = salaryStr + '\"' + salary_a[i] + '\"' + ',';
+				}
+				H.actionSheetTip2(function(ret, err) {
+					if (ret.buttonIndex > 0) {
+						H.D("#salary").innerText = salary_a[ret.buttonIndex - 1];
+						api.setPrefs({
+							key : 'salary',
+							value : salary_a[ret.buttonIndex - 1]
+						});
+						api.setPrefs({
+							key : 'salaryid',
+							value : ret.buttonIndex - 1
+						});
+					}
+				}, '期望薪水', JSON.parse(salaryStr));
+			}
+
+			function selectDegree() {
+				var degreeStr = '[';
+				for (var i = 0; i < degree_a.length; i++) {
+					if (i == degree_a.length - 1)
+						degreeStr = degreeStr + '\"' + degree_a[i] + '\"' + ']';
+					else
+						degreeStr = degreeStr + '\"' + degree_a[i] + '\"' + ',';
+				}
+				H.actionSheetTip2(function(ret, err) {
+					if (ret.buttonIndex > 0) {
+						H.D("#degree").innerText = degree_a[ret.buttonIndex - 1];
+						api.setPrefs({
+							key : 'degree',
+							value : degree_a[ret.buttonIndex - 1]
+						});
+						api.setPrefs({
+							key : 'degreeid',
+							value : ret.buttonIndex - 1
+						});
+					}
+				}, '学历等第', JSON.parse(degreeStr));
+			}
+
+			function selectWork() {
+				var workStr = '[';
+				for (var i = 0; i < work_a.length; i++) {
+					if (i == work_a.length - 1)
+						workStr = workStr + '\"' + work_a[i] + '\"' + ']';
+					else
+						workStr = workStr + '\"' + work_a[i] + '\"' + ',';
+				}
+				H.actionSheetTip2(function(ret, err) {
+					if (ret.buttonIndex > 0) {
+						H.D("#workexperience").innerText = work_a[ret.buttonIndex - 1];
+						api.setPrefs({
+							key : 'workexperience',
+							value : work_a[ret.buttonIndex - 1]
+						});
+						api.setPrefs({
+							key : 'workexperienceid',
+							value : ret.buttonIndex - 1
+						});
+					}
+				}, '工作经历', JSON.parse(workStr));
+			}
+
+			function selectIndustry() {
+				H.openFrame('industry_index', 'industry.html', null, {
+					rect : {
+						x : 0,
+						y : offset.h + 150,
+						w : H.winWidth,
+						h : H.winHeight - offset.h
+					},
+					bounces : false
+				});
+			}
+
+			function refresh() {
+				getPrefs();
+				
+				//	alert(cityid + '     ' + salaryid + '     ' + degreeid + '     ' + workexperienceid + '     ' + industryid + '     ' + jobFunctionid);
+				setTimeout(function() {
+				api.sendEvent({
+					name : 'reload_list',
+					extra : {
+						cityid : cityid,
+						salaryid : salaryid,
+						degreeid : degreeid,
+						workexperienceid : workexperienceid,
+						industryid : industryid,
+						jobFunctionid : jobFunctionid
+					}
+				});
+				H.closeWin();
+				}, 300);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <style>
+    	body{
+    		
+    	}
+    </style>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		api.openFrame({
+				name : 'character',
+				url : "http://www.apesk.com/mbti/tu/index_m.asp",//文字版http://www.apesk.com/mbti/dati_m.asp
+				rect : {
+					x : 0,
+					y : 20,
+					w : api.winWidth,
+					h : api.winHeight+40
+				},
+				vScrollBarEnabled:false,
+				useWKWebView:true,
+				bounces:false
+			});
+	};
+</script>
+</html>

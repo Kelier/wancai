@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>底部</title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+	</head>
+	<style>
+	
+	</style>
+	<body>
+		<header class="aui-bar aui-bar-nav aui-bar-greeny" id="aui-header">
+			<div class="aui-title" id="header-title">
+				职位
+			</div>
+		</header>
+		<footer class="aui-nav aui-nav-after" id="aui-footer">
+			<ul class="aui-bar-tab">
+				<li class="active-warning" id="tabbar1" tapmode onclick="randomSwitchBtn(this,'职位',0)">
+					<span class="aui-iconfont aui-icon-favor"></span>
+					<p>
+						职位
+					</p>
+				</li>
+				<li id="tabbar2" tapmode onclick="randomSwitchBtn(this,'分析',1)">
+					<span class="aui-iconfont aui-icon-like"></span>
+					<p>
+						分析
+					</p>
+				</li>
+				
+				<!-- <img src="../../image/find.png" style="width:55px;height:55px;text-align:center;margin-top:2px;" tapmode onclick="MsgAndFind()"/>		
+					 -->
+		
+			    <li id="tabbar3" tapmode onclick="MsgAndFind()" class="active-wan">
+					<span class="aui-iconfont aui-icon-discover" style="font-size: 50px;margin-top: 8px"></span> 
+				</li>  
+				<li id="tabbar4" tapmode onclick="randomSwitchBtn(this,'消息',3)">
+					<span class="aui-iconfont aui-icon-mark"></span>
+					<p>
+						消息
+					</p>
+				</li>
+				<li id="tabbar5" tapmode onclick="randomSwitchBtn(this,'我的',4)">
+					<span class="aui-iconfont aui-icon-my"></span>
+					<p>
+						我的
+					</p>
+				</li>
+			</ul>
+		</footer>
+		<script>
+			setTimeout("closeWin()", 100)
+			setTimeout("closeWin()", 500)
+			setTimeout("closeWin()", 1500)
+		</script>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			api.parseTapmode();
+			var header = $api.byId('aui-header');
+			$api.fixStatusBar(header);
+			var headerPos = $api.offset(header);
+			var body_h = $api.offset($api.dom('body')).h;
+			var footer_h = $api.offset($api.byId('aui-footer')).h;
+			api.openFrameGroup({
+				name : 'person_tab',
+				scrollEnabled : false,
+				rect : {
+					x : 0,
+					y : headerPos.h,
+					w : 'auto',
+					h : body_h - headerPos.h - footer_h
+				},
+				index : 0,
+				preload : 3,
+				frames : [{
+					name : 'UIListView',
+					url : './UIListView2.html',
+					bounces : false,
+					progress:'lalala'
+				}, {
+					name : 'footer_tab_2',
+					url : './footer_tab_2.html',
+					bounces : false
+				}, {
+					name : 'find',
+					url : './footer_tab_3.html',
+					bounces : false
+				}, {
+					name : 'footer_tab_3',
+					url : './pic.html',
+					bounces : false
+				}, {
+					name : 'user_frame',
+					url : './user_frame.html',
+					bounces : false,
+					vScrollBarEnabled:false
+				}]
+			}, function(ret, err) {
+				var footer = $api.byId('aui-footer');
+				var footerAct = $api.dom(footer, '.aui-bar-tab li.active-warning');
+				$api.removeCls(footerAct, 'active-warning');
+				var name = ret.name;
+				var index = ret.index;
+				if (index == 0) {
+					$api.text($api.byId('header-title'), '职位');
+					$api.addCls($api.byId('tabbar1'), 'active-warning');
+				} else if (index == 1) {
+					$api.text($api.byId('header-title'), '分析');
+					$api.addCls($api.byId('tabbar2'), 'active-warning');
+				} else if (index == 2) {
+					//保留
+				}	else if (index == 3) {
+					$api.text($api.byId('header-title'), '消息');
+					$api.addCls($api.byId('tabbar4'), 'active-warning');
+				}  else if (index == 4) {
+					$api.text($api.byId('header-title'), '我的');
+					$api.addCls($api.byId('tabbar5'), 'active-warning');
+				}
+			})
+			exitApp();
+			api.addEventListener({
+				name : 'closePerSys'
+			}, function(ret, err) {
+				if (ret) {
+					api.closeWin();
+				}
+			});
+		}
+		function closeWin() {
+			api.sendEvent({
+				name : 'closeIdentity',
+			});
+			api.sendEvent({
+				name : 'closeComSys',
+			});
+		}
+
+		function randomSwitchBtn(obj, name, index) {
+			$api.text($api.byId('header-title'), name);
+			var footer = $api.byId('aui-footer');
+			var footerAct = $api.dom(footer, '.aui-bar-tab li.active-warning');
+			$api.removeCls(footerAct, 'active-warning');
+			$api.addCls(obj, 'active-warning');
+			api.setFrameGroupIndex({
+				name : 'person_tab',
+				index : index,
+				scroll : false
+			});
+		}
+
+		function exitApp() {
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				api.toast({
+					msg : '再按一次退出程序',
+					duration : 1000,
+					location : 'bottom'
+				});
+				api.addEventListener({
+					name : 'keyback'
+				}, function(ret, err) {
+					api.closeWidget({
+						id : 'A6915320475319', //这里改成自己的应用ID
+						retData : {
+							name : 'closeWidget'
+						},
+						silent : true
+					});
+				});
+				setTimeout(function() {
+					exitApp();
+				}, 1800)
+			});
+		}
+		function MsgAndFind(){
+			api.openWin({
+	            name: 'MsgAndFind',
+	            url: 'pic.html',
+	            animation : {
+					type : "movein", 
+					subType : "from_bottom",
+				//	duration : 500
+				}
+            });
+		
+		}
+	</script>
+</html>

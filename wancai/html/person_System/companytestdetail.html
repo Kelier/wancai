@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			* {
+				-webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+				-webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+				outline: none !important;
+			}
+			html, body {
+				height: 100%;
+				min-width: 320px;
+			}
+			.header {
+				display: -webkit-box;
+				height: 50px;
+			}
+			.title {
+				-webkit-box-flex: 1;
+				color: #FFFFFF;
+				text-align: center;
+				/*min-height: 50px;*/
+				line-height: 50px;
+				font-size: 18px;
+			}
+			.detail-header {
+				border-bottom: 1px solid #CDCDCD;
+				background-color: #2EA5A5;
+			}
+			.back {
+				background-size: 40px !important;
+				background-image: url("../../image/weather_back@2x.png");
+				background-position: right !important;
+			}
+			.detail-header a {
+				padding: 25px;
+			}
+			#font_IndustryName,#font_CompanyNatureName,#font_CompanySizeName,#font_CompanyIntroduce {
+			    float:left;
+			    display:inline;
+                padding: 10px 0px 2px 0px;
+			}
+			#list_IndustryName,#list_CompanyNatureName,#list_CompanySizeName,#list_CompanyIntroduce {
+			    float:left;
+			    display:inline;
+                padding: 10px 0px 2px 0px;
+                color:#949494;
+			}
+			#list_CompanyIntroduce {
+			    line-height: 1.42857143;
+			    
+			    
+			}
+			#list_CompanyName {
+			    text-align: center;
+			}
+			#CompanyName,#CompanyNatureName,#CompanySizeName,#IndustryName,#CompanyIntroduce {
+			    padding: 10px 13px 2px 13px;
+			}
+			#line-1,#line-2 {
+			    height:1px;
+			    width:100%;
+			    background:#F0F0F0;
+			    overflow:hidden;
+			    
+			}
+			#line-3 {
+			    height:20px;
+			    width:100%;
+			    background:#F0F0F0;
+			    overflow:hidden;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="header detail-header">
+			<a class="back" tapmode="" onclick="closeWin()"></a>
+			<div class="title" id="title">
+				公司信息
+			</div>
+			<a></a>
+		</div>
+		<div id="list_CompanyLogo"></div>
+		<div id="CompanyName"><div id="list_CompanyName"></div><br /><div id="line-1"></div></div>
+		<div id="IndustryName"><div id="font_IndustryName">行业：</div><div id="list_IndustryName"></div></div><br>
+		<div id="CompanyNatureName"><div id="font_CompanyNatureName">性质：</div><div id="list_CompanyNatureName"></div></div><br>
+		<div id="CompanySizeName"><div id="font_CompanySizeName">规模：</div><div id="list_CompanySizeName"></div></div><br><br>
+		<div id="line-3"></div>              
+		<div id="CompanyIntroduce"><div id="font_CompanyIntroduce">公司介绍：</div><br /><br />
+		   <div id="line-2"></div>
+		<div id="list_CompanyIntroduce"></div></div><br>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		var id, data, JobName, JobFunctionName, CityName, PublishDate, DegreeName, WorkYears, NatureName, SalaryName, JobRequirements, JobDescription, UpdateDate, IndustryName;
+		var CompanyId, CompanyName, CompanyNatureName, CompanySizeName, CompanyIntroduce;
+		var CompanyContact, CompanyAddress, Contact;
+		apiready = function() {
+			//	$api.fixIos7Bar($(".header"));
+			id = api.pageParam.id;
+			data = api.pageParam.detail;
+			JobName = data.rows[id - 1].JobName;
+			JobFunctionName = data.rows[id - 1].JobFunctionName;
+			CityName = data.rows[id - 1].CityName;
+			PublishDate = data.rows[id - 1].PublishDate;
+			if ( DegreeName = data.rows[id - 1].DegreeName == '')
+				DegreeName = '无';
+			WorkYears = data.rows[id - 1].WorkYears;
+			NatureName = data.rows[id - 1].NatureName;
+			if ( SalaryName = data.rows[id - 1].SalaryName == '')
+				SalaryName = '无';
+			JobRequirements = data.rows[id - 1].JobRequirements;
+			if ( JobDescription = data.rows[id - 1].JobDescription == '')
+				JobDescription = '无';
+			UpdateDate = data.rows[id - 1].UpdateDate;
+			IndustryName = data.rows[id - 1].IndustryName;
+			CompanyId = data.rows[id - 1].CompanyId;
+			CompanyName = data.rows[id - 1].CompanyName;
+			CompanyNatureName = data.rows[id - 1].CompanyNatureName;
+			CompanySizeName = data.rows[id - 1].CompanySizeName;
+			CompanyIntroduce = data.rows[id - 1].CompanyIntroduce;
+			CompanyContact = data.rows[id - 1].CompanyContact;
+			CompanyAddress = data.rows[id - 1].CompanyAddress;
+			Contact = data.rows[id - 1].Contact;
+			//alert(JSON.stringify(data.rows[id - 1]));
+			//	alert(DegreeName);
+			///////////////1、
+			if (new RegExp('&lt;div&gt;').test(JobFunctionName))
+				$("#list_JobFunctionName").html(JobFunctionName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(JobFunctionName))
+				$("#list_JobFunctionName").html(JobFunctionName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_JobFunctionName").html(JobFunctionName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+			////////////2、
+			if (new RegExp('&lt;div&gt;').test(JobRequirements))
+				$("#list_JobRequirements").html(JobRequirements.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(JobRequirements))
+				$("#list_JobRequirements").html(JobRequirements.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_JobRequirements").html(JobRequirements.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+			////////////////3、
+			if (new RegExp('&lt;div&gt;').test(JobName))
+				$("#list_JobName").html(JobName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(JobName))
+				$("#list_JobName").html(JobName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_JobName").html(JobName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+			/////////////4、
+			if (new RegExp('&lt;div&gt;').test(CityName))
+				$("#list_CityName").html(CityName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(JobName))
+				$("#list_CityName").html(CityName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CityName").html(CityName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		//////////5、
+		if (new RegExp('&lt;div&gt;').test(PublishDate))
+				$("#list_PublishDate").html(PublishDate.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(PublishDate))
+				$("#list_PublishDate").html(PublishDate.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_PublishDate").html(PublishDate.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		//////////////6、
+		if (new RegExp('&lt;div&gt;').test(WorkYears))
+				$("#list_WorkYears").html(WorkYears.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(WorkYears))
+				$("#list_WorkYears").html(WorkYears.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_WorkYears").html(WorkYears.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		///////////////7、
+		if (new RegExp('&lt;div&gt;').test(NatureName))
+				$("#list_NatureName").html(NatureName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(NatureName))
+				$("#list_NatureName").html(NatureName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_NatureName").html(NatureName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		/////////////////////8、
+		if (new RegExp('&lt;div&gt;').test(UpdateDate))
+				$("#list_UpdateDate").html(UpdateDate.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(UpdateDate))
+				$("#list_UpdateDate").html(UpdateDate.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_UpdateDate").html(UpdateDate.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		//////////////////////////9、
+		if (new RegExp('&lt;div&gt;').test(IndustryName))
+				$("#list_IndustryName").html(IndustryName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(IndustryName))
+				$("#list_IndustryName").html(IndustryName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_IndustryName").html(IndustryName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+	//////////////////////10、
+	if (new RegExp('&lt;div&gt;').test(CompanyId))
+				$("#list_CompanyId").html(CompanyId.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(CompanyId))
+				$("#list_CompanyId").html(CompanyId.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CompanyId").html(CompanyId.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		///////////////////11、
+		if (new RegExp('&lt;div&gt;').test(CompanyName))
+				$("#list_CompanyName").html(CompanyName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(CompanyName))
+				$("#list_CompanyName").html(CompanyName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CompanyName").html(CompanyName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		///////////////12、
+		if (new RegExp('&lt;div&gt;').test(CompanyNatureName))
+				$("#list_CompanyNatureName").html(CompanyNatureName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(CompanyNatureName))
+				$("#list_CompanyNatureName").html(CompanyNatureName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CompanyNatureName").html(CompanyNatureName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		//////////////////13、
+		if (new RegExp('&lt;div&gt;').test(CompanySizeName))
+				$("#list_CompanySizeName").html(CompanySizeName.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(CompanySizeName))
+				$("#list_CompanySizeName").html(CompanySizeName.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CompanySizeName").html(CompanySizeName.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		///////////////14
+		if (new RegExp('&lt;div&gt;').test(CompanyIntroduce))
+				$("#list_CompanyIntroduce").html(CompanyIntroduce.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(CompanyIntroduce))
+				$("#list_CompanyIntroduce").html(CompanyIntroduce.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CompanyIntroduce").html(CompanyIntroduce.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		/////////////////15
+		if (new RegExp('&lt;div&gt;').test(CompanyContact))
+				$("#list_CompanyContact").html(CompanyContact.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(CompanyContact))
+				$("#list_CompanyContact").html(CompanyContact.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CompanyContact").html(CompanyContact.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		/////////////////////16
+		if (new RegExp('&lt;div&gt;').test(CompanyAddress))
+				$("#list_CompanyAddress").html(CompanyAddress.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(CompanyAddress))
+				$("#list_CompanyAddress").html(CompanyAddress.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_CompanyAddress").html(CompanyAddress.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		////////////////////17
+		if (new RegExp('&lt;div&gt;').test(Contact))
+				$("#list_Contact").html(Contact.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(Contact))
+				$("#list_Contact").html(Contact.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_Contact").html(Contact.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		};
+		function closeWin() {
+			api.closeWin()
+		}
+	</script>
+</html>

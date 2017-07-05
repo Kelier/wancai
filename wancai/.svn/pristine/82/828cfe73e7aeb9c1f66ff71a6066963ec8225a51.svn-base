@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/contact/index.css">
+	<script type="text/javascript" src="./script/api.js"></script>
+	<script type="text/javascript">
+    var callBtnTexNormal = "Call";
+    var callBtnTexIncoming = "Accept";
+    var callBtnTexCalling = "Calling";
+    var muteStr = "Mute";
+    var unmuteStr = "Unmute";
+    var loudSpeakerStr = "LoudSpeaker";
+    var phoneSpeakerStr = "PhoneSpeaker";
+
+	function onGlobalStatus(data){
+		document.getElementById('globalStatus').innerHTML = data;
+	}
+	
+	function cbLogStatus(data){
+        if("OK" == data.substring(0,2))
+        {
+            var status = data.split("OK:")[1];
+            var showStr = "";
+            if("LOGIN" == status)
+            {
+                showStr = "Logout";
+            }
+            else if("LOGOUT" == status)
+            {
+                showStr = "Login";
+            }
+            document.getElementById("logBtn").value = showStr;
+        }
+        else
+        {
+            alert(data);
+        }
+	}
+	
+    function cbCallStatus(data){
+        if("OK" == data.substring(0,2))
+        {
+            var status = data.split("OK:")[1];
+            var showStr = "";
+            if("NORMAL" == status)
+            {
+                showStr = callBtnTexNormal;
+            }
+            else if("INCOMING" == status)
+            {
+                showStr = callBtnTexIncoming;
+            }
+            else if("CALLING" == status)
+            {
+                showStr = callBtnTexCalling;
+            }
+            document.getElementById("callBtn").value = showStr;
+        }
+        else
+        {
+            alert(data);
+        }
+    }
+    
+    function cbRemotePicPath(data){
+        document.getElementById('remotePicPathTx').innerHTML = data;
+    }
+
+    function cbMessageStatus(data){
+        alert(data);
+    }
+
+
+	var rtcApi = null;
+	apiready = function(){
+	    rtcApi = api.require('tyRTC');
+	    rtcApi.setGlobalStatusListener(onGlobalStatus);
+	    rtcApi.setLogStatusListener(cbLogStatus);
+	    rtcApi.setCallStatusListener(cbCallStatus);
+	    rtcApi.setRemotePicPathListener(cbRemotePicPath);
+	    rtcApi.setMessageListener(cbMessageStatus);
+	}
+    
+    function logResponse(){
+        var status = document.getElementById("logBtn").value;
+        if("Login" == status)
+        {
+            login();
+        }
+        else if("Logout" == status)
+        {
+            rtcApi.logout();
+        }
+    }
+    
+    function callResponse(){
+        var status = document.getElementById("callBtn").value;
+        var callType = document.getElementById("callType").value;
+        var calledUserName = document.getElementById("calledUserName").value;
+        if(callBtnTexNormal == status)
+        {
+            rtcApi.call({callType:callType, callName:calledUserName});
+        }
+        else if(callBtnTexIncoming == status)
+        {
+            rtcApi.acceptCall({callType:callType});
+        }
+    }
+    
+    function mute(){
+        var status = document.getElementById("muteBtn").value;
+        if(muteStr == status)
+        {
+            rtcApi.mute({value:"true"});
+            document.getElementById("muteBtn").value = unmuteStr;
+        }
+        else if(unmuteStr == status)
+        {
+            rtcApi.mute({value:"false"});
+            document.getElementById("muteBtn").value = muteStr;
+        }
+    }
+    
+    function loudSpeaker(){
+        var status = document.getElementById("loudSpeakerBtn").value;
+        if(loudSpeakerStr == status)
+        {
+            rtcApi.loudSpeaker({value:"true"});
+            document.getElementById("loudSpeakerBtn").value = phoneSpeakerStr;
+        }
+        else if(phoneSpeakerStr == status)
+        {
+            rtcApi.loudSpeaker({value:"false"});
+            document.getElementById("loudSpeakerBtn").value = loudSpeakerStr;
+        }
+    }
+    
+    function setAppKeyAndAppId(){
+        var appKey = document.getElementById("AppKeytb").value;
+        var appId = document.getElementById("AppIdtb").value;
+        rtcApi.setAppKeyAndAppId({appId:appId, appKey:appKey});
+    }
+    
+    function login(){
+        var x1 = document.getElementById("axis1").value;
+        var y1 = document.getElementById("ordinate1").value;
+        var w1 = document.getElementById("width1").value;
+        var h1 = document.getElementById("hight1").value;
+        var x2 = document.getElementById("axis2").value;
+        var y2 = document.getElementById("ordinate2").value;
+        var w2 = document.getElementById("width2").value;
+        var h2 = document.getElementById("hight2").value;
+        
+        var jsonObj1 = {};
+        jsonObj1.x = x1;
+        jsonObj1.y = y1;
+        jsonObj1.w = w1;
+        jsonObj1.h = h1;
+        var jsonObj2 = {};
+        jsonObj2.x = x2;
+        jsonObj2.y = y2;
+        jsonObj2.w = w2;
+        jsonObj2.h = h2;
+        var json = {};
+        json.localView = jsonObj1;
+        json.remoteView = jsonObj2;
+
+        var jsonStr = JSON.stringify(json);
+        var userName = document.getElementById("userName").value;
+        rtcApi.login({jsonViewConfig:jsonStr, userName:userName});
+        alert('login');
+    }
+    
+    function setVideoAttr(){
+        var videoAttr = document.getElementById("videoAttr").value;
+        rtcApi.setVideoAttr({value:videoAttr});
+    }
+    
+    function takeRemotePicture(){
+        rtcApi.takeRemotePicture();
+    }
+    
+    function sendMsg(){
+        var calledUserName = document.getElementById("calledUserName").value;
+        var message = document.getElementById("message").value;
+        rtcApi.sendMessage({userName:calledUserName, msg:message});
+    }
+
+    function switchCam(){
+        var camera = document.getElementById("switchCamera").value;
+        if(camera == "back")
+            document.getElementById("switchCamera").value = "front";
+        else if(camera == "front")
+            document.getElementById("switchCamera").value = "back";
+        rtcApi.switchCamera({value:camera});
+    }
+
+    function rotateCam(){
+        var angle = document.getElementById("angle").value;
+        rtcApi.rotateCamera({value:angle});
+    }
+
+</script>
+</head>
+
+<body>
+	<div class="tit">eSurfingRtc</div>
+	<div class="conbor">
+		<div class="consj">
+            <span>状态</span>
+            <div class="tcxx" id="globalStatus"></div>
+            
+            <span>先瞅瞅</span>
+            <span>AppId</span>
+            <input class="textbox" type="text" id="AppIdtb" value="123">
+            <span>appKey</span>
+            <input class="textbox" type="text" id="AppKeytb" value="123456">
+            <input class="btn" type="button" id="setAppKeyIdBtn" value="确定" onclick="setAppKeyAndAppId();"><br><br>
+		
+            <span>2.Login/Logout接口</span>
+			
+            <span>x1</span>
+            <input class="textbox" type="number" id="axis1" value="10">
+            <span>y1</span>
+            <input class="textbox" type="number" id="ordinate1" value="80">
+            <span>width1</span>
+            <input class="textbox" type="number" id="width1" value="150">
+            <span>hight1</span>
+            <input class="textbox" type="number" id="hight1" value="200">
+            
+            <span>x2</span>
+            <input class="textbox" type="number" id="axis2" value="165">
+            <span>y2</span>
+            <input class="textbox" type="number" id="ordinate2" value="80">
+            <span>width2</span>
+            <input class="textbox" type="number" id="width2" value="150">
+            <span>hight2</span>
+            <input class="textbox" type="number" id="hight2" value="200">
+			
+            <span>账号</span>
+            <input class="textbox" type="text" id="userName" value="1531">
+            <input class="btn" type="button" id="logBtn" value="Login" onclick="logResponse();"><br>
+            
+            <span>3.Call/acceptCall接口</span>
+            <span>呼叫类型</span>
+            <input class="textbox" type="number" id="callType" value="2">
+            <span>被叫</span>
+            <input class="textbox" type="text" id="calledUserName" value="1369">
+            <input class="btn" type="button" id="callBtn" value="Call" onclick="callResponse();"><br>
+			
+            <span>4.hangUp接口</span>
+            <input class="btn" type="button" id="hangUpBtn" value="Hangup" onclick="rtcApi.hangUp();"><br>
+            
+            <span>5.mute接口</span>
+            <input class="btn" type="button" id="muteBtn" value="Mute" onclick="mute();"><br><br>
+            
+            <span>6.loudSpeaker接口</span>
+            <input class="btn" type="button" id="loudSpeakerBtn" value="LoudSpeaker" onclick="loudSpeaker();"><br>
+            
+            <span>7.设置视频清晰度接口（下次呼叫生效）</span>
+            <span>清晰度</span>
+            <input class="textbox" type="text" id="videoAttr" value="0">
+            <input class="btn" type="button" id="videoAttrBtn" value="确定" onclick="setVideoAttr();"><br>
+            
+            <span>8.截屏（Remote）接口</span>
+            <span>截屏图片路径</span>
+            <div class="tcxx" id="remotePicPathTx"></div>
+            <input class="btn" type="button" id="picPathBtn" value="截屏" onclick="rtcApi.takeRemotePicture();"><br>
+            
+            <span>9.文本消息接口</span>
+            <input class="textbox" type="text" id="message" value="来聊天吧@">
+            <input class="btn" type="button" id="sendMsgBtn" value="sendMessage" onclick="sendMsg();"><br>
+            
+            <span>10.摄像头切换</span>
+            <input class="btn" type="button" id="switchCamera" value="back" onclick="switchCam();"><br>
+
+            <span>11.旋转摄像头</span>
+            <input class="textbox" type="text" id="angle" value=0>
+            <input class="btn" type="button" id="rotateCamera" value="旋转" onclick="rotateCam();"><br>
+            
+            <span>12.画面交换</span>
+            <input class="btn" type="button" id="switchView" value="窗口画面交换" onclick="rtcApi.switchView();"><br>
+		</div>
+	</div>
+</body>
+</html>

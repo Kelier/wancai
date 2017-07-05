@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/Hui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wan.css"/>
+		<style>
+			* {
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				-webkit-user-select: none;
+				-webkit-tap-highlight-color: transparent;
+				-webkit-tap-highlight-color: transparent;
+				outline: none;
+			}
+			html, body, header, section, footer, div, ul, ol, li, img, a, span, em, del, legend, center, strong, var, fieldset, form, label, dl, dt, dd, cite, input, hr, time, mark, code, figcaption, figure, textarea, h1, h2, h3, h4, h5, h6, p {
+				margin: 0;
+				border: 0;
+				padding: 0;
+				font-style: normal;
+			}
+			#header3 {
+				background: rgba(200,200,200,0);
+				position: fixed;
+				width: 100%;
+				z-index: 99999;
+				height: 69px;
+			}
+			.my-header {
+				background: url('../../image/my-bg.png') no-repeat;
+				background-size: cover;
+				min-height: 245px;
+				position: relative;
+			}
+			.my-info {
+				padding: 50px 0;
+				width: 100%;
+				bottom: 0;
+				text-align: center;
+				vertical-align: center;
+			}
+			.my-info img {
+				margin-top: 15px;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+			}
+			.my-info p.nickname {
+				margin-top: 5px;
+				color: #ffffff;
+				font-size: 18px;
+			}
+			.col-xs {
+				width: 25%;
+				position: relative;
+				float: left;
+				-webkit-overflow-scrolling: touch;
+				margin-bottom: 15px;
+			}
+			.my-menu {
+				position: absolute;
+				width: 100%;
+				height: 45px;
+				line-height: 45px;
+				left: 0;
+				bottom: 0;
+				text-align: center;
+				background: #ffffff;
+				filter: Alpha(opacity=50);
+				background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+				color: #ffffff;
+				font-size: 14px;
+			}
+			.my-menu > div:active {
+				background: #ffffff;
+				filter: Alpha(opacity=50);
+				background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+			}
+			.my-menu .col-xs {
+				border-right: 1px solid #9bd6d5;
+			}
+			.my-menu .col-xs:last-child {
+				border-right: none;
+			}
+			.badge {
+				display: inline-block;
+				padding: 3px 6px;
+				font-size: 12px;
+				line-height: 1;
+				color: #333;
+				background-color: #bdc3c7;
+				border-radius: 100px;
+				color: #ffffff;
+				background-color: #3498db;
+			}
+			@-webkit-keyframes fadeIn {
+			from {
+				opacity: 0.2;
+			}
+			to {
+				opacity: 1;
+			}
+			}
+			#usercontent {
+				/*animation: fade-in;/*动画名称*/
+				/* animation-duration: 0.2s;/*动画持续时间*/
+				/*  -webkit-animation:fade-in 0.2s;/*针对webkit内核*/
+				-webkit-animation: 'fadeIn' 1s 1
+			}
+		</style>
+	</head>
+	<body id="usercontent" style="display: block" >
+		<header class="H-header H-theme-background-color9" id="header3">
+			<div class="H-header-title H-center-all H-border-radius-5 H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent" id="tag" style="top: 25px;">
+				我的中心
+			</div>
+		</header>
+		<div class="my-header" id="my-header">
+			<div class="my-info">
+				<img src="../../image/noavatar.gif" tapmode="" onclick="getPicture()">
+				<p class="nickname" tapmode="" onclick="changeName()">
+					昵称
+				</p>
+			</div>
+			<div class="my-menu">
+				<div class="col-xs">
+					首页
+				</div>
+				<div class="col-xs">
+					动态
+				</div>
+				<div class="col-xs">
+					关注
+				</div>
+				<div class="col-xs">
+					设置
+				</div>
+			</div>
+		</div>
+		<div class="H-padding-vertical-bottom-10"></div>
+		<div class="H-margin-horizontal-both-10 H-theme-border-color-eee H-border-radius-5 H-overflow-hidden">
+			<div class="H-text-list H-flexbox-horizontal H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="list_set(1)">
+				<span class="H-icon H-center-all H-border-radius-5 H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color1" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-profile H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					我的简历
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="list_set(2)">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color2" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-log H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					已投简历
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="list_set(3)">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color11" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-star-null H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					我的收藏
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="list_set(4)">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color4" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-setting H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					个人设置
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+		</div>
+		<div class="H-padding-vertical-bottom-10"></div>
+		<div class="H-margin-horizontal-both-10 H-theme-border-color-eee H-border-radius-5 H-overflow-hidden">
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="person_test()">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color5" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-pen H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					人才测试
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="bao()">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color6" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-licai H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					求职锦囊
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="payquery()">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color8" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-money21 H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					薪酬查询
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="feedback()">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color2" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-kefu H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					意见反馈
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-vertical-middle H-touch-active"onclick="H.clearCache(function(ret,err){H.D('#cacheSize').innerText='0.0M';H.toast('清除成功！');});">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color9" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-clear H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					清除缓存
+				</div>
+				<span class="badge aui-badge-info" id="cacheSize">1.2 M</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+		</div>
+		<div class="H-padding-vertical-bottom-10"></div>
+		<div class="H-margin-horizontal-both-10 H-theme-border-color-eee H-border-radius-5 H-overflow-hidden">
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle">
+				<div class="H-flex-item H-padding-horizontal-both-12 H-font-size-16 H-padding-vertical-both-12">
+					声音提醒
+				</div>
+				<input type="checkbox" class="wan-switch wan-pull-right">
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					自动更新
+				</div>
+				<input type="checkbox" class="wan-switch wan-pull-right" checked>
+			</div>
+		</div>
+	</body>
+	<body>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script type="text/javascript" src="../../script/close_logout.js" ></script>
+		<script type="text/javascript" src="../../script/jquery.js" ></script>
+		<script type="text/javascript" src="../../script/H.js" ></script>
+		<script type="text/javascript">
+			apiready = function() {
+			}
+			function clear() {
+				api.clearCache();
+				document.getElementById("cacheSize").innerText = '0.0 M';
+				api.toast('清除成功！');
+			}
+
+			function getPicture() {
+				H.actionSheetTip(function(ret, err) {
+					//	H.alertTip(ret);
+					if (3 == ret.buttonIndex) {// 用户取消.
+						return;
+					}
+					var sourceType = "album";
+					if (2 == ret.buttonIndex) {/* 打开相机*/
+						sourceType = "camera";
+					}
+					api.getPicture({
+						sourceType : sourceType,
+						encodingType : "jpg",
+						mediaValue : "pic"
+					}, function(ret, err) {
+						if (ret) {/*
+							 api.alert({
+							 title : "图片路径",
+							 msg : ret.data
+							 });*/
+						}
+					});
+				}, '请选择图片来源', ['图片选择', '优雅自怕']);
+			}
+
+			function changeName() {
+				H.promptTip(function(ret) {
+					if (ret.buttonIndex == 1) {
+						userName = ret.text;
+						H.D(".nickname").innerText = ret.text;
+						UpdateResume();
+					}
+				}, '修改昵称：', '请输入您的昵称？', "");
+			}
+
+			function bao() {
+				api.openWin({
+					name : 'bao',
+					url : 'job_skills/bao.html',
+					nimation : {
+						type : 'push',
+						subType : 'from_bottom',
+						duration : 500
+					}
+				});
+			}
+			function feedback() {
+				api.openWin({
+					name : 'feedback',
+					url : 'feedback.html',
+					nimation : {
+						type : 'push',
+						subType : 'from_bottom',
+						duration : 500
+					}
+				});
+			}
+
+			function payquery() {
+				//api.openWin({name : 'payquery',url : "job_skills/query.html",nimation : {type : "push",subType : "from_bottom",duration : 500}});
+				api.openWin({
+					name : 'payquery',
+					url : "job_skills/query.html",
+					nimation : {
+						type : "push",
+						subType : "from_bottom",
+						duration : 500
+					}
+				});
+			}
+
+			function person_test() {
+				api.openWin({
+					name : 'test_win',
+					url : "job_skills/test_win.html",
+					nimation : {
+						type : "push",
+						subType : "from_right",
+						duration : 500
+					},
+					useWKWebView : true
+				});
+			}
+
+
+			H.ready(function() {
+				api.showProgress();
+				setTimeout(function() {
+					//document.getElementById("usercontent").style.display = "inline-block";
+					api.hideProgress();
+				}, 300);
+				api.getPrefs({
+					key : 'resumeId'
+				}, function(ret, err) {				
+						ResumeId = ret.value;
+						GetResumeBasicInfoById()
+				});
+				//	H.D("#pic").style.margin = "0px 0 0 0";
+				//			document.getElementById("header").offsetHeight;
+				//			document.getElementById("pic").style.margin = "-50px 0 0 0";
+			});
+			//	document.getElementById("header3").style.filter = "alpha(opacity=50%)";
+			
+			var ResumeId,userName,gender,marriage,birthday,degree,rlocation,workyear,mobile,email,policticalstatus,seleveluation;
+			function GetResumeBasicInfoById() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<GetResumeBasicInfoById  xmlns='http://tempuri.org/'>" + "<resumeId>" + ResumeId + "</resumeId>" + "</GetResumeBasicInfoById  >" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=CreateResume",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endGetResumeBasicInfoById
+			});
+		}
+
+		function endGetResumeBasicInfoById(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('GetResumeBasicInfoByIdResult').text();
+			var data = JSON.parse(json);
+		
+			userName = data.rows[0].UserName;
+			gender = data.rows[0].GenderCode;
+			marriage = data.rows[0].MarrigeCode;
+			var timestr,timestr2,timestr3;
+			timestr=new Date(data.rows[0].Birthday);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			birthday=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			degree = data.rows[0].HighDegreeCode;
+			workyear = data.rows[0].WorkYearsCode;
+			mobile = data.rows[0].Mobile;
+			email = data.rows[0].Email;
+			rlocation = data.rows[0].xjdLocaltionCode;
+			policticalstatus = data.rows[0].PoliticalStatusCode;
+			seleveluation = data.rows[0].SelfEvaluation;
+
+			H.D(".nickname").innerText = userName;	
+		}
+
+		function UpdateResume() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<UpdateResumeBasicInfo  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + ResumeId + "</resumeId>" + 
+			"<resumeName>我的简历</resumeName>" + 
+			"<userName>"+userName+"</userName>" + 
+			"<gender>"+gender+"</gender>" + 
+			"<marriage>"+marriage+"</marriage>" + 
+			"<birthday>"+birthday+"</birthday>" + 
+			"<degree>"+degree+"</degree>" + 
+			"<location>"+rlocation+"</location>" + 
+			"<workyear>"+workyear+"</workyear>" + 
+			"<mobile>"+mobile+"</mobile>" + 
+			"<email>"+email+"</email>" + 
+			"<politicalStatus>"+policticalstatus+"</politicalStatus>" + 
+			"<selfEvalation>"+seleveluation+"</selfEvalation>" + 
+			"</UpdateResumeBasicInfo>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateResumeBasicInfo",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endUpdateResume
+			});
+		}
+
+		function endUpdateResume(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('UpdateResumeBasicInfoResult').text();
+			var data = JSON.parse(json);
+			if(data.result=='true'){
+			H.D(".nickname").innerText = ret.text;
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'昵称修改失败'
+            });
+			}
+		}
+			
+			
+			
+			
+		</script>
+		<script>
+			var header = H.D("#my-header").offsetHeight - H.D("#header3").offsetHeight;
+			window.onscroll = function() {
+				//变量t就是滚动条滚动时，到顶部的距离
+				var t = document.documentElement.scrollTop || document.body.scrollTop;
+				var tt = document.getElementById("my-header");
+				var opa = t * 1.0 / header;
+				document.getElementById("header3").style.background = "rgba(46,165,165," + opa.toFixed(2);
+				+")";
+			}
+			/*
+			 *功    能：调相机获取照片
+			 */
+			function openCamera() {
+				if (!positionExists())
+					return;
+				api.getPicture({
+					sourceType : 'camera',
+					encodingType : 'jpg',
+					mediaValue : 'pic',
+					destinationType : 'url',
+					allowEdit : true,
+					quality : 50,
+					targetWidth : 100,
+					targetHeight : 100,
+					saveToPhotoAlbum : false
+				}, function(ret, err) {
+					if (ret) {
+						addPicture(ret.data);
+						//添加图片到六宫格
+					} else {
+						api.alert({
+							msg : err.msg
+						});
+					};
+				});
+			};
+			/*
+			 *功    能：调图库获取照片
+			 */
+			function pickPicture() {
+				if (!positionExists())
+					return;
+				api.getPicture({
+					sourceType : 'library',
+					encodingType : 'jpg',
+					mediaValue : 'pic',
+					destinationType : 'url',
+					allowEdit : true,
+					quality : 50,
+					targetWidth : 100,
+					targetHeight : 100,
+					saveToPhotoAlbum : false
+				}, function(ret, err) {
+					if (ret) {
+						addPicture(ret.data);
+						//添加图片到六宫格
+					} else {
+						api.alert({
+							msg : err.msg
+						});
+					};
+				});
+			}
+
+			/*
+			 *功    能：显示图片的六宫格是否还有位置
+			 */
+			function positionExists() {
+				var cellId;
+				var cell;
+				for (var i = 0; i < 6; i++) {
+					cellId = "cell" + i;
+					cell = document.getElementById(cellId);
+					if (cell.src.lastIndexOf("error") == cell.src.length - 5)
+						return true;
+				}
+				return false;
+			}
+
+			/*
+			 *功    能：添加图片到六宫格
+			 */
+			function addPicture(pic) {
+				if (!pic)
+					return;
+				var cellId;
+				var cell;
+				var cellArray = new Array();
+				var fileArray = new Array();
+				for (var i = 0; i < 6; i++) {
+					cellId = "cell" + i;
+					cell = document.getElementById(cellId);
+					cellArray.push(cell);
+					//最后不是error，表示是正确的图片文件
+					if (cell.src.lastIndexOf("error") != cell.src.length - 5)
+						fileArray.push(cell.src.toString());
+				}
+				if (fileArray.length >= 6) {
+					return;
+				}
+				var cellsize = document.getElementById("grid").clientWidth / 3.5;
+				fileArray.push(pic);
+				for (var j = 0; j < fileArray.length; j++) {
+					cell = cellArray[j];
+					cell.src = fileArray[j];
+					cell.style.display = "inline";
+					cell.width = cellsize;
+					cell.height = cellsize;
+				}
+				var errorCount = cellArray.length - fileArray.length;
+				for (var k = 0; k < errorCount; k++) {
+					cell = cellArray[cellArray.length - 1 - k];
+					cell.src = "error";
+				}
+			}
+
+			
+		</script>
+</html>

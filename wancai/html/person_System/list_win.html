@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/Hui.css"/>
+		<style>
+		</style>
+	</head>
+	<body>
+		<header class="H-header H-theme-background-color1 H-padding-vertical-top-20 H-display-none" id="msg_header">
+			<span class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-target-back H-font-size-18 H-vertical-middle"></i></span>
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				<div class="H-header-tag H-font-size-14 H-padding-vertical-both-2 H-padding-horizontal-both-12 H-border-vertical-both-white H-border-horizontal-left-white H-border-radius-12-left-both H-overflow-hidden H-center-all H-theme-background-color-white H-theme-font-color1">
+					消息
+				</div>
+				<div class="H-header-tag H-font-size-14 H-padding-vertical-both-2 H-padding-horizontal-both-12 H-border-vertical-both-white H-border-horizontal-both-white H-border-radius-12-right-both H-overflow-hidden H-center-all">
+					电话
+				</div>
+			</div>
+			<span class="H-icon H-position-relative H-display-inline-block H-float-right H-vertical-middle H-theme-font-color-white H-padding-horizontal-right-5 H-z-index-100"><i class="H-iconfont H-icon-setting H-font-size-18 H-vertical-middle"></i></span>
+		</header>
+		<header class="H-header H-theme-background-color5 H-padding-vertical-top-20 H-display-none" id="detail_header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent" id="tag">
+				<div tapmode="" onclick="setPage(0, 'Job_detail2.html');" class="H-header-tag H-font-size-14 H-padding-vertical-both-2 H-padding-horizontal-both-12 H-border-vertical-both-white H-border-horizontal-left-white H-border-radius-12-left-both H-overflow-hidden H-center-all H-theme-background-color-white H-theme-font-color9">
+					职位详情
+				</div>
+				<div tapmode="" onclick="setPage(1, 'Company_detail.html');" class="H-header-tag H-font-size-14 H-padding-vertical-both-2 H-padding-horizontal-both-12 H-border-vertical-both-white H-border-horizontal-both-white H-border-radius-12-right-both H-overflow-hidden H-center-all">
+					公司详情
+				</div>
+			</div>
+		</header>
+		<header class="H-header H-theme-background-color5 H-display-none" id="resume_header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+       		<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				我的简历
+			</div>
+		</header>
+		<header class="H-header H-theme-background-color5 H-display-none" id="fav_header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+       		<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				收藏简历
+			</div>
+		</header>
+		
+		
+		<header class="H-header H-theme-background-color5 H-display-none" id="hs_resume_header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+       		<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				已投简历
+			</div>
+		</header>
+		
+		<header class="H-header H-theme-background-color5 H-display-none" id="list_frm_header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+       		<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				求职秘籍
+			</div>
+		</header>
+		
+		<header class="H-header H-display-none" style="background: rgba(200,200,200,0);" id="test_header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+       		<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				人才测评
+			</div>
+		</header>
+		
+		<header class="H-header H-theme-background-color5  H-display-none" id="person_setting_header">
+			<span tapmode="" onclick="H.closeWin();" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-5 H-z-index-100"><i class="H-iconfont H-icon-arrow-left H-font-size-18 H-vertical-middle"></i><label class="H-display-block H-vertical-middle H-font-size-15">返回</label></span>
+       		<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				个人设置
+			</div>
+		</header>
+		
+		
+		
+	</body>
+	<script type="text/javascript" src="../../script/H.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		function setStyle(index) {
+			var that = H.D("#tag div:nth-child(" + (index + 1) + ")");
+			H.addClass(that, "H-theme-background-color-white H-theme-font-color9");
+			H.removeClass(H.siblings(that), "H-theme-background-color-white H-theme-font-color9");
+		}
+
+		function setPage(index, url) {
+			setStyle(index);
+			if (H.isAPICloud()) {
+				H.setFrameGroupIndex("groups", index, true);
+			} else {
+				H.D("#H-frame").setAttribute("src", url);
+			}
+		}
+
+
+		H.ready(function() {
+			/*	var list_name, type;
+			 type = api.pageParam.type;
+			 if (type == 1) {
+			 list_name = 'resume.html';
+			 } else if (type == 2) {
+			 list_name = 'favorite_list.html';
+			 } else if (type == 3) {
+			 list_name = 'favorite_list.html';
+			 } else if (type == 4) {
+			 list_name = 'favorite_list.html';
+			 } else if (type == 5) {
+			 list_name = 'favorite_list.html';
+			 } else if (type == 6) {
+			 list_name = 'favorite_list.html';
+			 } else {
+			 alert('数据异常');
+			 }
+			 H.openFrameNavOrFoot("list_name", list_name, "#header");
+			 api.openFrame({
+			 name : 'list_name',
+			 url : list_name,
+			 bounces : false,
+			 rect : {
+			 x : 0,
+			 y : 0,
+			 w : 'auto',
+			 h : 'auto'
+			 },
+			 });*/
+		});
+		apiready = function() {
+			var id, data,scanner, list_name, list_name2, header_name, type, win_type = 1;
+			type = api.pageParam.type;
+			id = api.pageParam.id;
+			scanner = api.pageParam.scanner;
+			if(scanner<=0){
+			scanner=-1;
+			}
+			data = api.pageParam.detail;
+			if (type == 0) {
+				list_name = 'Job_detail2.html';
+				list_name2 = 'Company_detail.html';
+				header_name = 'detail_header';
+				win_type = 3;
+			} else if (type == 1) {
+				list_name = 'resume.html';
+				header_name = 'resume_header';
+			} else if (type == 2) {
+				list_name = 'hs_resume.html';
+				header_name = 'hs_resume_header';
+			} else if (type == 3) {
+				list_name = 'favorite_list.html';
+				header_name = 'fav_header';
+			} else if (type == 4) {
+				list_name = 'person_setting.html';
+				header_name = 'person_setting_header';
+			} else if (type == 5) {
+				list_name = 'job_skills/character_test.html';
+				header_name = 'test_header';
+			} else if (type == 6) {
+				list_name = 'job_skills/list_frm.html';
+				header_name = 'list_frm_header';
+			} else if (type == 7) {
+				list_name = 'job_skills/design_resume.html';
+				header_name = 'list_frm_header';
+			} else if (type == 8) {
+				list_name = 'job_skills/interview.html';
+				header_name = 'list_frm_header';
+			}else {
+				alert('数据异常');
+			}
+			document.getElementById(header_name).style.display = "block";
+			if (win_type == 1) {
+				H.openFrameNavOrFoot("list_name", list_name, '#' + header_name, null, null, {
+					bounces : false
+				});
+			} else if (win_type == 2) {
+				H.openFrameGroupNavOrFoot(function(ret, err) {
+					setStyle(ret.index);
+				}, "groups", [{
+					url : list_name,
+					name : 'list1'
+				}, {
+					url : list_name2,
+					name : 'list2'
+				}], 0, '#' + header_name, null);
+			} else if (win_type == 3) {
+				H.openFrameGroupNavOrFoot(function(ret, err) {
+					setStyle(ret.index);
+				}, "groups", [{
+					url : list_name,
+					name : 'Job_detail',
+					pageParam : {
+						id : id,
+						scanner:scanner,
+						detail : data
+					},
+					bounces : false
+				}, {
+					url : list_name2,
+					name : 'Company_detail',
+					pageParam : {
+						id : id,
+						scanner:scanner,
+						detail : data
+					},
+					bounces : false
+				}], 0, '#' + header_name, null);
+			}
+		};
+	</script>
+</html>

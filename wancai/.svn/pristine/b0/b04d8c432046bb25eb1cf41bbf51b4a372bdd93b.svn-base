@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	body{
+    		
+    	}
+    </style>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript" src="../../script/jquery.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	var retdata='',data;
+	var userId,jobIds;
+	apiready = function(){
+		api.getPrefs({
+    			key: 'userId'
+		}, function(ret, err){
+    		if(ret){
+    			userId=ret.value;
+       			getFavList(ret.value);
+    		}
+		});
+		
+	};
+	
+function getFavList(userId) {
+	var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+	"<soap:Body>" + 
+	"<GetMyJobFavoriteList  xmlns='http://tempuri.org/'>" + 
+	"<userId>"+userId+"</userId>" + 
+	"<pagesize>20</pagesize>" + 
+	"<pageindex>1</pageindex>" + 
+	"<keywords></keywords>"+
+	"</GetMyJobFavoriteList>" +
+	 "</soap:Body>" + 
+	 "</soap:Envelope>";
+
+	$.ajax({
+		url : "http://58.215.179.167/JobManageInterface.asmx?op=GetMyJobFavoriteList",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : endFavList
+	});
+}
+function endFavList(xmlHttpRequest, status) {
+	var json = $(xmlHttpRequest.responseXML).find('GetMyJobFavoriteListResult').text();
+	data = (new Function("", "return " + json))();
+//	alert(JSON.stringify(data));
+	for(var i=0;i<data.total;i++){
+			retdata=retdata+
+			'{uid :'+JSON.stringify(data.rows[i].Row)+
+			",imgPath : 'widget://image/aui/demo1.png'"+
+			',title : '+JSON.stringify(data.rows[i].JobName + '  ('+data.rows[i].CompanyName + ')')+
+			',subTitle : '+JSON.stringify('收藏时间:'+' '+data.rows[i].CreateDate)+
+			',remark : '+JSON.stringify(data.rows[i].CityName)+
+			',icon : '+JSON.stringify('')+
+			'},';
+	}
+	retdata='['+retdata+']';
+	var UIListView = api.require('UIListView');
+		UIListView.open({
+				rect : {
+					x : 0,
+					y : 0,
+					w : api.winWidth,
+					h : api.frameHeight
+				},
+				data :  (new Function("", "return " + retdata))(),
+				rightBtns : [{
+					bgColor : '#A9A9A9',
+					activeBgColor : '',
+					width : 70,
+					title : '删除',
+					titleSize : 12,
+					titleColor : '#fff',
+					icon : '',
+					iconWidth : 20
+				}],
+				styles : {
+					borderColor : '#DCDCDC', //列表分割线的颜色
+					item : {
+						bgColor : '#FFFFFF', //列表项的背景色
+						activeBgColor : '#F5F5F5', //列表项按下时的背景色
+						height : 90.0, //列表项的高度
+						imgWidth : 60, //列表项配图的宽度
+						imgHeight : 60,
+						imgCorner : 1, //列表项配图的圆角大小
+						placeholderImg : '', //列表项配图的占位图路径
+						titleSize : 16.0, //列表项标题文字大小
+						titleColor : '#000', //列表项标题文字颜色
+						subTitleSize : 14.0, //列表项子标题文字大小
+						subTitleColor : '#000', //列表项子标题文字颜色
+						remarkColor : '#FF0000', //备注的文字颜色
+						remarkSize : 16, //备注的文字大小
+						remarkIconWidth : 30//当备注是图片时，图片的宽度，图片为正方形
+					}
+				},
+				fixedOn : api.frameName
+			}, function(ret, err) {
+				if (ret) {
+					if (ret.eventType == 'clickContent') {
+						UIListView.getDataByIndex({
+							index : ret.index
+						}, function(ret, err) {
+							if (ret) {
+								api.openWin({
+									name : 'list',
+									url : 'list_win.html',
+									pageParam : {
+										id : ret.data.uid,
+										detail: data
+									},
+									animation : {
+										type : "push",
+										subType : "from_right",
+										duration : 0
+									}
+								});
+							}
+						});
+					}
+					if (ret.eventType == 'clickRightBtn') {
+						var d_index = ret.index;
+						UIListView.getDataByIndex({
+							index : ret.index
+						}, function(ret, err) {
+							if (ret) {
+							 var id = data.rows[ret.data.uid-1].FavoriteId;
+       						 deleteFavJob(id);
+       						 UIListView.deleteItem({
+    							index: d_index
+							}, function(ret, err){
+							});
+							}
+						});
+					}
+				} else {
+					alert(JSON.stringify(err));
+				}
+		});
+}
+function deleteFavJob(ID){
+	var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+	"<soap:Body>" + 
+	"<DeleteMyJobFavoriteById  xmlns='http://tempuri.org/'>" + 
+	"<id>"+ID+"</id>" + 
+	"</DeleteMyJobFavoriteById>" +
+	"</soap:Body>" + 
+	"</soap:Envelope>";
+
+	$.ajax({
+		url : "http://58.215.179.167/JobManageInterface.asmx?op=DeleteMyJobFavoriteById",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : endFavJob
+	});	
+}
+function endFavJob(xmlHttpRequest, status) {
+	var json = $(xmlHttpRequest.responseXML).find('DeleteMyJobFavoriteByIdResult').text();
+	data2 = (new Function("", "return " + json))();
+	api.toast({msg : data2.msg});
+}	
+
+
+</script>
+</html>

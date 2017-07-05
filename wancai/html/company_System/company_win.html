@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>底部</title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+	</head>
+	<body>
+		<header class="aui-bar aui-bar-nav aui-bar-greeny" id="aui-header">
+			<div class="aui-title" id="header-title">
+				找人/发布
+			</div>
+		</header>
+		<footer class="aui-nav" id="aui-footer">
+			<ul class="aui-bar-tab">
+				<li class="active-warning" id="tabbar1" tapmode onclick="randomSwitchBtn(this,'找人/发布',0)">
+					<span class="aui-iconfont aui-icon-favor"></span>
+					<p>
+						找人/发布
+					</p>
+				</li>
+				<li id="tabbar2" tapmode onclick="randomSwitchBtn(this,'消息',1)">
+					<span class="aui-iconfont aui-icon-mark"></span>
+					<p>
+						消息
+					</p>
+				</li>
+				<li id="tabbar3" tapmode onclick="randomSwitchBtn(this,'我的',2)">
+					<span class="aui-iconfont aui-icon-my"></span>
+					<p>
+						我的
+					</p>
+				</li>
+			</ul>
+		</footer>
+		<script>
+			setTimeout("closeWin()", 100)
+			setTimeout("closeWin()", 500)
+			setTimeout("closeWin()", 1500)
+		</script>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			api.parseTapmode();
+			var header = $api.byId('aui-header');
+			$api.fixStatusBar(header);
+			var headerPos = $api.offset(header);
+			var body_h = $api.offset($api.dom('body')).h;
+			var footer_h = $api.offset($api.byId('aui-footer')).h;
+			api.openFrameGroup({
+				name : 'footer_tab_demo',
+				scrollEnabled : true,
+				rect : {
+					x : 0,
+					y : headerPos.h,
+					w : 'auto',
+					h : body_h - headerPos.h - footer_h
+				},
+				index : 0,
+				preload : 3,
+				frames : [{
+					name : 'footer_tab_1',
+					url : 'footer_tab_5.html',
+					bounces : false
+				}, {
+					name : 'footer_tab_2',
+					url : 'footer_tab_6.html',
+					bounces : false
+				}, {
+					name : 'footer_tab_3',
+					url : 'my.html',
+					bounces : false
+				}]
+			}, function(ret, err) {
+				var footer = $api.byId('aui-footer');
+				var footerAct = $api.dom(footer, '.aui-bar-tab li.active-warning');
+				$api.removeCls(footerAct, 'active-warning');
+				var name = ret.name;
+				var index = ret.index;
+				if (index == 0) {
+					$api.text($api.byId('header-title'), '找人/发布');
+					$api.addCls($api.byId('tabbar1'), 'active-warning');
+				} else if (index == 1) {
+					$api.text($api.byId('header-title'), '消息');
+					$api.addCls($api.byId('tabbar2'), 'active-warning');
+				} else if (index == 2) {
+					$api.text($api.byId('header-title'), '我的');
+					$api.addCls($api.byId('tabbar3'), 'active-warning');
+				}
+			})
+			/*
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				if (ret) {
+					api.closeWidget({
+						id : 'A6915320475319'
+					});
+					
+					 api.confirm({
+					 title : '退出程序?',
+					 buttons : ['取消', '确定']
+					 }, function(ret, err) {
+					 if (ret.buttonIndex == 2) {
+					 api.closeWidget({
+					 id: 'A6915320475319'
+					 });
+					 } else {
+					 }
+					 });
+					 
+				}
+			});
+			*/
+			exitApp();
+			api.addEventListener({
+				name : 'closeComSys'
+			}, function(ret, err) {
+				if (ret) {
+					api.closeWin();
+				}
+			});
+		}
+		function randomSwitchBtn(obj, name, index) {
+			$api.text($api.byId('header-title'), name);
+			var footer = $api.byId('aui-footer');
+			var footerAct = $api.dom(footer, '.aui-bar-tab li.active-warning');
+			$api.removeCls(footerAct, 'active-warning');
+			$api.addCls(obj, 'active-warning');
+			api.setFrameGroupIndex({
+				name : 'footer_tab_demo',
+				index : index,
+				scroll : true
+			});
+		}
+
+		function closeWin() {
+			api.sendEvent({
+				name : 'closeIdentity',
+			});
+			api.sendEvent({
+				name : 'closePerSys',
+			});
+		}
+
+		function exitApp() {
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				api.toast({
+					msg : '再按一次退出程序',
+					duration : 1000,
+					location : 'bottom'
+				});
+				api.addEventListener({
+					name : 'keyback'
+				}, function(ret, err) {
+					api.closeWidget({
+						id : 'A6915320475319', //这里改成自己的应用ID
+						retData : {
+							name : 'closeWidget'
+						},
+						silent : true
+					});
+				});
+				setTimeout(function() {
+					exitApp();
+				}, 1800)
+			});
+		}
+	</script>
+</html>

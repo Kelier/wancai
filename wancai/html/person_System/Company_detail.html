@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/Hui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wan.css"/>
+		<link rel="stylesheet" href="../../css/modal.css" type="text/css">
+		<style>
+			* {
+				-webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+				-webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+				outline: none !important;
+			}
+			html, body {
+				height: 100%;
+				min-width: 320px;
+			}
+			#list_CompanyLogo {
+				padding: 10px 0;
+				width: 100%;
+				bottom: 0;
+				text-align: center;
+				vertical-align: center;
+			}
+			#list_CompanyLogo img {
+				margin-top: 15px;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+			}
+			#list_CompanyName {
+				text-align: center;
+			}
+			#CompanyNatureName, #CompanySizeName, #IndustryName {
+				display: box;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-flex-flow: row;
+				flex-flow: row;
+				width: 100%;
+				-webkit-flex-direction: row;
+				flex-direction: row;
+				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+			}
+			#list_CompanyNatureName, #list_IndustryName, #list_CompanySizeName {
+				color: #949494;
+			}
+			#line-1 {
+				height: 1px;
+				width: 100%;
+				background: #F0F0F0;
+				overflow: hidden;
+			}
+			.sendresume {
+				background-color: #1abc9c;
+				text-align: center;
+				width: 98.5%;
+				height: 45px;
+				font-size: 18px;
+				color: #ffffff;
+				line-height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				border: 1px solid #1abc9c;
+			}
+			.area {
+				height: 20px;
+				width: 100%;
+				background: #F0F0F0;
+				overflow: hidden;
+			}
+			.nav {
+				background: rgba(200,200,200,0);
+				position: fixed;
+				padding: 0 2px;
+				width: 100%;
+				z-index: 99999;
+				height: auto;
+				bottom: 1px;
+				float: left;
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-align: center;
+			}
+			.emptyarea {
+				width: 100%;
+				height: 48px;
+			}
+			.content-box {
+				padding: 0px 15px;
+				word-break: break-all;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="list_CompanyLogo">
+			<img src="../../image/noavatar.gif" >
+		</div>
+		<div id="list_CompanyName"></div>
+		<div id="line-1"></div>
+		<div style="padding: 8px 13px 0px 13px;">
+			<div id="IndustryName">
+				行业：
+				<div id="list_IndustryName">
+					48546
+				</div>
+			</div>
+			<div id="CompanyNatureName">
+				性质：
+				<div id="list_CompanyNatureName">
+					57578657
+				</div>
+			</div>
+			<div id="CompanySizeName">
+				规模：
+				<div id="list_CompanySizeName">
+					78678
+				</div>
+			</div>
+			<div id="line-1"></div>
+		</div>
+		<div tapmode="" style="padding: 8px;" class="H-flexbox-horizontal H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" >
+			<i class="H-iconfont H-icon-near H-font-size-14  H-padding-horizontal-left-12  H-theme-font-color12"></i>
+			<div class="H-flex-item H-padding-horizontal-both-8 ">
+				<div id="list_where" style="font-size:12px;color: #949494;"tapmode="" onclick="">
+					<!--地址-->
+				</div>
+			</div>
+			<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+		</div>
+		<div class="area"></div>
+		<div class="content-box">
+			<div class="CompanyIntroduce" style="padding: 5px;position: relative;float: left">
+				公司介绍：
+			</div>
+			<span id="star-def" class="star-bar size-S " style="padding: 5px"></span>
+			<div id="line-1"></div>
+			<div id="list_CompanyIntroduce"></div>
+		</div>
+		<div class="area"></div>
+		<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle">
+			<div class="H-flex-item H-padding-horizontal-both-12 H-font-size-16 H-padding-vertical-both-12">
+				加入黑名单
+			</div>
+			<input type="checkbox" class="wan-switch wan-pull-right">
+		</div>
+		<!--添加公司评价-->
+		<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle">
+			<div class="H-flex-item H-padding-horizontal-both-12 H-font-size-16 H-padding-vertical-both-12">
+				公司评价
+			</div>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary size-L" style="width:40px;height: 40px;border-radius: 50%;margin-right:10px;background-color: #FFD700;font-size: small;color: #fff;font-weight: 700;display: block;text-align: center;">
+			<div style="padding-top: 10px;">
+				评分
+			</div></a>
+		</div>
+		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header" >
+				<h3 id="myModalLabel">请对公司进行评分</h3><a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();" style="color: #000">×</a>
+			</div>
+			<div class="modal-body">
+				<div class="clearfix">
+					<span class="f-l f-15 va-m" style="position:relative;float: left;margin-left: 5px;">简历反馈速度：</span>
+					<span id="star-1" class="star-bar size-S " style="padding-left: 20px;"></span>
+					<!--<strong id="result-1" class="f-l va-m"></strong>-->
+				</div>
+				<div class="clearfix">
+					<span class="f-l f-15 va-m" style="position:relative;float: left;margin-left: 5px;">企业文化氛围：</span>
+					<span id="star-2" class="star-bar size-S " style="padding-left: 20px;"></span>
+					<!--<strong id="result-1" class="f-l va-m"></strong>-->
+				</div>
+				<div class="clearfix">
+					<span class="f-l f-15 va-m" style="position:relative;float: left;margin-left: 5px;">公司管理水平：</span>
+					<span id="star-3" class="star-bar size-S " style="padding-left: 20px;"></span>
+					<!--<strong id="result-1" class="f-l va-m"></strong>-->
+				</div>
+				<div class="clearfix">
+					<span class="f-l f-15 va-m" style="position:relative;float: left;margin-left: 5px;">环境福利制度：</span>
+					<span id="star-4" class="star-bar size-S " style="padding-left: 20px;"></span>
+					<!--<strong id="result-1" class="f-l va-m"></strong>-->
+				</div>
+				<div class="clearfix">
+					<span class="f-l f-15 va-m" style="position:relative;float: left;margin-left: 5px;">时代发展潜力：</span>
+					<span id="star-5" class="star-bar size-S " style="padding-left: 20px;"></span>
+					<!--<strong id="result-1" class="f-l va-m"></strong>-->
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="changeValue()">
+					确定
+				</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">
+					关闭
+				</button>
+			</div>
+		</div>
+		<div class="emptyarea"></div>
+		<div class="nav" >
+			<div id="sendresume" class="sendresume" onclick="changeCon()">关注公司</div>
+			<div class="wan-icon">
+				<!--收藏--><i class="H-iconfont H-icon-star-null H-font-size-18 H-vertical-middle H-theme-font-color-white"></i>
+			</div>
+			<div class="wan-icon">
+				<!--分享--><i class="H-iconfont H-icon-share-to H-font-size-18 H-vertical-middle H-theme-font-color-white"></i>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.js"></script>
+	<script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../script/jquery.raty.js"></script>
+	<script type="text/javascript">
+		var star1, star2, star3, star4, star5;
+		var stardef = 0;
+		$(function() {
+			$("#star-1").raty({
+				hints : ['1', '2', '3', '4', '5'], //自定义分数
+				starOff : '../../image/star-off.png', //默认灰色星星
+				starOn : '../../image/star-on.png', //黄色星星
+				path : '../../image/star-off.png', //可以是相对路径
+				number : 5, //星星数量，要和hints数组对应
+				showHalf : true,
+				targetKeep : true,
+				click : function(score, evt) {//点击事件
+					//第一种方式：直接取值
+					//$("#result-1").html('你的评分是'+score+'分');
+					star1 = score;
+				}
+			});
+			$("#star-2").raty({
+				hints : ['1', '2', '3', '4', '5'], //自定义分数
+				starOff : '../../image/star-off.png', //默认灰色星星
+				starOn : '../../image/star-on.png', //黄色星星
+				path : '../../image/star-off.png', //可以是相对路径
+				number : 5, //星星数量，要和hints数组对应
+				showHalf : true,
+				targetKeep : true,
+				click : function(score, evt) {//点击事件
+					//第一种方式：直接取值
+					//$("#result-1").html('你的评分是'+score+'分');
+					star2 = score;
+				}
+			});
+			$("#star-3").raty({
+				hints : ['1', '2', '3', '4', '5'], //自定义分数
+				starOff : '../../image/star-off.png', //默认灰色星星
+				starOn : '../../image/star-on.png', //黄色星星
+				path : '../../image/star-off.png', //可以是相对路径
+				number : 5, //星星数量，要和hints数组对应
+				showHalf : true,
+				targetKeep : true,
+				click : function(score, evt) {//点击事件
+					//第一种方式：直接取值
+					//$("#result-1").html('你的评分是'+score+'分');
+					star3 = score;
+				}
+			});
+			$("#star-4").raty({
+				hints : ['1', '2', '3', '4', '5'], //自定义分数
+				starOff : '../../image/star-off.png', //默认灰色星星
+				starOn : '../../image/star-on.png', //黄色星星
+				path : '../../image/star-off.png', //可以是相对路径
+				number : 5, //星星数量，要和hints数组对应
+				showHalf : true,
+				targetKeep : true,
+				click : function(score, evt) {//点击事件
+					//第一种方式：直接取值
+					//$("#result-1").html('你的评分是'+score+'分');
+					star4 = score;
+				}
+			});
+			$("#star-5").raty({
+				hints : ['1', '2', '3', '4', '5'], //自定义分数
+				starOff : '../../image/star-off.png', //默认灰色星星
+				starOn : '../../image/star-on.png', //黄色星星
+				path : '../../image/star-off.png', //可以是相对路径
+				number : 5, //星星数量，要和hints数组对应
+				showHalf : true,
+				targetKeep : true,
+				click : function(score, evt) {//点击事件
+					//第一种方式：直接取值
+					//$("#result-1").html('你的评分是'+score+'分');
+					star5 = score;
+				}
+			});
+			$("#star-def").raty({
+				hints : ['1', '2', '3', '4', '5'], //自定义分数
+				starOff : '../../image/star-off.png', //默认灰色星星
+				starOn : '../../image/star-on.png', //黄色星星
+				path : '../../image/star-off.png', //可以是相对路径
+				number : 5, //星星数量，要和hints数组对应
+				score : stardef,
+				showHalf : true,
+				targetKeep : true,
+			});
+		});
+		//显示星级
+		function changeValue() {
+			if (stardef == 0) {
+				stardef = stardef + parseInt((star1 + star2 + star3 + star4 + star5) / 5);
+			}
+			stardef = parseInt((stardef + (star1 + star2 + star3 + star4 + star5) / 5) / 2);
+			$('#star-def').raty('score', stardef);
+			$('#myModal').modal('hide');
+		}
+	</script>
+	<script type="text/javascript">
+		var id, data, JobName, JobFunctionName, CityName, PublishDate, DegreeName, WorkYears, NatureName, SalaryName, JobRequirements, JobDescription, UpdateDate, IndustryName;
+		var CompanyId, CompanyName, CompanyNatureName, CompanySizeName, CompanyIntroduce;
+		var CompanyContact, CompanyAddress, Contact;
+		apiready = function() {
+			//	$api.fixIos7Bar($(".header"));
+			id = api.pageParam.id;
+			if (api.pageParam.scanner > 0) {
+				id = 1;
+				dodata();
+			} else {
+				id = api.pageParam.id;
+				dodata();
+			}
+		};
+		function dodata() {
+			data = api.pageParam.detail;
+			JobName = data.rows[id - 1].JobName;
+			JobFunctionName = data.rows[id - 1].JobFunctionName;
+			CityName = data.rows[id - 1].CityName;
+			PublishDate = data.rows[id - 1].PublishDate;
+			if ( DegreeName = data.rows[id - 1].DegreeName == '')
+				DegreeName = '无';
+			WorkYears = data.rows[id - 1].WorkYears;
+			NatureName = data.rows[id - 1].NatureName;
+			if ( SalaryName = data.rows[id - 1].SalaryName == '')
+				SalaryName = '无';
+			JobRequirements = data.rows[id - 1].JobRequirements;
+			if ( JobDescription = data.rows[id - 1].JobDescription == '')
+				JobDescription = '无';
+			UpdateDate = data.rows[id - 1].UpdateDate;
+			IndustryName = data.rows[id - 1].IndustryName;
+			CompanyId = data.rows[id - 1].CompanyId;
+			CompanyName = data.rows[id - 1].CompanyName;
+			CompanyNatureName = data.rows[id - 1].CompanyNatureName;
+			CompanySizeName = data.rows[id - 1].CompanySizeName;
+			CompanyIntroduce = data.rows[id - 1].CompanyIntroduce;
+			CompanyContact = data.rows[id - 1].CompanyContact;
+			CompanyAddress = data.rows[id - 1].CompanyAddress;
+			Contact = data.rows[id - 1].Contact;
+			//alert(JSON.stringify(data.rows[id - 1]));
+			//	alert(DegreeName);
+			$("#list_where").html('上班地点：' + CompanyAddress);
+			$("#list_CompanyName").html(CompanyName);
+			$("#list_IndustryName").html(IndustryName);
+			$("#list_CompanyNatureName").html(CompanyNatureName);
+			$("#list_CompanySizeName").html(CompanySizeName);
+			$("#list_CompanyIntroduce").html(CompanyIntroduce);
+			$("#list_CompanyAddress").html(CompanyAddress);
+			$("#list_CompanyContact").html(CompanyContact);
+			if (new RegExp('&lt;div&gt;').test(JobRequirements))
+				$("#list_JobRequirements").html(JobRequirements.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(JobRequirements))
+				$("#list_JobRequirements").html(JobRequirements.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_JobRequirements").html(JobRequirements.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+		}
+
+		function closeWin() {
+			api.closeWin()
+		}
+
+		function map() {
+			api.openWin({
+				name : 'map',
+				url : '../bmap_System/baidumap_win.html',
+				pageParam : {
+					city : CityName,
+					address : CompanyAddress
+				},
+				vScrollBarEnabled : false,
+				delay : api.systemType == "ios" ? 0 : 50
+			});
+		}
+				
+	</script>
+	<script>
+
+		function changeCon() {
+		if($("#sendresume").text()=='关注公司'){
+		$("#sendresume").text('取消关注');
+		return;
+		}
+		if($("#sendresume").text()=='取消关注'){
+		$("#sendresume").text('关注公司');
+		}
+		}
+
+	</script>
+</html>

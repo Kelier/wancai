@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>身份切换</title>
+		<link rel="stylesheet" href="../../css/identity.css">
+		<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
+		<link rel="stylesheet" href="../../css/clickBtn.css">
+		
+	</head>
+	<body>
+	
+		<div class="overflow">
+			<section class="panels">
+		
+			
+				<article class="panels__side panels__side--left">
+					<div class="panels__side panels__side--inner-left">
+						<div class="text1">
+							<h2>企业功能</h2>
+							<br />
+							<br />
+							<ul>
+								<li>
+									找人/发布
+								</li>
+								<li>
+									简历显示，信誉评分
+								</li>
+								<li>
+									邀请状态通知，即时通信
+								</li>
+							</ul>
+						</div>
+						
+						<div id="button-wrapper">
+							<button tapmode onclick="tocomSys();">
+								<p>
+									Choose Me!
+								</p>
+								<div class="fill"></div>
+								<div class="fa fa-check"></div>
+							</button>
+						</div>
+					</div>
+					<div class="panels__side panels__side--inner">
+						
+						<div class="boxB">
+							<img src="../../image/boss.png" />
+							<p>
+								企业
+							</p>
+						</div>
+					</div>
+				</article>
+				
+				
+				
+				
+				<article class="panels__side panels__side--right">
+					<div class="panels__side panels__side--inner">
+					
+						<div class="boxP">
+							<img src="../../image/staff.png" />
+							<p>
+								个人
+							</p>
+						</div>
+					</div>
+					<div class="panels__side panels__side--inner-right">
+						<div id="button-wrapper1" >
+							<button tapmode onclick="toperSys();">
+								<p>
+									Choose Me!
+								</p>
+								<div class="fill"></div>
+								<div class="fa fa-check"></div>
+							</button>
+						</div>
+						<div class="text2">
+							<br />
+							<br />
+							<ul>
+								<li>
+									职位搜索
+								</li>
+								<li>
+									行情数据分析
+								</li>
+								<li>
+									实时交流+地图导航
+								</li>
+								<li>
+									人才测试+求职秘籍
+								</li>
+								<li>
+									过渡式简历填写，职位聘请情况
+								</li>
+							</ul>
+							<br>
+							<h2>个人功能</h2>
+						</div>
+					</div>
+				</article>
+
+			</section>
+		</div>
+		
+		
+		
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/jquery.js"></script>
+		<!--<script type="text/javascript" src="../../script/modernizr.js"></script>-->
+		<script type="text/javascript">
+			$(function() {
+				var Panels = ( function() {
+						var panelLeft = document.querySelector('.panels__side--left');
+						var panelRight = document.querySelector('.panels__side--right');
+						var openLeft = function() {
+							panelLeft.classList.toggle('panels__side--left-active');
+							panelRight.classList.toggle('panels__side--right-hidden');
+						};
+						var openRight = function() {
+							panelRight.classList.toggle('panels__side--right-active');
+							panelLeft.classList.toggle('panels__side--left-hidden');
+						};
+						var bindActions = function() {
+							panelLeft.addEventListener('click', openLeft, false);
+							panelRight.addEventListener('click', openRight, false);
+						};
+						var init = function() {
+							bindActions();
+						};
+						return {
+							init : init
+						};
+					}());
+				Panels.init();
+			});
+			$(function() {'use strict';
+					var $button = $('button');
+					$button.on('click', function() {
+						$(this).parent().addClass('clicked').delay(1600).queue(function() {
+							$(this).addClass('success');
+						});
+					});
+				}());
+			function tocomSys() {
+			if(localStorage.per_identity!=1){
+			localStorage.per_identity=1;
+			document.write(localStorage.per_identity);
+			api.openWin({
+					name : 'transition',
+					url : '../resume_System/first_win.html'
+				});
+			}else{
+			api.openWin({
+					name : 'company_win',
+					url : '../company_System/company_win.html'
+				});
+			}	
+			}
+			
+			var userId,resume_time=0,resumeId,EduId,TrainId,WorkId,datetime,timestr,timestr2,timestr3;
+			apiready = function() {
+			
+//			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<DeleteResumeById  xmlns='http://tempuri.org/'>" + 
+//		"<resumeId>25390</resumeId>" + "</DeleteResumeById>" + 
+//		"</soap:Body>" + "</soap:Envelope>";
+//			$.ajax({
+//				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=DeleteResumeById",
+//				type : "POST",
+//				dataType : "xml",
+//				contentType : "text/xml; charset=utf-8",
+//				data : soapXML,
+//				
+//			});
+			
+				api.parseTapmode();
+				api.showProgress({});
+				api.addEventListener({
+					name : 'closeIdentity'
+				}, function(ret, err) {
+					if (ret) {
+						api.closeWin();
+					}
+				});
+				api.getPrefs({
+					key : 'userId'
+				}, function(ret, err) {
+					if (ret.value != '') {
+						userId = ret.value;
+						GetResumeList();
+					}
+				});
+				
+					
+		
+			}
+			
+			function toperSys() {
+			if(resume_time==1){
+			api.openWin({
+					name : 'transition',
+					url : '../resume_System/transition1.html'
+				});
+			}else{
+			api.openWin({
+					name : 'person_win',
+					url : '../person_System/person_win2.html'
+				});
+			}	
+			}
+		
+			
+			//创建简历
+			function CreateResume() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<CreateResume   xmlns='http://tempuri.org/'>" + 
+			"<userId>" + userId + "</userId>" + 
+			"<resumeName>我的简历</resumeName>" + 
+			" <userName>姓名</userName>" + 
+			" <gender>1</gender>" + 
+			" <marriage>2</marriage>" + 
+			" <birthday>2000-01-01</birthday>" + 
+			"<degree>0</degree>" + 
+			"<workyear>0</workyear>" + 
+			"<mobile>13022297135</mobile>" + 
+			"<email>1025398501@qq.com</email>" + 
+			"<location>3202</location>" + 
+			"<policticalstatus>5</policticalstatus>" + 
+			"<seleveluation>我是个好人</seleveluation>" + 
+			"<expectIndustryType>11</expectIndustryType>" + 
+			"<expectJob>1101</expectJob>" + 
+			"<expectLocation>3202</expectLocation>" + 
+			"<jobNature>1</jobNature>" + 
+			"<expectSalary>0</expectSalary>" + 
+			"</CreateResume >" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=CreateResume",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endCreateResume
+			});
+			}
+
+			function endCreateResume(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('CreateResumeResult').text();
+			var data = JSON.parse(json);
+			//alert('创建简历');
+			if(data.result){
+			//alert('创建成功');
+			GetResumeList();
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历初始化失败'
+            });
+			}
+			}
+			
+		
+			
+			
+			function AddWorkExperience() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<AddWorkExperience  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + resumeId + "</resumeId>" + 
+			"<startdate>2000-01-01</startdate>" + 
+			"<enddate>2001-01-01</enddate>" + 
+			"<companyName>公司名称</companyName>" + 
+			"<companyNature>1</companyNature>" + 
+			"<companySize>1</companySize>" + 
+			"<companyIndustry>11</companyIndustry>" + 
+			"<subFunction>担任职位</subFunction>" + 
+			"<responsiblity>工作描述</responsiblity>" + 
+			"</AddWorkExperience>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=AddWorkExperience",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endAddWorkExperience
+			});
+		}
+
+		function endAddWorkExperience(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('AddWorkExperienceResult').text();
+			var data = JSON.parse(json);
+			//alert('创建工作经历');
+			if(data.result){
+			AddEducation();				
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历初始化失败'
+            });
+			}
+		}
+
+		function AddEducation() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<AddEducation  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + resumeId + "</resumeId>" + 
+			"<startDate>2000-01-01</startDate>" + 
+			"<endDate>2000-01-01</endDate>" + 
+			"<schoolName>学校名称</schoolName>" + 
+			"<major>专业</major>" + 
+			"<degree>0</degree>" + 
+			"</AddEducation>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=AddEducation",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endAddEducation
+			});
+		}
+
+		function endAddEducation(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('AddEducationResult').text();
+			var data = JSON.parse(json);
+			//alert('创建教育经历');
+			if(data.result){
+			AddTrainExperience();
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历初始化失败'
+            });
+			}
+		}
+		
+		function AddTrainExperience() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<AddTrainExperience  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + resumeId + "</resumeId>" + 
+			"<startdate>2000-01-01</startdate>" + 
+			"<enddate>2000-01-01</enddate>" + 
+			"<trainOrg>培训机构名称</trainOrg>" + 
+			"<className>培训课程</className>" + 
+			"<description>详细描述</description>" + 
+			"</AddTrainExperience>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=AddTrainExperience",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endAddTrainExperience
+			});
+		}
+
+		function endAddTrainExperience(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('AddTrainExperienceResult').text();
+			var data = JSON.parse(json);
+			//alert('创建培训经历');
+			if(data.result){
+			GetWorkExperienceList();
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历初始化失败'
+            });
+			}
+
+		}
+///////////               获取各表子模块的ID                                             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+				//获取简历列表
+		function GetResumeList() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<GetResumeList  xmlns='http://tempuri.org/'>" + "<userId>" + userId + "</userId>" + "</GetResumeList>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=GetResumeList",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endGetResumeList
+			});
+		}
+
+		function endGetResumeList(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('GetResumeListResult').text();
+			var data = JSON.parse(json);	
+			//alert('获取简历数据');	
+			if(data.total<1){
+			resume_time=1;
+			CreateResume();
+			}else{
+			resumeId= data.rows[0].ResumeId;//alert(resumeId);
+			api.setPrefs({
+    		key: 'resumeId',
+   	    	value: data.rows[0].ResumeId
+			});
+			api.setPrefs({
+    		key: 'Privacy',
+   	    	value: data.rows[0].Privacy
+			});
+			if(resume_time==1){
+			AddWorkExperience();
+			}else {
+			GetWorkExperienceList();
+			}
+			}
+			
+		}	
+		
+		
+		function GetEducationList() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<GetEducationList  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + resumeId + "</resumeId>" + "</GetEducationList>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=GetEducationList",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endGetEducationList
+			});
+		}
+
+		function endGetEducationList(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('GetEducationListResult').text();
+			var data = JSON.parse(json);
+			//alert('获取教育数据');
+			EduId= data.rows[0].EduId;
+			api.setPrefs({
+    		key: 'EduId',
+   	    	value: data.rows[0].EduId
+			});
+			timestr=new Date(data.rows[0].StartDate);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			datetime=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			api.setPrefs({
+    		key: 'EStartDate',
+   	    	value: datetime
+			});
+			timestr=new Date(data.rows[0].EndDate);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			datetime=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			api.setPrefs({
+    		key: 'EEndDate',
+   	    	value: datetime
+			});
+			api.setPrefs({
+    		key: 'SchoolName',
+   	    	value: data.rows[0].SchoolName
+			});
+			api.setPrefs({
+    		key: 'Major',
+   	    	value: data.rows[0].Major
+			});
+			api.setPrefs({
+    		key: 'ChineseName',
+   	    	value: data.rows[0].ChineseName
+			});
+			GetTrainExperienceList();
+		}
+		
+		function GetTrainExperienceList() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<GetTrainExperienceList  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + resumeId + "</resumeId>" + "</GetTrainExperienceList>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=GetTrainExperienceList",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endGetTrainExperienceList
+			});
+		}
+
+		function endGetTrainExperienceList(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('GetTrainExperienceListResult').text();
+			var data = JSON.parse(json);
+			//alert('获取培训数据');
+			TrainId= data.rows[0].TrainId;
+			api.setPrefs({
+    		key: 'TrainId',
+   	    	value: data.rows[0].TrainId
+			});
+			timestr=new Date(data.rows[0].StartDate);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			datetime=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			api.setPrefs({
+    		key: 'TStartDate',
+   	    	value: datetime
+			});
+			timestr=new Date(data.rows[0].EndDate);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			datetime=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			api.setPrefs({
+    		key: 'TEndDate',
+   	    	value: datetime
+			});
+			api.setPrefs({
+    		key: 'TrainedOrg',
+   	    	value: data.rows[0].TrainedOrg
+			});
+			api.setPrefs({
+    		key: 'TrainedName',
+   	    	value: data.rows[0].TrainedName
+			});
+			api.setPrefs({
+    		key: 'Description',
+   	    	value: data.rows[0].Description
+			});
+			api.hideProgress();
+		}
+		function GetWorkExperienceList() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<GetWorkExperienceList  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + resumeId + "</resumeId>" + "</GetWorkExperienceList>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=GetWorkExperienceList",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endGetWorkExperienceList
+			});
+		}
+
+		function endGetWorkExperienceList(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('GetWorkExperienceListResult').text();
+			var data = JSON.parse(json);
+			//alert('获取工作数据');
+			WorkId= data.rows[0].WorkId;
+			api.setPrefs({
+    		key: 'WorkId',
+   	    	value: data.rows[0].WorkId
+			});
+			timestr=new Date(data.rows[0].StartDate);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			datetime=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			api.setPrefs({
+    		key: 'WStartDate',
+   	    	value: datetime
+			});
+			timestr=new Date(data.rows[0].EndDate);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			datetime=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			api.setPrefs({
+    		key: 'WEndDate',
+   	    	value: datetime
+			});
+			api.setPrefs({
+    		key: 'WCompanyName',
+   	    	value: data.rows[0].CompanyName
+			});
+			api.setPrefs({
+    		key: 'WCompanyNature',
+   	    	value: data.rows[0].CompanyNature
+			});
+			api.setPrefs({
+    		key: 'WCompanySize',
+   	    	value: data.rows[0].CompanySize
+			});
+			api.setPrefs({
+    		key: 'WCompanyIndustry',
+   	    	value: data.rows[0].CompanyIndustry
+			});
+			api.setPrefs({
+    		key: 'WIndustryName',
+   	    	value: data.rows[0].IndustryName
+			});
+			api.setPrefs({
+    		key: 'SubFunction',
+   	    	value: data.rows[0].SubFunction
+			});
+			api.setPrefs({
+    		key: 'Responsiblity',
+   	    	value: data.rows[0].Responsiblity
+			});		
+			GetEducationList();
+				
+		}	
+			
+		</script>
+	
+	</body>
+</html>

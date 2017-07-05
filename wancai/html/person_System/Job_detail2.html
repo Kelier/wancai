@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/Hui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			* {
+				-webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+				-webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+				outline: none !important;
+			}
+			html, body {
+				height: 100%;
+				min-width: 320px;
+			}
+			#list_CityName, #list_WorkYears, #list_NatureName, #position, #book, #hat, #list_DegreeName, #degree {
+				float: left;
+				display: inline;
+				padding: 0px 3px;
+				font-size: 14px;
+				color: #949494;
+			}
+			#area {
+				height: 20px;
+				width: 100%;
+				background: #F0F0F0;
+				overflow: hidden;
+			}
+			#list_JobName, #list_CompanyName {
+				padding: 5px;
+			}
+			#center {
+				padding: 3px;
+			}
+			#line-1 {
+				height: 1px;
+				width: 100%;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				display: -moz-box;
+				-moz-box-orient: horizontal;
+				-moz-box-pack: center;
+				-moz-box-align: center;
+				display: -o-box;
+				-o-box-orient: horizontal;
+				-o-box-pack: center;
+				-o-box-align: center;
+				display: -ms-box;
+				-ms-box-orient: horizontal;
+				-ms-box-pack: center;
+				-ms-box-align: center;
+				display: box;
+				box-orient: horizontal;
+				box-pack: center;
+				box-align: center;
+				background: #F0F0F0;
+				overflow: hidden;
+			}
+			.sendresume {
+				background-color: #1abc9c;
+				text-align: center;
+				width: 56.5%;
+				height: 45px;
+				margin-left: 2px;
+				font-size: 18px;
+				color: #ffffff;
+				line-height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				border: 1px solid #1abc9c;
+			}
+			.sendresume:active {
+				background-color: #1abc9c;
+				opacity:0.8;
+				text-align: center;
+				width: 56.5%;
+				height: 45px;
+				margin-left: 2px;
+				font-size: 18px;
+				color: #ffffff;
+				line-height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				border: 1px solid #1abc9c;
+			}
+			
+			
+			.contactbtn {
+				background-color: #1abc9c;
+				text-align: center;
+				width: 70px;
+				height: 20px;
+				float: right;
+				font-size: 12px;
+				color: #ffffff;
+				line-height: 20px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				border: 1px solid #1abc9c;
+			}
+			.contactbtn2 {
+				background-color: #1abc9c;
+				text-align: center;
+				width: 80px;
+				height: 20px;
+				float: right;
+				font-size: 12px;
+				color: #ffffff;
+				line-height: 20px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				border: 1px solid #1abc9c;
+			}
+			.wan-icon {
+				margin-left: 2px;
+				font-size: 18px;
+				color: #ffffff;
+				width: 20%;
+				height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				background-color: #1abc9c;
+				border: 1px solid #1abc9c;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				display: -moz-box;
+				-moz-box-orient: horizontal;
+				-moz-box-pack: center;
+				-moz-box-align: center;
+				display: -o-box;
+				-o-box-orient: horizontal;
+				-o-box-pack: center;
+				-o-box-align: center;
+				display: -ms-box;
+				-ms-box-orient: horizontal;
+				-ms-box-pack: center;
+				-ms-box-align: center;
+				display: box;
+				box-orient: horizontal;
+				box-pack: center;
+				box-align: center;
+			}
+			.nav {
+				background: rgba(200,200,200,0);
+				position: fixed;
+				width: 100%;
+				z-index: 80;
+				height: auto;
+				bottom: 1px;
+				float: left;
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-align: center;
+			}
+			.emptyarea {
+				width: 100%;
+				height: 58px;
+			}
+			.content-box {
+				padding: 0px 15px;
+				word-break: break-all;
+			}
+			.communication {
+				position: fixed;
+				background: rgba(200,105,200,1);
+				width: 100%;
+				height: 100%;
+				z-index: 100;
+			}
+			.cancel_communication{
+				background: rgba(200,200,200,1);
+				position: fixed;
+				width: 100%;
+				height: auto;
+				bottom: 1px;
+		
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+			}
+			.cancel_btn {
+				background-color: #1abc9c;
+				text-align: center;
+				width: 70px;
+				height: 45px;
+				font-size: 18px;
+				color: #ffffff;
+				line-height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				border: 1px solid #1abc9c;
+			}
+			.qrbg{
+				width: 100%;
+				height:100%;
+				position:fixed;
+				background:rgba(0,0,0,0.7);
+				z-index:9999999;
+			}
+			.qr{
+				display: -webkit-box;
+				-webkit-box-pack: center;
+				-webkit-box-orient: horizontal;
+				margin-top:50px;
+			}
+			#qr{
+				width: 300px;
+				height:300px;
+			}
+			.closediv{
+				width: 100%;
+				margin-top:20px;
+				display: -webkit-box;
+				-webkit-box-pack: center;
+				-webkit-box-orient: horizontal;
+			
+			}
+			.closebtn{
+				display: -webkit-box;
+				-webkit-box-pack: center;
+				-webkit-box-orient: horizontal;
+				color: #15B5E9;
+				border: 1px solid;
+				border-radius:100px;
+				width:100px;
+				border-color: #FFFFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="communication" id="communication" style="display: none;">
+			<div class="cancel_communication" >
+				<div class="cancel_btn" onclick="">
+					取消
+				</div>
+			</div>
+		</div>
+		<div class="qrbg"style="display: none;">
+			<div class="qr">
+				<img id="qr" src=""/>
+			</div>
+			<div style="text-align: center;color:#ffffff">二维码已生成并保存至本地！</div>
+			<div class="closediv">
+				<div class="closebtn" tapmode="" onclick="closeqr()">
+                     	    关闭
+           		 </div>
+            </div>
+		</div>
+		<div id="content"style="display: none;">
+			<div id="area"></div>
+			<div class="content-box">
+				<div id="list_JobName" style="font-size:18px;font-weight:bold">
+					<!--	院校教务管理人员-->
+				</div>
+				<div id="line-1"></div>
+				<div id="list_CompanyName" style="font-size:14px">
+					<!--珍岛数字生态服务平台-->
+				</div>
+				<div id="center">
+					<div id="position">
+						<i class="H-iconfont H-icon-where H-font-size-14 H-theme-font-color12"></i>
+					</div>
+					<div id="list_CityName">
+						<!--无锡市-->
+					</div>
+					<div id="book">
+						<i class="H-iconfont H-icon-tools H-font-size-14 H-theme-font-color12"></i>
+					</div>
+					<div id="list_WorkYears">
+						<!--2年-->
+					</div>
+					<div id="hat">
+						<i class="H-iconfont H-icon-time H-font-size-14 H-theme-font-color12"></i>
+					</div>
+					<div id="list_NatureName">
+						<!--全职-->
+					</div>
+					<div id="degree">
+						<i class="H-iconfont H-icon-doc H-font-size-14 H-theme-font-color12"></i>
+					</div>
+					<div id="list_DegreeName">
+						<!--学历-->
+					</div>
+				</div>
+				<div id="line-1"></div>
+			</div>
+			<div tapmode="" style="padding: 8px;" class="H-flexbox-horizontal H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" >
+				<i class="H-iconfont H-icon-near H-font-size-14  H-padding-horizontal-left-12  H-theme-font-color12"></i>
+				<div class="H-flex-item H-padding-horizontal-both-8 ">
+					<div id="list_where" style="font-size:10px;color: #949494;" tapmode="" onclick="map()">
+						<!--珍岛数字生态服务平台-->
+						上班地点：
+					</div>
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div id="area"></div>
+			<div class="content-box">
+				<div id="job" style="padding:5px">
+					职位信息
+				</div>
+				<div id="line-1"></div>
+				<div id="list_JobRequirements">
+					<!--内容-->
+				</div>
+			</div>
+			<div id="area"></div>
+			<div class="content-box">
+				<div id="contact" style="padding:5px">
+					联系方式
+					<div id="list_CompanyContact">
+						联系人：
+					</div>
+					<div id="list_Contact">
+						手机号/座机：<span class="contactbtn" tapmode="" onclick="contact()">立即沟通</span>
+					</div>
+				</div>
+				<div id="contact" style="padding:5px">
+					<div id="list_Contact">
+						<span class="contactbtn2" tapmode="" onclick="testcall()">视频面试测试</span>
+					</div>
+				</div>
+			</div>
+			<div id="line-1"></div>
+			<div class="emptyarea"></div>
+			<div class="nav" >
+				<div class="sendresume" tapmode="" onclick="applyJob()">
+					投递简历
+				</div>
+				<div class="wan-icon" tapmode="" onclick="addFavJob()">
+					<!--收藏--><i class="H-iconfont H-icon-star-null H-font-size-18 H-vertical-middle H-theme-font-color-white"></i>
+				</div>
+				<div class="wan-icon" tapmode="" onclick="shareframe()">
+					<!--分享--><i class="H-iconfont H-icon-share-to H-font-size-18 H-vertical-middle H-theme-font-color-white"></i>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/jquery.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		var id, data,resumeId, userId, JobId, JobName, JobFunctionName, CityName, PublishDate, DegreeName, WorkYears, NatureName, SalaryName, JobRequirements, JobDescription, UpdateDate, IndustryName;
+		var CompanyId, CompanyName, CompanyNatureName, CompanySizeName, CompanyIntroduce;
+		var CompanyContact, CompanyAddress, Contact;
+		apiready = function() {
+			api.showProgress();
+			api.getPrefs({
+				key : 'resumeId'
+			}, function(ret, err) {
+					resumeId = ret.value;
+			});
+			api.getPrefs({
+				key : 'userId'
+			}, function(ret, err) {
+				if (ret.value != '') {
+					userId = ret.value;
+				}
+			});
+			id = api.pageParam.id;
+			if(parseInt(api.pageParam.scanner)>0){
+			id = 1;
+			dodata();
+			}else{
+			dodata();
+			}
+
+		};
+		function dodata(){
+			data = api.pageParam.detail;
+			JobId = data.rows[id - 1].JobId;
+			JobName = data.rows[id - 1].JobName;
+			JobFunctionName = data.rows[id - 1].JobFunctionName;
+			CityName = data.rows[id - 1].CityName;
+			PublishDate = data.rows[id - 1].PublishDate;
+			DegreeName = data.rows[id - 1].DegreeName;
+			if (DegreeName == '')
+				DegreeName = '不限';
+			WorkYears = data.rows[id - 1].WorkYears;
+			NatureName = data.rows[id - 1].NatureName;
+			if ( SalaryName = data.rows[id - 1].SalaryName == '')
+				SalaryName = '无';
+			JobRequirements = data.rows[id - 1].JobRequirements;
+			if ( JobDescription = data.rows[id - 1].JobDescription == '')
+				JobDescription = '无';
+			UpdateDate = data.rows[id - 1].UpdateDate;
+			IndustryName = data.rows[id - 1].IndustryName;
+			CompanyId = data.rows[id - 1].CompanyId;
+			CompanyName = data.rows[id - 1].CompanyName;
+			CompanyNatureName = data.rows[id - 1].CompanyNatureName;
+			CompanySizeName = data.rows[id - 1].CompanySizeName;
+			CompanyIntroduce = data.rows[id - 1].CompanyIntroduce;
+			CompanyContact = data.rows[id - 1].CompanyContact;
+			if (CompanyContact == '')
+				CompanyContact = '公司未提供';
+			CompanyAddress = data.rows[id - 1].CompanyAddress;
+			Contact = data.rows[id - 1].Contact;
+			//alert(JSON.stringify(data.rows[id - 1]));
+			//	alert(DegreeName);
+			$("#job").html('职位信息');
+			$("#list_where").append(CompanyAddress);
+			$("#list_JobFunctionName").html(JobFunctionName);
+			$("#list_JobName").html(JobName);
+			$("#list_CityName").html(CityName);
+			$("#list_DegreeName").html(DegreeName);
+			$("#list_WorkYears").html(WorkYears);
+			$("#list_NatureName").html(NatureName);
+			$("#list_UpdateDate").html(UpdateDate);
+			$("#list_IndustryName").html(IndustryName);
+			$("#list_CompanyName").html(CompanyName);
+			$("#list_CompanyAddress").html(CompanyAddress);
+			$("#list_CompanyContact").append(CompanyContact);
+			$("#list_CompanyIntroduce").html(CompanyIntroduce);
+			$("#list_Contact").append(Contact);
+			if (new RegExp('&lt;div&gt;').test(JobRequirements))
+				$("#list_JobRequirements").html(JobRequirements.replace(/&nbsp;/g, "").replace(/&lt;div&gt;/g, "<li>").replace(/&lt;\/div&gt;/g, "<\/li>").replace(/<br\/>/g, ""));
+			else if (new RegExp('&lt;br&nbsp;\/&gt;').test(JobRequirements))
+				$("#list_JobRequirements").html(JobRequirements.replace(/&lt;br&nbsp;\/&gt;/g, "<br\/>"));
+			else
+				$("#list_JobRequirements").html(JobRequirements.replace(/&nbsp;/g, "").replace(/<br\/><br\/><br\/><br\/><br\/><br\/>/g, "<br\/>&nbsp;<br\/>&nbsp;").replace(/<br\/><br\/><br\/>/g, "<br\/>").replace(/<br\/><br\/>/g, "<br\/>").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<p><br\/>/g, "").replace(/<p\/><br\/>/g, ""));
+			api.hideProgress();
+			$('#content').css('display', 'block');
+		}
+		
+		function closeWin() {
+			api.closeWin()
+		}
+
+		function contact() {
+			api.call({
+				type : 'tel',
+				number : Contact
+			});
+		}
+
+		function addFavJob() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<AddFavoriteJob   xmlns='http://tempuri.org/'>" + "<userId>" + userId + "</userId>" + "<jobIds>" + JobId + "</jobIds>" + "</AddFavoriteJob >" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/JobManageInterface.asmx?op=AddFavoriteJob",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endFavJob
+			});
+		}
+
+		function endFavJob(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('AddFavoriteJobResult').text();
+			var data = JSON.parse(json);
+			api.toast({
+				msg : data.msg
+			});
+		}
+
+		function applyJob() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<ApplyJob xmlns='http://tempuri.org/'>" + 
+			"<userId>" + userId + "</userId>" + 
+			"<jobIds>" + JobId + "</jobIds>" + 
+			"<resumeId>"+resumeId+"</resumeId>"+ 
+			"</ApplyJob>" + 
+			"</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/JobManageInterface.asmx?op=ApplyJob",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endapplyJob
+			});
+		}
+
+		function endapplyJob(xmlHttpRequest, status) {
+		
+			var json = $(xmlHttpRequest.responseXML).find('ApplyJobResult').text();
+			var data = JSON.parse(json);
+			api.toast({
+				msg : data.msg
+			});
+		}
+
+		function shareframe() {
+			var MNActionButton = api.require('MNActionButton');
+			MNActionButton.open({
+				layout : {
+					row : 1,
+					col : 4,
+					rowSpacing : 5,
+					colSpacing : 10,
+					offset : 0
+				},
+				animation : true,
+				autoHide : true,
+				styles : {
+					maskBg : 'rgba(0,0,0,0)',
+					bg : '#fff',
+					cancelButton : {
+						size : 44,
+						bg : '#fff',
+						icon : 'widget://image/icon_shibai.png'
+					},
+					item : {
+						titleColor : '#888',
+						titleHighlight : 'dd2727',
+						titleSize : 12
+					},
+					indicator : {
+						color : '#c4c4c4',
+						highlight : '#9e9e9e'
+					}
+				},
+				items : [{
+					icon : 'widget://image/QQ.png',
+					highlight : 'widget://image/QQ.png',
+					title : 'QQ好友'
+				}, {
+					icon : 'widget://image/weixin.png',
+					highlight : 'widget://image/weixin.png',
+					title : '朋友圈'
+				}, {
+					icon : 'widget://image/weibo.png',
+					highlight : 'widget://image/weibo.png',
+					title : '微博'
+				}, {
+					icon : 'widget://image/qrcode.png',
+					highlight : 'widget://image/qrcode.png',
+					title : '二维码'
+				}]
+			}, function(ret) {
+				if (ret.eventType == 'click') {
+					if (ret.index == 0)share(1);
+					else if (ret.index == 1)share(3);
+					else if (ret.index == 2)share(7);
+					else {
+					createQr();
+					}
+				}
+			});
+		}
+
+		function share(type) {
+			if (type == 1) {
+				var qq = api.require('qq');
+				qq.installed(function(ret, err) {
+					if (ret.status) {
+						qq.shareText({
+							text : 'QQ分享测试'
+						});
+					} else {
+						api.alert({
+							msg : "没有安装"
+						});
+					}
+				});
+			} else if (type == 2) {
+				var qq = api.require('qq');
+				qq.installed(function(ret, err) {
+					if (ret.status) {
+						qq.shareText({
+							text : 'QQ分享测试'
+						});
+					} else {
+						api.alert({
+							msg : "没有安装"
+						});
+					}
+				});
+			} else if (type == 3) {
+				var weibo = api.require('weibo');
+				weibo.shareText({
+					text : '这里是测试的内容',
+				}, function(ret, err) {
+					if (ret.status) {
+						alert('分享文本内容成功');
+					} else {
+						alert('分享被取消');
+					}
+				});
+				/*			weibo.shareImage({
+				 text : '这里是测试的内容',
+				 imageUrl : 'widget://image/xxx.png'
+				 }, function(ret, err) {
+				 if (ret.status) {
+				 alert('分享图片内容成功');
+				 }
+				 });*/
+			} else if (type == 4) {
+				var weibo = api.require('weibo');
+				weibo.isInstalled(function(ret) {
+					if (ret.status) {
+						weibo.auth(function(ret, err) {
+							if (ret.status) {
+								alert(JSON.stringify(ret));
+							}
+						});
+					} else {
+						alert('未安装新浪微博客户端');
+					}
+				});
+			} else if (type == 5) {
+				var qq = api.require('qq');
+				qq.shareImage({
+					title : 'test',
+					description : 'testd',
+					imgPath : 'widget://res/filterMe.png'
+				});
+			} else if (type == 6) {
+				var wx = api.require('wx');
+				wx.isInstalled(function(ret, err) {
+					if (ret.installed) {
+						wx.shareText({
+							apiKey : 'wxd0d84bbf23b4a0e4',
+							scene : 'timeline',
+							text : '我分享的文本'
+						}, function(ret, err) {
+							if (ret.status) {
+								alert('分享成功');
+							} else {
+								alert(err.code);
+							}
+						});
+					} else {
+						alert('当前设备未安装微信客户端');
+					}
+				});
+			} else if (type == 7) {
+				var wx = api.require('wx');
+				wx.shareImage({
+					apiKey : '',
+					scene : 'session',
+					thumb : 'widget://a.jpg',
+					contentUrl : 'widget://b.jpg'
+				}, function(ret, err) {
+					if (ret.status) {
+						alert('分享成功');
+					} else {
+						alert(err.code);
+					}
+				});
+			} else if (type == 8) {
+				var wx = api.require('wx');
+				wx.auth({
+					apiKey : ''
+				}, function(ret, err) {
+					if (ret.status) {
+						alert(JSON.stringify(ret));
+					} else {
+						alert(err.code);
+					}
+				});
+			}
+		}
+
+		function map() {
+		api.openWin({
+	            name: 'map',
+	            url: '../bmap_System/baidumap_win.html',
+				pageParam : {
+					city:CityName,
+					address:CompanyAddress
+				},
+				vScrollBarEnabled : false,
+				delay:api.systemType == "ios" ? 0 : 50
+	
+            });
+		}
+		function testcall() {
+			api.closeWin({
+            });
+				api.sendEvent({
+					name : 'Call',
+					extra : {
+						status : 1,
+						callType : 2,
+						calledUserName : '13761267764'
+					}
+				});
+		}
+		function createQr(){
+				var FNScanner = api.require('FNScanner');
+				FNScanner.encodeImg({
+    			content: '万文杰',
+    			saveToAlbum: true,
+    			saveImg: {
+        		path: 'fs://album.png',
+        		w: 200,
+        		h: 200
+    			}
+				}, function(ret, err){        
+    				if( ret.status ){
+    					//ret.imgPath
+    					//	albumPath
+    					$('.qrbg').css("display", "block");
+    					$("#qr").attr("src", ret.imgPath);
+    					
+     				   //alert( JSON.stringify( ret ) );
+    				}else{
+    				    alert( JSON.stringify( err ) );
+   					}
+				});
+		
+		}
+		function closeqr(){
+			$(".qrbg").css("display","none");
+		}
+	</script>
+</html>

@@ -1,0 +1,99 @@
+﻿<!doctype html>
+<html class="H-theme-background-color-transparent">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hui</title>
+		<link href="../../css/Hui.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+		</style>
+	</head>
+	<body class="H-position-relative H-width-100-percent H-height-100-percent H-theme-background-color-transparent">
+		<div class="show-menu H-display-none-important H-position-absolute H-width-100-percent H-height-100-percent">
+			<div class="city-menu H-vertical-top-10  H-position-absolute H-theme-background-color-gray H-padding-vertical-both-5 H-border-radius-5 H-z-index-10" ></div>
+		</div>
+		<script src="../../script/api.js" type="text/javascript"></script>
+		<script src="../../script/H.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			function showShare() {
+				H.swiperShare(".show-menu", ".city-menu", "show-menu", null, function() {
+					H.execScript("search_select", null, 'H.D("#city-menu").setAttribute("data-open", "false");');
+					H.closeFrame();
+				});
+			}
+
+			H.domLoadEventEnd(function() {
+				showShare();
+			});
+			H.ready(function() {
+				var UICityList = api.require('UICityList');
+				UICityList.open({
+					rect : {
+						x : 0,
+						y : 0,
+						w : api.frameWidth,
+						h : api.frameHeight
+					},
+					resource : 'widget://res/cityList.json',
+					styles : {
+						searchBar : {
+							bgColor : '#696969',
+							cancelColor : '#E3E3E3'
+						},
+						location : {
+							color : '#696969',
+							size : 12
+						},
+						sectionTitle : {
+							bgColor : '#eee',
+							color : '#000',
+							size : 12
+						},
+						item : {
+							bgColor : '#fff',
+							activeBgColor : '#696969',
+							color : '#000',
+							size : 14,
+							height : 40
+						},
+						indicator : {
+							bgColor : '#fff',
+							color : '#696969'
+						}
+					},
+					currentCity : '北京',
+					locationWay : 'GPS',
+					hotTitle : '热门城市',
+					fixedOn : api.frameName,
+					placeholder : '输入城市名或首字母查询'
+				}, function(ret, err) {
+					if (ret) {
+						api.setPrefs({
+							key : 'city',
+							value : ret.cityInfo.city
+						});
+						api.setPrefs({
+							key : 'cityid',
+							value : ret.cityInfo.id
+						});
+					/*	api.sendEvent({   暂时废弃
+							name : 'write_city',
+							extra : {
+								city : ret.cityInfo.city,
+								cityid : ret.cityInfo.id
+							}
+						});*/
+						
+						H.execScript("search_select", null, 'H.D("#city").innerText=' + '\"' + ret.cityInfo.city + '\"');
+						
+						showShare();
+						//alert(JSON.stringify(ret));
+					} else {
+						alert(JSON.stringify(err));
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

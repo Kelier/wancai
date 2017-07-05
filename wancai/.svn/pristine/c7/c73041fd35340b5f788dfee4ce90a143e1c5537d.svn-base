@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+		<style type="text/css">
+			#aui-header {
+				position: fixed;
+				background: rgba(200,200,200,0);
+				margin-top: 10px;
+			}
+			.box {
+				position: fixed;
+				top: 52%;
+				left: 50%;
+				width: 65%;
+				height: 50%;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+			}
+			#img {
+				position: absolute;
+				/* z-index:-1; */
+			}
+			.btn1 {
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				margin-bottom: 30px;
+				margin-right: 20px;
+				padding-left: 36px;
+				background: url("../../image/bus.png") no-repeat scroll left center transparent;
+				color: #6B717B;
+				position: relative;
+				float: left;
+			}
+			.btn2 {
+				
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				margin-bottom: 30px;
+				padding-left: 36px;
+				color:#6B717B;
+				background: url("../../image/route.png") no-repeat scroll left center transparent;
+			}
+		</style>
+	</head>
+	<body>
+		<img id="img"></img>
+		<header class="aui-bar aui-bar-nav aui-bar-warning" id="aui-header">
+			<a class="aui-pull-left" tapmode onclick="api.closeWin()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+			<div class="aui-title" style="padding-left:5px;margin-top: 35px;color: #6B717B;font-weight:bold">
+				 &nbsp;求职&nbsp;&nbsp;（路线/导航）
+			</div>
+			<a class="aui-iconfont aui-icon-menu aui-pull-right"></a>
+		</header>
+		<div class="box">
+			<div class="btn1" tapmode="" onclick="route()">
+				公交路线
+			</div>
+			<div class="btn2" tapmode="" onclick="daohang()">
+				实时导航
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var w = api.winWidth;
+			var h = api.winHeight;
+			$("#img").css("width", parseInt(w));
+			$("#img").css("height", parseInt(h));
+			$("#img").attr("src", "../../image/map_bg.jpg");
+		};
+		function route() {
+			api.openWin({
+				name : 'route',
+				url : 'route_win.html',
+				pageParam : {
+					city : api.pageParam.city,
+					address : api.pageParam.address
+				},
+				vScrollBarEnabled : false,
+				delay : api.systemType == "ios" ? 0 : 50
+			});
+		}
+
+		function daohang() {
+			api.openWin({
+				name : 'daohang',
+				url : 'navigation_win.html',
+				pageParam : {
+					city : api.pageParam.city,
+					address : api.pageParam.address
+				},
+				vScrollBarEnabled : false,
+				delay : api.systemType == "ios" ? 0 : 50
+			});
+		}
+	</script>
+</html>

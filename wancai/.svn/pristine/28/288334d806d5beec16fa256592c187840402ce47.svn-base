@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" href="../../css/modal.css" type="text/css">
+		<link rel="stylesheet" type="text/css" href="../../css/Hui.css"/>
+		<style>
+			body {
+				background: url(../../image/pwd_bg.jpg) no-repeat left top;
+				background-size: cover;
+			}
+			.modal.fade {
+				top: 27%
+			}/*弹出层进入动画效果*/
+			.modal.fade.in {
+				position: absolute;
+			}/*弹出层进入后居顶距离，配合margin-top负值，实现上下自动居中*/
+		</style>
+	</head>
+	<body class="H-height-100-percent H-box-sizing-border-box H-overflow-hidden">
+		<div class="H-padding-vertical-bottom-10"></div>
+		<div class="H-margin-horizontal-both-10 H-theme-border-color-eee H-border-radius-5 H-overflow-hidden">
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active "tapmode="" onclick="change_win()">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color7" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-application H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					身份切换
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="showModal()">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color9" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-lock H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					修改密码
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-after H-vertical-middle H-touch-active"tapmode="" onclick="logout()">
+				<span class="H-icon H-center-all H-border-radius-5 H-display-block H-margin-horizontal-left-15 H-theme-background-color8" style="height: 30px; width: 30px;"><i class="H-iconfont H-icon-chexiao H-font-size-18 H-vertical-middle H-theme-font-color-white"></i></span>
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					登出帐号
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+		</div>
+		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header" >
+				<h3 id="myModalLabel">修改密码</h3><a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();" style="color: #000">×</a>
+			</div>
+			<div class="modal-body">
+				<div class="H-border-vertical-top-after H-margin-vertical-top-10">
+					<div class="H-flexbox-horizontal H-border-vertical-bottom-after">
+						<span class="H-icon H-vertical-middle H-padding-horizontal-left-10"><i class="H-iconfont H-icon-lock H-font-size-18 H-vertical-middle H-theme-font-color-999"></i></span>
+						<input type="password" id="oldpwd" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-15 H-theme-background-color-transparent" placeholder="请输入旧密码" />
+					</div>
+					<div class="H-flexbox-horizontal H-border-vertical-bottom-after">
+						<span class="H-icon H-vertical-middle H-padding-horizontal-left-10"><i class="H-iconfont H-icon-lock H-font-size-18 H-vertical-middle H-theme-font-color-999"></i></span>
+						<input type="password" id="newpwd" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-15 H-theme-background-color-transparent" placeholder="请输入新密码" />
+					</div>
+					<div class="H-flexbox-horizontal H-border-vertical-bottom-after">
+						<span class="H-icon H-vertical-middle H-padding-horizontal-left-10"><i class="H-iconfont H-icon-lock H-font-size-18 H-vertical-middle H-theme-font-color-999"></i></span>
+						<input type="password" id="rnewpwd" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-15 H-theme-background-color-transparent" placeholder="新密码确认" />
+					</div>
+					<div class="H-padding-15 H-margin-vertical-top-10">
+						<button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-15 H-padding-horizontal-both-20 H-theme-background-color9 H-theme-font-color-white H-theme-border-color9 H-theme-border-color9-click H-theme-background-color9-click H-theme-font-color9-click H-border-radius-3" tapmode="" onclick="checkpwd()">
+							确认修改
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../script/api.js" type="text/javascript"></script>
+	<script src="../../script/H.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../../script/jquery.js"></script>
+	<script src="../../script/log_reg_find.js" type="text/javascript"></script>
+	<script src="../../script/close_logout.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		var userName, oldpwd, newpwd, rnewpwd;
+		apiready = function() {
+		};
+		H.ready(function() {
+			api.getPrefs({
+				key : 'userMobile'
+			}, function(ret, err) {
+				if (ret) {
+					userName = ret.value;
+				}
+			});
+		});
+		function showModal() {
+			$("#myModal").modal('show');
+		}
+
+		function checkpwd() {
+			oldpwd = $.trim($('#oldpwd').val());
+			newpwd = $.trim($('#newpwd').val());
+			rnewpwd = $.trim($('#rnewpwd').val());
+			if (oldpwd.length == 0 || newpwd.length == 0 || rnewpwd.length == 0) {
+				api.toast({
+					msg : '密码不能为空'
+				});
+			} else if (newpwd != rnewpwd) {
+				api.toast({
+					msg : '新密码两次输入不一致'
+				});
+			} else {
+				H.toastLoading2();
+				Ajax_updatepwd();
+			}
+		}
+	</script>
+</html>

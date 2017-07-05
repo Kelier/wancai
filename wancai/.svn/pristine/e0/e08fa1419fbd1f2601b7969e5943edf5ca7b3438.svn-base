@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/Hui.css"/>
+		<link href="../../css/hzw-city-picker.css" rel="stylesheet" type="text/css" />
+		<style>
+			body {
+			}
+			.nav {
+				background: rgba(200,200,200,0);
+				position: fixed;
+				width: 100%;
+				z-index: 80;
+				height: auto;
+				bottom: 1px;
+				float: left;
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-align: center;
+			}
+			.changeresume {
+				background-color: #EE6A50;
+				text-align: center;
+				width: 49.5%;
+				height: 45px;
+				margin-left: 1px;
+				font-size: 20px;
+				color: #ffffff;
+				line-height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #EE6A50;
+				border-radius: 3px;
+				border: 1px solid #EE6A50;
+			}
+			.changeresume:active{
+			opacity: 0.5;
+			}
+			.generateresume {
+				background-color: #2E8B57;
+				text-align: center;
+				width: 49.5%;
+				height: 45px;
+				margin-left: 1px;
+				font-size: 20px;
+				color: #fff;
+				line-height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #2E8B57;
+				border-radius: 3px;
+				border: 1px solid #2E8B57;
+			}
+			.generateresume:active{
+			opacity: 0.5;
+			}
+			textarea {
+				width: 90%;
+				-webkit-appearance: none;
+				padding: 10px 15px;
+				margin-bottom: 15px;
+				line-height: 21px;
+				-webkit-user-select: text;
+				background-color: #fff;
+				border: 1px solid rgba(0, 0, 0, .2);
+				border-radius: 3px;
+				outline: none;
+			}
+			.textcontent {
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div  id="header" style="display:none"></div>
+		<div class="H-border-vertical-both-after">
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					头像
+				</div>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"  tapmode="" onclick="changeName()">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					姓名
+				</div>
+				<span id="name">用户名</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					性别
+				</div>
+				女
+				<input type="checkbox" id="woman" onclick="changeSex(2)" class="H-checkbox H-checkbox-fill H-vertical-align-middle H-font-size-18 H-theme-font-color2 H-border-radius-circle" />
+				<span class="H-display-inline-block H-padding-horizontal-both-5"></span>
+				男
+				<input type="checkbox" id="man" onclick="changeSex(1)"  checked="checked" class="H-checkbox H-checkbox-fill H-vertical-align-middle H-font-size-18 H-theme-font-color1 H-border-radius-circle" />
+				<span class="H-display-inline-block H-padding-horizontal-both-5"></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					婚姻状况
+				</div>
+				未婚
+				<input type="checkbox" id="nomarriage" onclick="changeMarriage(2)" checked="checked" class="H-checkbox H-checkbox-fill H-vertical-align-middle H-font-size-18 H-theme-font-color5 H-border-radius-circle" />
+				<span class="H-display-inline-block H-padding-horizontal-both-5"></span>
+				已婚
+				<input type="checkbox" id="marriage" onclick="changeMarriage(1)"  class="H-checkbox H-checkbox-fill H-vertical-align-middle H-font-size-18 H-theme-font-color4 H-border-radius-circle" />
+				<span class="H-display-inline-block H-padding-horizontal-both-5"></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					出生日期
+				</div>
+				<input type="text" id="birthday" style="width: 82px"
+				class="H-textbox H-vertical-align-middle  H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none "
+				placeholder="请选择" readonly="readonly" tapmode="" onclick="H.dateTip(this);"/>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active" tapmode=""  onclick="selectDegree()">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					最高学历
+				</div>
+				<span id="degree" >我的学历</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div tapmode=""  id="industry-menu" data-open="false" class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" tapmode="" onclick="showIndustryMenu();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					期望行业
+				</div>
+				<span id="industry">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" tapmode="" onclick="showIndustryMenu();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					期望职位
+				</div>
+				<span id="jobFunction">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active" tapmode="" onclick="selectSalary();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					期望薪水
+				</div>
+				<span id="salary">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="selectidentity();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					政治面貌
+				</div>
+				<span id="fature">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="selectWork();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					工作年限
+				</div>
+				<span id="workexperience">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="selectworknature();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					工作性质
+				</div>
+				<span id="worknature">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="selectworklocation();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					期望工作地点
+				</div>
+				<span id="worklocation">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-vertical-middle H-touch-active"tapmode="" onclick="selectlivelocation();">   
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					现居住城市
+				</div>
+				<span id="livecity">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-padding-vertical-bottom-10"></div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="changeMobile();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					手机号码
+				</div>
+				<span id="mobile">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-vertical-middle H-touch-active"tapmode="" onclick="changeEmail();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					电子邮箱
+				</div>
+				<span id="email">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<label class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">自我评价</label>
+			<div class="textcontent">
+				<textarea id="seleveluation"></textarea>
+			</div>
+			<div class="H-padding-vertical-bottom-10"></div>
+			<label class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">工作经历</label>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					任职开始时间
+				</div>
+				<input type="text" id="startdate" style="width: 82px"
+				class="H-textbox H-vertical-align-middle  H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none "
+				placeholder="请选择" readonly="readonly" tapmode="" onclick="H.dateTip(this);"/>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					任职结束时间
+				</div>
+				<input type="text" id="enddate" style="width: 82px"
+				class="H-textbox H-vertical-align-middle  H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none "
+				placeholder="请选择" readonly="readonly" tapmode="" onclick="H.dateTip(this);"/>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"  tapmode="" onclick="changeCompanyName()">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					公司名称
+				</div>
+				<span id="companyName">公司名称</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="selectCompanyNature();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					公司性质
+				</div>
+				<span id="companyNature">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="selectCompanySize();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					公司规模
+				</div>
+				<span id="companySize">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div tapmode=""  id="industry-menu" data-open="false" class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" tapmode="" onclick="showIndustryMenu();">
+			
+			</div>
+			
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-both-10-after H-vertical-middle H-touch-active" tapmode="" onclick="changeSubFunction()">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					担任职位
+				</div>
+				<span id="subFunction">请选择</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<label class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">工作描述</label>
+			<div class="textcontent">
+				<textarea id="responsiblity"></textarea>
+			</div>
+			<div class="H-padding-vertical-bottom-10"></div>
+			<label class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">教育经历</label>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					入学开始时间
+				</div>
+				<input type="text" id="startDate" style="width: 82px"
+				class="H-textbox H-vertical-align-middle  H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none "
+				placeholder="请选择" readonly="readonly" tapmode="" onclick="H.dateTip(this);"/>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					毕业时间
+				</div>
+				<input type="text" id="endDate" style="width: 82px"
+				class="H-textbox H-vertical-align-middle  H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none "
+				placeholder="请选择" readonly="readonly" tapmode="" onclick="H.dateTip(this);"/>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"  tapmode="" onclick="changeSchoolName()">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					学校名称
+				</div>
+				<span id="schoolName">学校名称</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"tapmode="" onclick="changeMajor();">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					所学专业
+				</div>
+				<span id="major">所学专业</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-padding-vertical-bottom-10"></div>
+			<div class="H-padding-vertical-bottom-10"></div>
+			<label class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">培训经历</label>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					培训开始时间
+				</div>
+				<input type="text" id="pstartDate" style="width: 82px"
+				class="H-textbox H-vertical-align-middle  H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none "
+				placeholder="请选择" readonly="readonly" tapmode="" onclick="H.dateTip(this);"/>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					培训结束时间
+				</div>
+				<input type="text" id="pendDate" style="width: 82px"
+				class="H-textbox H-vertical-align-middle  H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none "
+				placeholder="请选择" readonly="readonly" tapmode="" onclick="H.dateTip(this);"/>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"  tapmode="" onclick="changeTrainOrg()">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					培训机构名称
+				</div>
+				<span id="trainOrg">培训机构名称</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active"  tapmode="" onclick="changeClassName()">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					培训课程名称
+				</div>
+				<span id="className">培训课程名称</span>
+				<span class="H-icon H-padding-horizontal-right-5 H-display-block"><i class="H-iconfont H-icon-arrow-right H-theme-font-color-ccc H-font-size-14 H-vertical-middle"></i></span>
+			</div>
+			<label class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">详细描述</label>
+			<div class="textcontent">
+				<textarea id="description"></textarea>
+			</div>
+			<div class="H-padding-vertical-bottom-10"></div>
+			<div class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
+				<div class="H-flex-item H-padding-horizontal-both-10 H-font-size-16 H-padding-vertical-both-12">
+					简历是否公开
+				</div>
+			<input id="privacy" type="checkbox" checked="checked" class="H-switch H-switch-on-off-cn  H-position-relative H-theme-background-color-white H-theme-font-color5 H-margin-horizontal-right-10" onclick="changePrivacy()"/>
+       
+			</div>
+			
+			
+			<div style="height: 50px;"></div>
+		</div>
+		<div class="H-padding-vertical-bottom-10"></div>
+		<div class="nav" >
+			<div class="changeresume" tapmode="" onclick="getAllDate()">
+				保存已修改简历
+			</div>
+			<div class="generateresume" tapmode="" onclick="generateResume()">
+				一键生成PDF简历
+			</div>
+		</div>
+	</body>
+	<script src="../../res/resume.js" type="text/javascript"></script>
+	<script src="../../script/api.js" type="text/javascript"></script>
+	<script src="../../script/H.js" type="text/javascript"></script>
+	<script src="../../script/jquery.js" type="text/javascript"></script>
+	<script src="../../script/basedata.js" type="text/javascript"></script>
+	<script src="../../script/city_arr.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://www.xdocin.com/xdoc.js"></script>
+	<script type="text/javascript">
+		var userId, data,ResumeId,privacy;
+		var EduId,EStartDate,EEndDate,SchoolName,Major,ChineseName;
+		var TrainId,TStartDate,TEndDate,TrainedOrg,TrainedName,Description;
+		var WorkId,WStartDate,WEndDate,WCompanyName,WCompanyNature,WCompanySize,WCompanyIndustry,WIndustryName,SubFunction,Responsiblity;
+		var resumeName, userName, gender, marriage, birthday, degree, workyear, mobile, email, rlocation, policticalstatus, seleveluation, expectIndustryType, expectJob, expectLocation, jobNature, expectSalary;
+		apiready = function() {
+		////////预处理更新数据//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			api.showProgress({
+            });
+			api.getPrefs({
+				key : 'userId'
+			}, function(ret, err) {
+					userId = ret.value;
+			});
+			api.getPrefs({
+				key : 'Privacy'
+			}, function(ret, err) {
+				if (ret) {
+					 privacy=parseInt(ret.value);
+					 if(privacy==2){
+						$("#privacy").prop("checked", false);
+					}
+				}
+			});
+			
+			//    信息               ////////////////////////////////////////
+			//教育        /////////////////////////////////////////////
+			api.getPrefs({
+				key : 'EduId'
+			}, function(ret, err) {
+					 EduId=ret.value;			
+			});
+			api.getPrefs({
+				key : 'EStartDate'
+			}, function(ret, err) {
+					 EStartDate=ret.value;	
+					 $("#startDate").val(EStartDate);
+			});
+			api.getPrefs({
+				key : 'EEndDate'
+			}, function(ret, err) {
+					 EEndDate=ret.value;	
+					 $("#endDate").val(EEndDate);		
+			});
+			api.getPrefs({
+				key : 'SchoolName'
+			}, function(ret, err) {
+					 SchoolName=ret.value;	
+					 H.D("#schoolName").innerText = SchoolName;		
+			});
+			api.getPrefs({
+				key : 'Major'
+			}, function(ret, err) {
+					 Major=ret.value;	
+					 H.D("#major").innerText = Major;		
+			});
+			api.getPrefs({
+				key : 'ChineseName'
+			}, function(ret, err) {
+					 ChineseName=ret.value;	
+					 		
+			});
+			//培训///////////////////////////////////////////////////
+			api.getPrefs({
+				key : 'TrainId'
+			}, function(ret, err) {
+					 TrainId=ret.value;			
+			});
+			api.getPrefs({
+				key : 'TStartDate'
+			}, function(ret, err) {
+					 TStartDate=ret.value;		
+					 $("#pstartDate").val(TStartDate);		
+			});
+			api.getPrefs({
+				key : 'TEndDate'
+			}, function(ret, err) {
+					 TEndDate=ret.value;			
+					 $("#pendDate").val(TEndDate);		
+			});
+			api.getPrefs({
+				key : 'TrainedOrg'
+			}, function(ret, err) {
+					 TrainedOrg=ret.value;	
+					 H.D("#trainOrg").innerText = TrainedOrg;		
+			});
+			api.getPrefs({
+				key : 'TrainedName'
+			}, function(ret, err) {
+					 TrainedName=ret.value;	
+					 H.D("#className").innerText = TrainedName;		
+			});
+			api.getPrefs({
+				key : 'Description'
+			}, function(ret, err) {
+					 Description=ret.value;	
+					 H.D("#description").innerText = Description;		
+			});
+			//工作    ///////////////////////////////////////////////
+			api.getPrefs({
+				key : 'WorkId'
+			}, function(ret, err) {
+					 WorkId=ret.value;			
+			});
+			api.getPrefs({
+				key : 'WStartDate'
+			}, function(ret, err) {             
+				   	 WStartDate=ret.value;	
+					 $("#startdate").val(WStartDate);		
+			});
+			api.getPrefs({
+				key : 'WEndDate'
+			}, function(ret, err) {
+					 WEndDate=ret.value;	
+					 $("#enddate").val(WEndDate);			
+			});
+			api.getPrefs({
+				key : 'WCompanyName'
+			}, function(ret, err) {
+					 WCompanyName=ret.value;	
+					 H.D("#companyName").innerText = WCompanyName;		
+			});
+			api.getPrefs({
+				key : 'WCompanyNature'
+			}, function(ret, err) {
+					 WCompanyNature=ret.value;	
+					 H.D("#companyNature").innerText = company_a[WCompanyNature];		
+			});
+			api.getPrefs({
+				key : 'WCompanySize'
+			}, function(ret, err) {
+					 WCompanySize=ret.value;	
+					 H.D("#companySize").innerText = scale_a[WCompanySize];		
+			});
+			api.getPrefs({
+				key : 'WCompanyIndustry'
+			}, function(ret, err) {
+					 WCompanyIndustry=ret.value;	
+					 		
+			});
+			api.getPrefs({
+				key : 'WIndustryName'
+			}, function(ret, err) {
+					 WIndustryName=ret.value;	
+					 H.D("#companyIndustry").innerText = WIndustryName;		
+			});
+			api.getPrefs({
+				key : 'SubFunction'
+			}, function(ret, err) {
+					 SubFunction=ret.value;		
+					 H.D("#subFunction").innerText = SubFunction;	
+			});
+			api.getPrefs({
+				key : 'Responsiblity'
+			}, function(ret, err) {
+					 Responsiblity=ret.value;		
+					 H.D("#responsiblity").innerText = Responsiblity;	
+			});
+			
+			
+			// 信息获取结束//////////////////////////////////////////
+			api.getPrefs({
+				key : 'resumeId'
+			}, function(ret, err) {
+				if (ret) {
+					ResumeId = ret.value;
+					GetResumeBasicInfoById();
+				}
+			});
+			
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/*	resumeName = '我的简历';
+			userName = '万文杰';
+			gender = 1;
+			marriage = 2;
+			birthday = '1994-10-21';
+			degree = 5;
+			workyear = 2;
+			mobile = '13022297135';
+			email = '1025398501@qq.com';
+			rlocation = 3202;
+			policticalstatus = 0;
+			seleveluation = '他是个好人';
+			expectIndustryType = '计算机';
+			expectJob = '软件工程';
+			expectLocation = '上海';
+			jobNature = 1;
+			expectSalary = 22000;
+			*/
+			
+			api.addEventListener({
+				name : 'resume_x'
+			}, function(ret, err) {
+				H.D("#industry").innerText = ret.value.key1;
+				H.D("#jobFunction").innerText = ret.value.key2;
+				expectIndustryType=ret.value.key3;
+				expectJob=ret.value.key4;
+			});
+			api.addEventListener({
+				name : 'city_location'
+			}, function(ret, err) {
+				H.D("#worklocation").innerText=ret.value.city_location;
+				expectLocation=ret.value.city_location_id;
+			});	
+			
+			api.addEventListener({
+				name : 'live_location'
+			}, function(ret, err) {
+				H.D("#livecity").innerText=ret.value.city_location;
+				
+				rlocation=ret.value.city_location_id;
+			});	
+						
+		};
+
+		
+		
+		
+		
+		
+///////////               获取详细数据                                             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		function GetResumeBasicInfoById() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + "<GetResumeBasicInfoById  xmlns='http://tempuri.org/'>" + "<resumeId>" + ResumeId + "</resumeId>" + "</GetResumeBasicInfoById  >" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=CreateResume",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endGetResumeBasicInfoById
+			});
+		}
+var timestr,timestr2,timestr3;
+		function endGetResumeBasicInfoById(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('GetResumeBasicInfoByIdResult').text();
+			data = JSON.parse(json);
+//			alert(JSON.stringify(data));
+			
+			userName = data.rows[0].UserName;
+			gender = data.rows[0].GenderCode;
+			marriage = data.rows[0].MarrigeCode;
+			
+			timestr=new Date(data.rows[0].Birthday);
+			timestr2=parseInt(timestr.getMonth()+1);
+			timestr3=parseInt(timestr.getDate());
+			if(timestr2<10)timestr2="0"+timestr2;
+			if(timestr3<10)timestr3="0"+timestr3;
+			birthday=timestr.getFullYear()+'-'+timestr2+'-'+timestr3;
+			degree = data.rows[0].HighDegreeCode;
+			workyear = data.rows[0].WorkYearsCode;
+			mobile = data.rows[0].Mobile;
+			email = data.rows[0].Email;
+			rlocation = data.rows[0].xjdLocaltionCode;
+			
+			policticalstatus = data.rows[0].PoliticalStatusCode;
+			seleveluation = data.rows[0].SelfEvaluation;
+			expectIndustryType = data.rows[0].ExpectIndustryType;
+			expectJob = data.rows[0].ExpectJob;
+			expectLocation = data.rows[0].ExpectLocation;
+			jobNature = data.rows[0].JobNatureCode;
+			expectSalary = data.rows[0].ExpectSalaryCode;
+		
+			H.D("#name").innerText = userName;
+			H.D("#mobile").innerText = mobile;
+			H.D("#email").innerText = email;
+			$("#birthday").val(birthday);
+			H.D("#degree").innerText = degree_a[degree];
+			H.D("#workexperience").innerText = work_a[workyear];
+			H.D("#livecity").innerText = ja[rlocation];
+			H.D("#fature").innerText = fature_a[policticalstatus];
+			H.D("#seleveluation").innerText = seleveluation;
+			H.D("#industry").innerText = ind_a[expectIndustryType];
+			H.D("#jobFunction").innerText = fun_a[expectJob];
+			H.D("#worklocation").innerText = ja[expectLocation];
+			H.D("#salary").innerText = salary_a[expectSalary];
+			H.D("#worknature").innerText = job_a[jobNature];	
+			
+			if(gender=="1"){
+			$("#man").prop("checked", true)
+			$("#woman").prop("checked", false)
+			}else{
+			$("#man").prop("checked", false)
+			$("#woman").prop("checked", true)
+			}
+			if (marriage == 2) {
+				$("#nomarriage").prop("checked", true)
+				$("#marriage").prop("checked", false)
+			} else {
+				$("#nomarriage").prop("checked", false)
+				$("#marriage").prop("checked", true)
+			}
+			api.hideProgress();
+		
+		}
+
+		function UpdateResume() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<UpdateResumeBasicInfo  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + ResumeId + "</resumeId>" + 
+			"<resumeName>我的简历</resumeName>" + 
+			"<userName>"+userName+"</userName>" + 
+			"<gender>"+gender+"</gender>" + 
+			"<marriage>"+marriage+"</marriage>" + 
+			"<birthday>"+birthday+"</birthday>" + 
+			"<degree>"+degree+"</degree>" + 
+			"<location>"+rlocation+"</location>" + 
+			"<workyear>"+workyear+"</workyear>" + 
+			"<mobile>"+mobile+"</mobile>" + 
+			"<email>"+email+"</email>" + 
+			"<politicalStatus>"+policticalstatus+"</politicalStatus>" + 
+			"<selfEvalation>"+seleveluation+"</selfEvalation>" + 
+			"</UpdateResumeBasicInfo>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateResumeBasicInfo",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endUpdateResume
+			});
+		}
+
+		function endUpdateResume(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('UpdateResumeBasicInfoResult').text();
+			var data = JSON.parse(json);
+			if(data.result=='true'){
+			UpdateJobObjective(); 
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历修改失败'
+            });
+			}
+		}
+
+		function UpdateJobObjective() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" +
+		    "<soap:Body>" + 
+			"<UpdateJobObjective   xmlns='http://tempuri.org/'>" + 
+			"<expectIndustryType>"+expectIndustryType+"</expectIndustryType>" + 
+			"<expectjob>"+expectJob+"</expectjob>" + 
+			"<expectlocation>"+expectLocation+"</expectlocation>" + 
+			"<jobnature>"+jobNature+"</jobnature>" + 
+			"<expectSalary>"+expectSalary+"</expectSalary>" + 
+			"<resumeId>" + ResumeId + "</resumeId>" + 
+			"</UpdateJobObjective>" + "</soap:Body>" + "</soap:Envelope>";
+			
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateJobObjective",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endUpdateJobObjective
+			});
+		}
+
+		function endUpdateJobObjective(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('UpdateJobObjectiveResult').text();
+			var data = JSON.parse(json);
+			if(data.result=='true'){
+//			alert('更新期望成功');
+			UpdateWorkExperience();
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历修改失败'
+            });
+			}
+		}
+
+		function UpdateWorkExperience() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<UpdateWorkExperience  xmlns='http://tempuri.org/'>" + 
+			"<workId>" + WorkId + "</workId>" + 
+			"<startdate>"+WStartDate+"</startdate>" + 
+			"<enddate>"+WEndDate+"</enddate>" + 
+			"<companyName>"+WCompanyName+"</companyName>" + 
+			"<companyNature>"+WCompanyNature+"</companyNature>" + 
+			"<companySize>"+WCompanySize+"</companySize>" + 
+			"<companyIndustry>"+WCompanyIndustry+"</companyIndustry>" + 
+			"<subFunction>"+SubFunction+"</subFunction>" + 
+			"<responsiblity>"+Responsiblity+"</responsiblity>" + 
+			"</UpdateWorkExperience>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateWorkExperience",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endUpdateWorkExperience
+			});
+		}
+
+		function endUpdateWorkExperience(xmlHttpRequest, status) {
+		
+			var json = $(xmlHttpRequest.responseXML).find('UpdateWorkExperienceResult').text();
+
+			var data = JSON.parse(json);
+			if(data.result=='true'){
+			alert('更新工作成功');
+			api.setPrefs({
+    		key: 'WStartDate',
+   	    	value: WStartDate
+			});
+			api.setPrefs({
+    		key: 'WEndDate',
+   	    	value: WEndDate
+			});
+			api.setPrefs({
+    		key: 'WCompanyName',
+   	    	value: WCompanyName
+			});
+			api.setPrefs({
+    		key: 'WCompanyNature',
+   	    	value: WCompanyNature
+			});
+			api.setPrefs({
+    		key: 'WCompanySize',
+   	    	value: WCompanySize
+			});
+			api.setPrefs({
+    		key: 'WCompanyIndustry',
+   	    	value: WIndustryName
+			});
+			api.setPrefs({
+    		key: 'SubFunction',
+   	    	value: SubFunction
+			});
+			api.setPrefs({
+    		key: 'Responsiblity',
+   	    	value: Responsiblity
+			});		
+			UpdateEduInfoByEduId(); 
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历修改失败'
+            });
+			}
+		}
+
+		function UpdateEduInfoByEduId() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<UpdateEduInfoByEduId  xmlns='http://tempuri.org/'>" + 
+			"<eduId>" + EduId + "</eduId>" + 
+			"<startdate>"+EStartDate+"</startdate>" + 
+			"<enddate>"+EEndDate+"</enddate>" + 
+			"<schoolName>"+SchoolName+"</schoolName>" + 
+			"<major>"+Major+"</major>" + 
+			"<degree>"+degree+"</degree>" + 
+			"</UpdateEduInfoByEduId>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateEduInfoByEduId",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endUpdateEduInfoByEduId
+			});
+		}
+
+		function endUpdateEduInfoByEduId(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('UpdateEduInfoByEduIdResult').text();
+			var data = JSON.parse(json);
+			if(data.result=='true'){	
+			//alert('更新教育成功');
+			api.setPrefs({
+    		key: 'EStartDate',
+   	    	value: EStartDate
+			});
+			api.setPrefs({
+    		key: 'EEndDate',
+   	    	value: EEndDate
+			});
+			api.setPrefs({
+    		key: 'SchoolName',
+   	    	value: SchoolName
+			});
+			api.setPrefs({
+    		key: 'Major',
+   	    	value: Major
+			});			
+			UpdateTrainExperience();
+			}else{
+			api.hideProgress();
+			api.toast({
+	            msg:'简历修改失败'
+            });
+			}
+		}
+
+		function UpdateTrainExperience() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<UpdateTrainExperience  xmlns='http://tempuri.org/'>" + 
+			"<trainId>" + TrainId + "</trainId>" + 
+			"<startdate>"+TStartDate+"</startdate>" + 
+			"<enddate>"+TEndDate+"</enddate>" + 
+			"<trainOrg>"+TrainedOrg+"</trainOrg>" + 
+			"<className>"+TrainedName+"</className>" + 
+			"<description>"+Description+"</description>" + 
+			"</UpdateTrainExperience>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateTrainExperience",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endUpdateTrainExperience
+			});
+		}
+
+		function endUpdateTrainExperience(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('UpdateTrainExperienceResult').text();
+			var data = JSON.parse(json);
+			if(data.result=='true'){
+			api.setPrefs({
+    		key: 'TStartDate',
+   	    	value: TStartDate
+			});
+			api.setPrefs({
+    		key: 'TEndDate',
+   	    	value: TEndDate
+			});
+			api.setPrefs({
+    		key: 'TrainedOrg',
+   	    	value: TrainedOrg
+			});
+			api.setPrefs({
+    		key: 'TrainedName',
+   	    	value: TrainedName
+			});
+			api.setPrefs({
+    		key: 'Description',
+   	    	value: Description
+			});
+			//alert('更新培训，都完成了');
+			}
+			UpdateResumePrivacy();
+			api.hideProgress();
+			//alert(JSON.stringify(data));
+		}
+
+
+		function UpdateResumePrivacy() {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<UpdateResumePrivacy  xmlns='http://tempuri.org/'>" + 
+			"<resumeId>" + ResumeId + "</resumeId>" + 
+			"<privacy>"+privacy+"</privacy>" + 
+			"</UpdateResumePrivacy>" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateResumePrivacy",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endUpdateResumePrivacy
+			});
+		}
+
+
+
+		function endUpdateResumePrivacy(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('UpdateResumePrivacyResult').text();
+			var data = JSON.parse(json);
+			if(data.result=='true'){
+			api.setPrefs({
+    			key: 'Privacy',
+   	    		value: privacy
+			});
+			}
+		}
+
+		//修改简历的操作//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		function changeMobile() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					mobile = ret.text;
+					H.D("#mobile").innerText = ret.text;
+				}
+			}, '手机号：', '请输入您的手机号？', "");
+		}
+		function changeEmail() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					H.D("#email").innerText = ret.text;
+					email=ret.text;
+				}
+			}, '邮箱：', '请输入您的邮箱号？', "");
+		}
+		
+		function changeName() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					userName = ret.text;
+					H.D("#name").innerText = ret.text;
+				}
+			}, '姓名：', '请输入您的真实姓名？', "");
+		}
+
+		function changeSex(type) {
+			if (type == 2) {
+				$("#woman").prop("checked", true)
+				$("#man").prop("checked", false)
+				gender = type;
+			} else {
+				$("#woman").prop("checked", false)
+				$("#man").prop("checked", true)
+				gender = type;
+			}
+		}
+
+		function changeMarriage(type) {
+			if (type == 2) {
+				$("#nomarriage").prop("checked", true)
+				$("#marriage").prop("checked", false)
+				marriage = type;
+			} else {
+				$("#nomarriage").prop("checked", false)
+				$("#marriage").prop("checked", true)
+				marriage = type;
+			}
+		}
+		function changePrivacy() {
+		
+			
+			if (privacy == 2) {
+				$("#privacy").prop("checked", true)
+				privacy = 1;
+			} else {
+				$("#privacy").prop("checked", false)
+				privacy = 2;
+			}
+		}
+		function selectDegree() {
+			var degreeStr = '[';
+			for (var i = 1; i < degree_a.length; i++) {
+				if (i == degree_a.length - 1)
+					degreeStr = degreeStr + '\"' + degree_a[i] + '\"' + ']';
+				else
+					degreeStr = degreeStr + '\"' + degree_a[i] + '\"' + ',';
+			}
+			H.actionSheetTip2(function(ret, err) {
+				if (ret.buttonIndex > 0) {
+					H.D("#degree").innerText = degree_a[ret.buttonIndex];
+					degree=ret.buttonIndex;
+					api.setPrefs({
+						key : 'degree',
+						value : degree_a[ret.buttonIndex]
+					});
+					api.setPrefs({
+						key : 'degreeid',
+						value : ret.buttonIndex 
+					});
+				}
+			}, '学历等第', JSON.parse(degreeStr));
+		}
+
+		function selectSalary() {
+			var salaryStr = '[';
+			for (var i = 1; i < salary_a.length; i++) {
+				if (i == salary_a.length - 1)
+					salaryStr = salaryStr + '\"' + salary_a[i] + '\"' + ']';
+				else
+					salaryStr = salaryStr + '\"' + salary_a[i] + '\"' + ',';
+			}
+			H.actionSheetTip2(function(ret, err) {
+				if (ret.buttonIndex > 0) {
+					H.D("#salary").innerText = salary_a[ret.buttonIndex];
+					api.setPrefs({
+						key : 'salary',
+						value : salary_a[ret.buttonIndex - 1]
+					});
+					api.setPrefs({
+						key : 'salaryid',
+						value : ret.buttonIndex - 1
+					});
+				}
+			}, '期望薪水', JSON.parse(salaryStr));
+		}
+
+		function selectWork() {
+			var workStr = '[';
+			for (var i = 1; i < work_a.length; i++) {
+				if (i == work_a.length - 1)
+					workStr = workStr + '\"' + work_a[i] + '\"' + ']';
+				else
+					workStr = workStr + '\"' + work_a[i] + '\"' + ',';
+			}
+			H.actionSheetTip2(function(ret, err) {
+				if (ret.buttonIndex > 0) {
+					H.D("#workexperience").innerText = work_a[ret.buttonIndex];
+					workyear=ret.buttonIndex;
+					api.setPrefs({
+						key : 'workexperience',
+						value : work_a[ret.buttonIndex]
+					});
+					api.setPrefs({
+						key : 'workexperienceid',
+						value : ret.buttonIndex 
+					});
+				}
+			}, '工作年限', JSON.parse(workStr));
+		}
+
+		function selectidentity() {
+			var identityStr = '[';
+			for (var i = 1; i < fature_a.length; i++) {
+				if (i == fature_a.length - 1)
+					identityStr = identityStr + '\"' + fature_a[i] + '\"' + ']';
+				else
+					identityStr = identityStr + '\"' + fature_a[i] + '\"' + ',';
+			}
+			H.actionSheetTip2(function(ret, err) {
+				if (ret.buttonIndex > 0) {
+					H.D("#fature").innerText = fature_a[ret.buttonIndex];
+				}
+			}, '政治面貌', JSON.parse(identityStr));
+		}
+
+		function selectworknature() {
+			var natureStr = "[\"全职\",\"兼职\",\"实习\"]";
+			H.actionSheetTip2(function(ret, err) {
+				if (ret.buttonIndex == 1) {
+					H.D("#worknature").innerText = '全职';
+					jobNature=1;
+				}
+				if (ret.buttonIndex == 2) {
+					H.D("#worknature").innerText = '兼职';
+					jobNature=2;
+				}
+				if (ret.buttonIndex == 3) {
+					H.D("#worknature").innerText = '实习';
+					jobNature=3;
+				}
+			}, '工作性质', JSON.parse(natureStr));
+		}
+
+		function showIndustryMenu() {
+			var openStatu = H.D("#industry-menu").getAttribute("data-open");
+			if (openStatu == "false") {
+				H.fixStatusBar(function(offset) {
+					H.openFrame('industry_index', 'resume_industry.html', null, {
+						rect : {
+							x : 0,
+							y : 0,
+							w : H.winWidth,
+							h : H.winHeight
+						},
+						bounces : false
+					});
+					//	H.D("#industry-menu").setAttribute("data-open", "true");
+				}, '#header');
+			} else {
+				H.execScript(H.winName, "industry_index", "showShare();");
+				H.D("#industry-menu").setAttribute("data-open", "false");
+			}
+		}
+
+		function selectworklocation() {
+		H.openWin('city_index', 'resume_city.html');
+		}
+		
+		function selectlivelocation() {
+		H.openWin('city_index', 'resume_city2.html');
+		}
+
+		//修改工作   ////////////////////////////////////////////////////////////
+		 function changeCompanyName() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					WCompanyName = ret.text;
+					H.D("#companyName").innerText = ret.text;
+				}
+			}, '公司名称', '请输入就职过的公司名称？', "");
+		}
+		 function changeSubFunction() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					SubFunction = ret.text;
+					H.D("#subFunction").innerText = ret.text;
+				}
+			}, '担任职位', '请输入担任过的职位', "");
+		}
+		function selectCompanyNature() {
+			var companyStr = '[';
+			for (var i = 1; i < company_a.length; i++) {
+				if (i == company_a.length-1)
+					companyStr = companyStr + '\"' + company_a[i] + '\"' + ']';
+				else
+					companyStr = companyStr + '\"' + company_a[i] + '\"' + ',';
+			}
+			H.actionSheetTip2(function(ret, err) {
+				if (ret.buttonIndex > 0) {
+					H.D("#companyNature").innerText = company_a[ret.buttonIndex];
+					WCompanyNature=ret.buttonIndex;
+				}
+			}, '公司性质', JSON.parse(companyStr));
+		}
+		function selectCompanySize() {
+			var scaleStr = '[';
+			for (var i = 1; i < scale_a.length; i++) {
+				if (i == scale_a.length-1)
+					scaleStr = scaleStr + '\"' + scale_a[i] + '\"' + ']';
+				else
+					scaleStr = scaleStr + '\"' + scale_a[i] + '\"' + ',';
+			}
+			H.actionSheetTip2(function(ret, err) {
+				if (ret.buttonIndex > 0) {
+					H.D("#companySize").innerText = scale_a[ret.buttonIndex];
+					WCompanySize=ret.buttonIndex;
+				}
+			}, '公司规模', JSON.parse(scaleStr));
+		}
+		//修改教育  ////////////////////////////////////////////////////////////
+		 function changeSchoolName() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					SchoolName = ret.text;
+					H.D("#schoolName").innerText = ret.text;
+				}
+			}, '学校名称', '请输入学校名称', "");
+		}
+		function changeMajor() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					Major = ret.text;
+					H.D("#major").innerText = ret.text;
+				}
+			}, '所学专业', '请输入所学专业', "");
+		}
+		
+		//修改培训  ////////////////////////////////////////////////////////////
+		 function changeTrainOrg() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					TrainedOrg = ret.text;
+					H.D("#trainOrg").innerText = ret.text;
+				}
+			}, '机构名称', '请输入机构名称', "");
+		}
+		function changeClassName() {
+			H.promptTip(function(ret) {
+				if (ret.buttonIndex == 1) {
+					TrainedName = ret.text;
+					H.D("#className").innerText = ret.text;
+				}
+			}, '培训课程', '请输入培训课程', "");
+		}
+
+
+
+
+		// 绑定点击
+		/*H.D("#industry-menu").addEventListener("touchstart", function(e) {
+		if (H.isAPICloud()) {
+		showIndustryMenu();
+		} else {
+		H.swiperShare(".show-menu", ".industry-menu", "show-menu");
+		}
+		});*/
+		//获取数据并上传///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		function getAllDate() {
+		//描述
+		seleveluation=$("#seleveluation").val();
+		Responsiblity=$("#responsiblity").val();
+		Description=$("#description").val();
+		//时间
+		birthday=$("#birthday").val();
+		EStartDate=$("#startDate").val();
+		EEndDate=$("#endDate").val();
+		TStartDate=$("#pstartDate").val();
+		TEndDate=$("#pendDate").val();
+		WStartDate=$("#startdate").val();
+		WEndDate=$("#enddate").val();
+		
+		api.showProgress({});
+     	UpdateResume();
+		}
+		var age;
+		function generateResume(){
+			
+			obj.xdata.xdata.element[0].element[0].text=userName;//真实名字
+			if(gender==1)
+			obj.xdata.xdata.element[0].element[1].text='男';//性别
+			else obj.xdata.xdata.element[0].element[1].text='女';//性别
+			rlocation=H.D("#livecity").innerText;
+			obj.xdata.xdata.element[0].element[3].text=rlocation;//现居住城市
+			obj.xdata.xdata.element[0].element[14].text=mobile;//手机号
+			obj.xdata.xdata.element[0].element[15].text=email;//邮箱号
+			jobNature=H.D("#worknature").innerText;
+			obj.xdata.xdata.element[0].element[8].text=jobNature;//工作性质
+			workyear=H.D("#workexperience").innerText;
+			obj.xdata.xdata.element[0].element[9].text=workyear;//工作年限
+			//-----------------------
+			age=2016-timestr.getFullYear();
+			obj.xdata.xdata.element[0].element[12].text=age;//年龄
+			if(marriage==1)
+			obj.xdata.xdata.element[0].element[13].text='已婚';
+			else obj.xdata.xdata.element[0].element[13].text='未婚';//婚姻状况
+			degree=H.D("#degree").innerText;
+			obj.xdata.xdata.element[0].element[10].text=degree;//最高学历
+			policticalstatus=H.D("#fature").innerText;
+			obj.xdata.xdata.element[0].element[11].text=policticalstatus;//政治面貌
+			//------------------------
+			expectIndustryType=H.D("#industry").innerText;
+			obj.xdata.xdata.element[1].element[0].text=expectIndustryType;//期望行业
+			expectJob=H.D("#jobFunction").innerText;
+			obj.xdata.xdata.element[1].element[1].text=expectJob;//期望职位
+			expectLocation=H.D("#worklocation").innerText;
+			obj.xdata.xdata.element[1].element[2].text=expectLocation;//期望地点
+			expectSalary=H.D("#salary").innerText;
+			obj.xdata.xdata.element[1].element[3].text=expectSalary;//期望月薪
+			//------------------------
+			obj.xdata.xdata.element[2].element[2].text=WStartDate;//工作开始时间
+			obj.xdata.xdata.element[2].element[3].text=WEndDate;//工作结束时间
+			obj.xdata.xdata.element[2].element[0].text=WCompanyName;//工作单位
+			WCompanyNature=H.D("#companyNature").innerText;
+			obj.xdata.xdata.element[2].element[4].element[1].text=WCompanyNature;//公司性质
+			WCompanySize=H.D("#companySize").innerText;
+			obj.xdata.xdata.element[2].element[4].element[2].text=WCompanySize;//公司规模
+			obj.xdata.xdata.element[2].element[4].element[0].text=SubFunction;//担任职位
+			obj.xdata.xdata.element[2].element[4].element[5].text=Responsiblity;//工作描述
+			obj.xdata.xdata.element[2].element[4].element[3].text=WStartDate;//开始时间
+			obj.xdata.xdata.element[2].element[4].element[4].text=WEndDate;//结束时间
+			//------------------------
+			obj.xdata.xdata.element[3].element[2].text=EStartDate;//开始时间
+			obj.xdata.xdata.element[3].element[3].text=EEndDate;//结束时间
+			obj.xdata.xdata.element[3].element[0].text=SchoolName;//学校名称
+			obj.xdata.xdata.element[3].element[1].text=Major;//主修专业
+			//------------------------
+			obj.xdata.xdata.element[4].element[2].text=TStartDate;//开始时间
+			obj.xdata.xdata.element[4].element[3].text=TEndDate;//结束时间
+			obj.xdata.xdata.element[4].element[0].text=TrainedOrg;//机构名称
+			obj.xdata.xdata.element[4].element[1].text=TrainedName;//培训课程
+			obj.xdata.xdata.element[4].element[4].text=Description;//详细描述
+			//------------------------
+			obj.xdata.xdata.element[5].text=seleveluation;//详细描述
+			
+			
+			
+			XDoc.run(obj, "pdf", {}, "_blank");
+//		var fs = api.require('fs');
+//	fs.open({
+//  path: 'widget://res/resume.json',
+//  flags: 'read_write'
+//	}, function(ret, err){        
+//  if( ret.status ){
+//      
+//      fs.read({
+//  fd: ret.fd,
+//  offset: 0,
+//  length: 0
+//}, function(ret, err){        
+//  if( ret.status ){
+//     // alert( JSON.stringify( ret ) );
+//      alert(JSON.parse(ret.data));
+//      XDoc.run(ret.data, "pdf", {}, "_blank");
+//  }else{
+//      alert( JSON.stringify( err ) );
+//  }
+//});
+//  }else{
+//      alert( JSON.stringify( err ) );
+//  }
+//});
+//		$.getJSON('../../res/resume.json', function(data){
+//  	alert(JSON.stringify(data));
+//  	
+//		XDoc.run(JSON.stringify(data), "pdf", {}, "_blank");
+//  	XDoc.run(JSON.stringify(data), "pdf", {}, "_blank");
+//		});
+		
+		}
+	</script>
+</html>

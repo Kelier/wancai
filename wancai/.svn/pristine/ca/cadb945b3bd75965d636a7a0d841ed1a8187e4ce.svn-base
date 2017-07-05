@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+	</head>
+	<body>
+		<div class="aui-content">
+			<ul class="aui-list-view ">
+				<li class="aui-list-view-cell"  tapmode="" onclick="openwin(1)">
+					<i class="aui-iconfont aui-icon-edit aui-bg-info"></i>求职建议<div class="aui-arrow-right"></div>
+				</li>
+				<li class="aui-list-view-cell"tapmode="" onclick="openwin(2)">
+					<i class="aui-iconfont aui-icon-emoji aui-bg-success" ></i>如何做一个面霸 <div class="aui-arrow-right"></div>
+				</li>
+				<li class="aui-list-view-cell"tapmode="" onclick="openwin(3)">
+					<i class="aui-iconfont aui-icon-favor aui-bg-danger" ></i>对于网申你不知道的细节 <div class="aui-arrow-right"></div>
+				</li>
+				<li class="aui-list-view-cell"tapmode="" onclick="openwin(4)">
+					<i class="aui-iconfont aui-icon-like aui-bg-warning" ></i>各行业薪酬分析 <div class="aui-arrow-right"></div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../script/api.js"></script>
+	<script type="text/javascript">
+		function openwin(type) {
+			var url;
+			if (type == 1) {
+				url = "design_resume.html";
+			} else if (type == 2) {
+				url = "interview.html";
+			} else if (type == 3) {
+				url = "online.html";
+			} else if (type == 4) {
+				url = "analysis.html";
+			}
+			api.openWin({
+				name : 'qiuzhi',
+				url : url,
+				nimation : {
+					type : "push",
+					subType : "from_bottom",
+					duration : 700
+				}
+			});
+		}
+
+	
+	</script>
+</html>

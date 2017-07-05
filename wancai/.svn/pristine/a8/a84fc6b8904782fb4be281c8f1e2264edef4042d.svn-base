@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/buttons.css"/>
+		<style>
+			.btn {
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				margin-bottom: 50px;
+			}
+			body {
+				/*
+				 width:100%;
+				 height:100%;
+				 background-image: url(../../../image/choose.png);
+				 background-repeat: repeat-x;
+				 background-repeat: repeat-y;
+				 */
+				background: url('../../../image/choose.png') top center no-repeat;
+			}
+			.box {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				width: 50%;
+				height: 50%;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+			}
+			#aui-header{
+			position: fixed;
+			background: rgba(200,200,200,0);
+			margin-top: 10px;
+			
+			}
+		</style>
+	</head>
+	<body>
+	<header class="aui-bar aui-bar-nav aui-bar-warning" id="aui-header">
+        <a class="aui-pull-left" tapmode onclick="api.closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" style="margin-top: 10px">人才测评</div>
+        <a class="aui-iconfont aui-icon-menu aui-pull-right"></a>
+    </header>
+		<div class="box">
+			<div class="btn">
+				<a href="#" data-icon="♚" class="button orange shield glossy" onclick="go1()">职业倾向</a>
+			</div>
+			<div class="btn">
+				<a href="#" data-icon="☻" class="button blue skew"onclick="go3()">行为类型</a>
+			</div>
+			<div class="btn">
+				<a href="#" data-icon="❤" class="button pink serif round glass"onclick="go2()">心理成熟度</a>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		function go1(){
+		api.openWin({
+	        name: 'sss',
+	        url: 'character_test.html',
+	        delay:800
+        });
+		}
+		function go2(){
+		api.openWin({
+	        name: 'sss',
+	        url: 'psychology_test.html',
+	        delay:800
+        });
+		}
+		function go3(){
+		api.openWin({
+	        name: 'sss',
+	        url: 'behavior_test.html',
+	         delay:800
+        });
+		}
+	</script>
+</html>

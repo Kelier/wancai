@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body>请等待数据</body>
+	<script type="text/javascript" src="../../script/jquery.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		var retdata='',data;
+		var userId,jobIds;
+		apiready = function() {
+			api.getPrefs({
+    		key: 'userId'
+			}, function(ret, err){
+    		if(ret){
+    				userId=	ret.value;		  
+    			}
+			});	
+			getapslist();	
+		};
+		/*
+		 UIListView.reloadData({
+		 data : [{
+		 imgPath : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+		 title : '新标题',
+		 subTitle : '新子标题',
+		 remark : '新备注',
+		 icon : ''
+		 }]
+		 }, function(ret) {
+		 if (ret) {
+		 //	alert(JSON.stringify(ret));
+		 } else {
+		 alert(JSON.stringify(err));
+		 }
+		 });
+		 */
+		/*
+		 UIListView.setRefreshHeader({
+		 loadingImg : 'widget://res/UIListView_arrow.png',
+		 bgColor : '#F5F5F5',
+		 textColor : '#8E8E8E',
+		 textDown : '下拉可以刷新...',
+		 textUp : '松开开始刷新...',
+		 showTime : true
+		 }, function(ret, err) {
+		 alert("下拉更新加载？");
+		 //下拉更新加载
+		 //reloadData();
+		 if (ret) {
+		 alert(JSON.stringify(ret));
+		 } else {
+		 alert(JSON.stringify(err));
+		 }
+		 });
+		 */
+		function listshow() {
+			UIListView.show();
+		}
+		
+		function getapslist() {
+		var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+		"<soap:Body>" + 
+		"<GetJobs xmlns='http://tempuri.org/'>" + 
+		"<pageSize>40</pageSize>" + 
+		"<pageIndex>1</pageIndex>" + 
+		"<industryId>0</industryId>" +    //行业
+		"<jobFunctionId>0</jobFunctionId>" +	//职能
+		"<workLocationId>0</workLocationId>" + //城市
+		"<keywords></keywords>" + //关键字
+		"<degreeId>0</degreeId>" +//学历
+		"<workexperienceId>0</workexperienceId>" +//工作年限
+		"<salaryRangeId>0</salaryRangeId>" +//薪资范围
+		"<jobNatureId>0</jobNatureId>" +//职位性质
+		"</GetJobs>" +
+		 "</soap:Body>" + 
+		 "</soap:Envelope>";
+
+		$.ajax({
+		url : "http://58.215.179.167/JobManageInterface.asmx?op=GetJobs",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : deal_listdata
+		})
+		/*
+			api.ajax({
+				url : 'http://58.215.179.167/JobManageInterface.asmx?op=GetJobs',
+				method : 'get',
+				timeout : 30,
+				dataType : 'xml',
+				returnAll : false,
+			}, function(ret, err) {
+				if (ret) {
+					alert(JSON.stringify(ret));
+					var data = new Array();
+					data = eval(ret);
+					return data;
+				} else {
+					alert(JSON.stringify(ret));
+					alert(JSON.stringify(err));
+					api.alert({
+						msg : '错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode
+					});
+				}
+			});*/
+		}
+	
+		function deal_listdata(xmlHttpRequest, status) {
+		var json = $(xmlHttpRequest.responseXML).find('GetJobsResult').text();
+		data = (new Function("", "return " + json))();
+	//	alert(JSON.stringify(data));
+	
+		for(var i=0;i<40;i++){
+			retdata=retdata+
+			'{uid :'+JSON.stringify(data.rows[i].Row)+
+			",imgPath : 'widget://image/aui/demo1.png'"+
+			',title : '+JSON.stringify(data.rows[i].JobName + '  ('+data.rows[i].CompanyNatureName + ')')+
+			',subTitle : '+JSON.stringify(data.rows[i].CityName+'  公司规模:'+data.rows[i].CompanySizeName)+
+			',remark : '+JSON.stringify('经验:'+' '+data.rows[i].WorkYears)+
+			',icon : '+JSON.stringify('')+
+			'},';
+		}
+		retdata='['+retdata+']';
+	//	alert(retdata);
+		var UIListView = api.require('UIListView');
+		UIListView.open({
+				rect : {
+					x : 0,
+					y : 0,
+					w : api.winWidth,
+					h : api.frameHeight
+				},
+				data :  (new Function("", "return " + retdata))(),
+				rightBtns : [{
+					bgColor : '#388e8e',
+					activeBgColor : '',
+					width : 70,
+					title : '收藏',
+					titleSize : 12,
+					titleColor : '#fff',
+					icon : '',
+					iconWidth : 20
+				}],
+				styles : {
+					borderColor : '#DCDCDC', //列表分割线的颜色
+					item : {
+						bgColor : '#FFFFFF', //列表项的背景色
+						activeBgColor : '#F5F5F5', //列表项按下时的背景色
+						height : 77.0, //列表项的高度
+						imgWidth : 52, //列表项配图的宽度
+						imgHeight : 52,
+						imgCorner : 1000, //列表项配图的圆角大小
+						placeholderImg : '', //列表项配图的占位图路径
+						titleSize : 16.0, //列表项标题文字大小
+						titleColor : '#000', //列表项标题文字颜色
+						subTitleSize : 14.0, //列表项子标题文字大小
+						subTitleColor : '#000', //列表项子标题文字颜色
+						remarkColor : '#FF0000', //备注的文字颜色
+						remarkSize : 16, //备注的文字大小
+						remarkIconWidth : 30//当备注是图片时，图片的宽度，图片为正方形
+					}
+				},
+				fixedOn : api.frameName
+			}, function(ret, err) {
+				UIListView.setRefreshFooter({
+					loadingImg : '',
+					bgColor : '#FFFFFF',
+					textColor : '#8E8E8E',
+					textUp : '上拉加载更多...',
+					textDown : '松开开始加载...',
+					showTime : true
+				}, function(ret, err) {
+					if (ret) {
+						UIListView.appendData({
+							data : [{
+								imgPath : 'http://d.hiphotos.baidu.com/image/pic/item/4d086e061d950a7b29a788c209d162d9f2d3c922.jpg',
+								title : '新增标题',
+								subTitle : '新增子标题',
+								remark : '新增备注'
+							}, {
+								uid : '1002',
+								imgPath : 'widget://image/aui/demo2.png',
+								title : 'iOS工程师 （中软国际）',
+								subTitle : "天津   3-5年   本科",
+								remark : '8K-15K',
+								icon : ''
+							}]
+						}, function(ret, err) {
+							if (ret) {
+								//	alert(JSON.stringify(ret));
+							} else {
+								alert(JSON.stringify(err));
+							}
+						});
+					} else {
+						alert(JSON.stringify(err));
+					}
+				});
+				if (ret) {
+					if (ret.eventType == 'clickContent') {
+						UIListView.getDataByIndex({
+							index : ret.index
+						}, function(ret, err) {
+							if (ret) {
+								api.openWin({
+									name : 'list_win',
+									url : 'list_win.html',
+									pageParam : {
+										id : ret.data.uid,
+										detail: data,
+										type : 0
+									},
+									animation : {
+										type : "push",
+										subType : "from_right",
+										duration : 0
+									}
+								});
+							}
+						});
+					}
+					if (ret.eventType == 'clickRightBtn') {
+						UIListView.getDataByIndex({
+							index : ret.index
+						}, function(ret, err) {
+							if (ret) {
+							 jobIds = data.rows[ret.data.uid-1].JobId;
+       						 addFavJob(userId,jobIds);
+							}
+						});
+					}
+				} else {
+					alert(JSON.stringify(err));
+				}
+				/*	 if(ret){
+				 if(ret.eventType == "show"){
+				 listhasopened = true;
+				 }
+				 if(ret.eventType == "clickContent"){
+				 opendetail(ret.index);
+				 }
+				 if(ret.eventType == "clickRightBtn"){
+				 if(ret.btnIndex == 0){
+				 removeMsg(ret.index);
+				 }else if(ret.btnIndex == 1){
+				 setreaded(ret.index);
+				 }
+				 }
+				 }else{
+				 console.log($api.jsonToStr(err));
+				 }*/
+			});
+		}
+		
+function addFavJob(userID,jobIds){
+	var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+	"<soap:Body>" + 
+	"<AddFavoriteJob   xmlns='http://tempuri.org/'>" + 
+	"<userId>"+userID+"</userId>" + 
+	"<jobIds>"+jobIds+"</jobIds>" + 
+	"</AddFavoriteJob >" +
+	 "</soap:Body>" + 
+	 "</soap:Envelope>";
+
+	$.ajax({
+		url : "http://58.215.179.167/JobManageInterface.asmx?op=AddFavoriteJob",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : endFavJob
+	});	
+}
+function endFavJob(xmlHttpRequest, status) {
+	var json = $(xmlHttpRequest.responseXML).find('AddFavoriteJobResult').text();
+	data2 = (new Function("", "return " + json))();
+	api.toast({msg : data2.msg});
+}	
+	</script>
+</html>

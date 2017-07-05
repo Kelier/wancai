@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	body{
+    		
+    	}
+    	.nav {
+				background: rgba(200,200,200,0);
+				position: fixed;
+				width: 100%;
+				z-index: 80;
+				height: auto;
+				bottom: 1px;
+				float: left;
+				display: inline-block;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-align: center;
+			}
+		.changeresume {
+				background-color: #1abc9c;
+				text-align: center;
+				width: 99%;
+				height: 45px;
+				margin-left: 1px;
+				font-size: 20px;
+				color: #ffffff;
+				line-height: 45px;
+				-webkit-user-select: none;
+				border: 1px solid #ecf0f1;
+				border-radius: 3px;
+				border: 1px solid #1abc9c;
+			}
+    </style>
+    
+</head>
+<body>
+	<input type="button"value="写入数据" onclick="CreateResume()"/>
+	<input type="button"value="获取数据" onclick="GetResumeList()"/>
+	<input type="button"value="更新数据" onclick="UpdateResume()"/>
+	<div class="nav" >
+				<div class="changeresume" onclick="">
+					点击编辑/修改简历
+				</div>
+				<div class="wan-icon" tapmode="" onclick="addFavJob()">
+					<!--收藏--><i class="H-iconfont H-icon-star-null H-font-size-18 H-vertical-middle H-theme-font-color-white"></i>
+				</div>
+				<div class="wan-icon" tapmode="" onclick="shareframe()">
+					<!--分享--><i class="H-iconfont H-icon-share-to H-font-size-18 H-vertical-middle H-theme-font-color-white"></i>
+				</div>
+			</div>
+</body>
+<script type="text/javascript" src="../../script/jquery.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	var userId,data;
+	var resumeName,userName,gender,marriage,birthday,degree,workyear,mobile,email,rlocation,policticalstatus,seleveluation,expectIndustryType,expectJob,expectLocation,jobNature,expectSalary;
+	apiready = function(){
+	resumeName='我的简历';
+	userName='万文杰';
+	gender=1;
+	marriage=2;
+	birthday='1994-10-21';
+	degree=5;
+	workyear=2;
+	mobile='13022297135';
+	email='1025398501@qq.com';
+	rlocation=3202;
+	policticalstatus=0;
+	seleveluation='他是个好人';
+	expectIndustryType='计算机';
+	expectJob='软件工程';
+	expectLocation='上海';
+	jobNature=1;
+	expectSalary=22000;
+
+		api.getPrefs({
+    			key: 'userId'
+		}, function(ret, err){
+    		if(ret){
+    			userId=ret.value;
+    		}
+		});
+		
+		
+	};
+	
+	function GetResumeList() {
+	var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+	"<soap:Body>" + 
+	"<GetResumeList  xmlns='http://tempuri.org/'>" + 
+	"<userId>"+userId+"</userId>" + 
+	"</GetResumeList>" +
+	 "</soap:Body>" + 
+	 "</soap:Envelope>";
+	$.ajax({
+		url : "http://58.215.179.167/ResumeManageInterface.asmx?op=GetResumeList",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : endGetResumeList
+	});
+	
+}	
+function endGetResumeList(xmlHttpRequest, status) {
+	var json = $(xmlHttpRequest.responseXML).find('GetResumeListResult').text();
+	data = JSON.parse(json);
+	alert(JSON.stringify(data));
+}
+function CreateResume() {
+	var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+	"<soap:Body>" + 
+	"<CreateResume   xmlns='http://tempuri.org/'>" + 
+	"<userId>"+userId+"</userId>" + 
+	"<resumeName>"+resumeName+"</resumeName>" + 
+     " <userName>"+userName+"</userName>" + 
+     " <gender>"+gender+"</gender>" + 
+     " <marriage>"+marriage+"</marriage>" + 
+     " <birthday>"+birthday+"</birthday>" + 
+      "<degree>"+degree+"</degree>" + 
+      "<workyear>"+workyear+"</workyear>" + 
+      "<mobile>"+mobile+"</mobile>" + 
+      "<email>"+email+"</email>" + 
+      "<location>"+rlocation+"</location>" + 
+      "<policticalstatus>"+policticalstatus+"</policticalstatus>" + 
+      "<seleveluation>"+seleveluation+"</seleveluation>" + 
+      "<expectIndustryType>"+expectIndustryType+"</expectIndustryType>" + 
+      "<expectJob>"+expectJob+"</expectJob>" + 
+      "<expectLocation>"+expectLocation+"</expectLocation>" + 
+      "<jobNature>"+jobNature+"</jobNature>" + 
+      "<expectSalary>"+expectSalary+"</expectSalary>" + 
+	"</CreateResume >" +
+	 "</soap:Body>" + 
+	 "</soap:Envelope>";
+
+	$.ajax({
+		url : "http://58.215.179.167/ResumeManageInterface.asmx?op=CreateResume",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : endCreateResume
+	});
+}
+function endCreateResume(xmlHttpRequest, status) {
+	alert(userId);
+	var json = $(xmlHttpRequest.responseXML).find('CreateResumeResult').text();
+	data = JSON.parse(json);
+	alert(JSON.stringify(data));
+}
+function GetResumeBasicInfoById() {
+	var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+	"<soap:Body>" + 
+	"<GetResumeBasicInfoById  xmlns='http://tempuri.org/'>" + 
+	"<resumeId>"+'24967'+"</resumeId>" + 
+	"</GetResumeBasicInfoById  >" +
+	 "</soap:Body>" + 
+	 "</soap:Envelope>";
+
+	$.ajax({
+		url : "http://58.215.179.167/ResumeManageInterface.asmx?op=CreateResume",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : endGetResumeBasicInfoById
+	});
+}
+function endGetResumeBasicInfoById(xmlHttpRequest, status) {
+	var json = $(xmlHttpRequest.responseXML).find('GetResumeBasicInfoByIdResult').text();
+	data = JSON.parse(json);
+	alert(JSON.stringify(data));
+}
+
+function UpdateResume() {
+var resumeId=24967;
+	var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + 
+	"<soap:Body>" + 
+	"<UpdateResumeBasicInfo  xmlns='http://tempuri.org/'>" + 
+	"<resumeId>"+resumeId+"</resumeId>" + 
+	"<resumeName>啪啪啪</resumeName>" + 
+     " <userName>女朋友</userName>" + 
+     " <gender>1</gender>" + 
+     " <marriage>1</marriage>" + 
+     " <birthday>0</birthday>" + 
+      "<degree>0</degree>" + 
+      "<location>1001</location>" + 
+      "<workyear>0</workyear>" + 
+      "<mobile>13022297135</mobile>" + 
+      "<email>1025398501@qq.com</email>" + 
+      "<policticalstatus>0</policticalstatus>" + 
+      "<seleveluation>string</seleveluation>" + 
+	 "</UpdateResumeBasicInfo>" +
+	 "</soap:Body>" + 
+	 "</soap:Envelope>";
+
+	
+	$.ajax({
+		url : "http://58.215.179.167/ResumeManageInterface.asmx?op=UpdateResumeBasicInfo",
+		type : "POST",
+		dataType : "xml",
+		contentType : "text/xml; charset=utf-8",
+		data : soapXML,
+		complete : endUpdateResume
+	});
+}
+function endUpdateResume(xmlHttpRequest, status) {
+
+alert(JSON.stringify(xmlHttpRequest.responseXML));
+	var json = $(xmlHttpRequest.responseXML).find('UpdateResumeBasicInfoResult').text();
+	data = JSON.parse(json);
+	alert(JSON.stringify(data));
+}
+
+
+</script>
+</html>

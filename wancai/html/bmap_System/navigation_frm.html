@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.min.css" />
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<div class="aui-form">
+			<div class="aui-input-row">
+				<label class="aui-input-addon">起始点：</label>
+				<input type="text" class="aui-input" placeholder="请输入起始点" id="start" />
+			</div>
+			<div class="aui-input-row">
+				<span class="aui-input-addon">目的地：</span>
+				<input type="text" class="aui-input" placeholder="请输入起始点" id="end" readonly="readonly" tapmode="" onclick="openCityList();" />
+			</div>
+			<div class="aui-btn-row">
+				<div class="aui-btn aui-btn-success" id="daohan">
+					开始导航
+				</div>
+			</div>
+		</div>
+		<div id="container"
+		style="position: absolute;
+		margin-top:30px;
+		width: 730px;
+		height: 590px;
+		top: 50;
+		border: 1px solid gray;
+		overflow:hidden;display: none;"></div>
+	</body>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		var bMap = null;
+		var baiduNavigation = null;
+		var map = new BMap.Map("container");
+		var localSearch = new BMap.LocalSearch(map);
+		var status = 1;
+		// 打开城市选择
+		function openCityList() {
+			api.openWin({
+				name : 'cityList_win',
+				url : 'cityList_win.html',
+				pageParam : {},
+				vScrollBarEnabled : false,
+				delay : api.systemType == "ios" ? 0 : 300
+			});
+		}
+
+		Zepto(function($) {
+			$("#daohan").tap(function() {
+				var startVal = $("#start").val();
+				var startLat = parseFloat($("#start").attr("data-lat"));
+				var startLon = parseFloat($("#start").attr("data-lon"));
+				var endtVal = $("#end").val();
+				var endLat = parseFloat($("#end").attr("data-lat"));
+				var endLon = parseFloat($("#end").attr("data-lon"));
+				if (startVal != "" && endtVal != "") {
+					api.showProgress({
+						style : 'default',
+						animationType : 'fade',
+						title : '努力加载中...',
+						text : '先喝杯茶...',
+						modal : false
+					});
+					baiduNavigation.start({
+						start : {// 起点信息.
+							position : {// 经纬度，与address配合可为空
+								lon : startLon, // 经度.
+								lat : startLat // 纬度.
+							},
+							title : startVal, // 描述信息
+							address : startVal // 地址信息，与position配合为空
+						},
+						goBy : [],
+						end : {// 终点信息.
+							position : {// 经纬度，与address配合可为空
+								lon : endLon, // 经度
+								lat : endLat // 纬度
+							},
+							title : endtVal, // 描述信息
+							address : endtVal // 地址信息，与position配合为空
+						}
+					}, function(ret, err) {
+						api.hideProgress();
+						if (ret.status) {
+							api.alert({
+								title : "提示",
+								msg : '导航成功'
+							});
+						} else {
+							var msg = "未知错误";
+							if (1 == err.code) {
+								msg = "获取地理位置失败";
+							}
+							if (2 == err.code) {
+								msg = "定位服务未开启";
+							}
+							if (3 == err.code) {
+								msg = "线路取消";
+							}
+							if (4 == err.code) {
+								msg = "退出导航";
+							}
+							if (5 == err.code) {
+								msg = "退出导航声明页面";
+							}
+							api.alert({
+								title : "导航出错",
+								msg : msg
+							});
+						}
+					});
+				} else {
+					api.alert({
+						msg : '地址有误'
+					}, function(ret, err) {
+						//coding...
+					});
+				}
+			});
+		});
+		apiready = function() {
+			bMap = api.require('bMap');
+			baiduNavigation = api.require('baiduNavigation');
+			api.showProgress({
+				style : 'default',
+				animationType : 'fade',
+				title : '努力加载中...',
+				text : '先喝杯茶...',
+				modal : false
+			});
+			// 获取当前位置
+			/*	bMap.getLocation({
+			 accuracy : '10m',
+			 autoStop : true,
+			 filter : 1
+			 }, function(ret, err) {
+			 if (ret.status) {
+			 bMap.getNameFromCoords({
+			 lon : ret.lon,
+			 lat : ret.lat
+			 }, function(ret, err) {
+			 if (ret.status) {
+			 var _lon = ret.lon;
+			 var _lat = ret.lat;
+			 var _address = ret.address;
+			 $("#start").attr({
+			 "data-lat" : _lat,
+			 "data-lon" : _lon
+			 }).val(_address);
+			 }
+			 });
+			 } else {
+			 alert(err.code);
+			 }
+			 });*/
+			//由于地区不一为了效果暂时用死数据
+			$("#start").attr({
+				"data-lat" : 31.494373,
+				"data-lon" : 120.380026
+			}).val('无锡市滨湖区无锡(国家)软件园(震泽路)');
+			searchByStationName();
+			setTimeout("checkdata()", 5000);
+			//根据地址查找经纬度
+			/*	bMap.getCoordsFromName({
+			 city : '北京',
+			 address : '天安门'
+			 }, function(ret, err) {
+			 // api.pageParam.city
+			 //api.pageParam.address.replace(api.pageParam.city, '')
+			 if (ret.status) {
+			 $("#end").val(api.pageParam.address);
+			 alert(JSON.stringify(ret));
+			 }else{
+			 alert('失效');
+			 }
+			 });*/
+			api.addEventListener({
+				name : 'endAddrEvent'
+			}, function(ret) {
+				if (ret && ret.value) {
+					var obj = ret.value;
+					$("#end").attr({
+						"data-lat" : obj.lat,
+						"data-lon" : obj.lon
+					}).val(obj.city + obj.address);
+				}
+			});
+		};
+		function checkdata() {
+			if (status == 1) {
+				api.hideProgress();
+				alert("没有搜索到相关地址，请手动检索地址！");
+			}
+		}
+
+		function searchByStationName() {
+			var keyword = api.pageParam.address;
+			localSearch.setSearchCompleteCallback(function(searchResult) {
+				var poi = searchResult.getPoi(0);
+				$("#end").attr({
+					"data-lat" : poi.point.lat,
+					"data-lon" : poi.point.lng
+				}).val(api.pageParam.address);
+				api.hideProgress();
+				status = 0;
+			});
+			localSearch.search(keyword);
+		}
+	</script>
+	<script>
+		/*  另一种获取地址位置
+		 if(startAddress==""){
+		 startAddress=$.location.current_location.address;
+		 }
+		 var map = new BMap.Map(container);
+		 var geocoder = new BMap.Geocoder();
+		 //默认为南京
+		 var longitude = 118.807395;
+		 var latitude = 32.065315;
+		 //获取起始地址经纬度
+		 geocoder.getPoint(startAddress,
+		 function(point){
+		 if(point)
+		 {
+		 longitude = point.lng;
+		 latitude = point.lat;
+		 }
+		 },$.location.current_location.address);
+		 */
+	</script>
+</html>

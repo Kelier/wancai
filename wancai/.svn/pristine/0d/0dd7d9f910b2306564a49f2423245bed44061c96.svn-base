@@ -1,0 +1,594 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hui</title>
+		<link href="../../css/Hui.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+			#titlebar {
+				background-size: cover;
+				background-image: url(../../image/titlebar.png);
+				background-position: center center;
+				background-color: #FFFFFF;
+				background-repeat: no-repeat;
+				height: 100%;
+				margin-top: -25px;
+			}
+			#searchdiv {
+				width: 58%;
+			}
+			#ipt {
+				margin-left: 18px;
+			}
+			#drop-menu {
+				padding-right: 15px;
+			}
+			#name {
+				padding-left: 25px;
+				font-size: 20px;
+			}
+		</style>
+	</head>
+	<body class="H-flexbox-vertical">
+		<header class="H-header H-theme-background-color9 H-display-none" id="common_header">
+			<span tapmode="" onclick="H.openSlidPane();" class="H-icon H-position-relative H-display-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-both-10 H-z-index-1000"><i class="H-iconfont H-icon-more-menu H-font-size-18 H-vertical-middle"></i></span>
+			<div class="H-header-title H-vertical-middle H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent H-box-sizing-border-box" style="padding-left:38px;">
+				前端组件
+			</div>
+			<span tapmode="" onclick="H.openWin('common_search_head', 'common/common_search_head.html', null, { animation: { type: 'push', subType: 'from_bottom' } });" class="H-icon H-position-relative H-display-block H-float-right H-vertical-middle H-theme-font-color-white H-padding-horizontal-both-5 H-z-index-1000"><i class="H-iconfont H-icon-search-list H-font-size-26 H-vertical-middle"></i></span>
+		</header>
+		<header class="H-header H-theme-background-color9 H-display-none" id="about_hui_header">
+			<span tapmode="" onclick="H.openSlidPane();" class="H-icon H-position-relative H-display-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-both-10 H-z-index-1000"><i class="H-iconfont H-icon-more-menu H-font-size-18 H-vertical-middle"></i></span>
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				关于Hui
+			</div>
+		</header>
+		<header class="H-header H-display-none" id="index_3" style="background: #499ef3;">
+			<span tapmode="" onclick="H.historyBack(null, 'index_3');" class="H-icon H-position-relative H-display-inline-block H-float-left H-vertical-middle H-theme-font-color-white H-padding-horizontal-left-10 H-z-index-100"><label class="H-display-block H-vertical-middle H-font-size-15">前一页</label></span>
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				社区贴吧
+			</div>
+			<span tapmode="" onclick="H.historyForward(null, 'index_3');" class="H-icon H-position-relative H-display-inline-block H-float-right H-vertical-middle H-theme-font-color-white H-padding-horizontal-right-10 H-z-index-100"><label class="H-display-block H-vertical-middle H-font-size-15">后一页</label></span>
+		</header>
+		<header class="H-header  H-display-none" id="index_1">
+			<div class="H-padding-vertical-both-25 H-padding-horizontal-both-5" id="titlebar">
+				<span id="name" class="H-position-fixed H-theme-font-color-white H-float-left">万才</span>
+				<span tapmode=""  id="drop-menu"  data-open="false" class=" H-theme-font-color-white H-float-right"><i class="H-iconfont H-icon-plus H-font-size-20 H-vertical-middle"></i></span>
+				<div class="H-search H-flexbox-horizontal H-box-sizing-border-box  H-overflow-hidden H-position-relative H-position-horizontal-center" id="searchdiv">
+					<div class="H-position-fixed H-z-index-100 H-width-100-percent H-height-100-percent H-vertical-middle H-text-align-center H-theme-font-color-999  H-border-radius-15" id="ser">
+						<span class="H-display-block H-width-100-percent H-font-size-16"><i class="H-iconfont H-icon-search H-font-size-16"></i> 职位条件搜索</span>
+					</div>
+					<input type="search" name="keyword" id="ipt" class="H-position-relative H-border-none H-border-radius-25 H-theme-background-color-f4f4f4 H-flex-item H-font-size-18 H-padding-horizontal-both-10 H-padding-vertical-both-5 H-theme-background-color-f4f4f4" />
+					<span class="H-display-block H-font-size-14 H-vertical-middle H-theme-font-color1 H-padding-horizontal-both-10 btn" style="display:none;">取消</span>
+				</div>
+			</div>
+		</header>
+		<header class="H-header H-display-none" id="news_header" style="background: #000;">
+			<HR align=left width=120 color=#fff SIZE=3 noShade style="float: left;margin-top: 20px">
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent" id="tag">
+				<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				新闻咨询
+			    </div>
+			</div>
+			<HR align=left width=120 color=#fff SIZE=3 noShade style="float: right;margin-top: 20px">
+		</header>
+		<header class="H-header H-display-none" id="msg_header" style="background: url(../../image/low1.jpg)no-repeat center top;background-size: cover;">
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent" id="tag">
+				<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent">
+				消息通知
+			    </div>
+			</div>
+		</header>
+		
+		
+		
+		
+		
+		
+		<header class="H-header H-display-none" id="analyze_header" style="background: url(../../image/21.jpg)no-repeat right bottom;background-size: cover;">
+			<div class="H-header-title H-center-all H-font-size-18 H-text-show-row-1 H-theme-font-color-white H-position-absolute H-width-100-percent" id="tag">
+				<div style="margin-bottom: 10px;" class="H-header-tag H-font-size-14 H-padding-vertical-both-2 H-padding-horizontal-both-12 H-border-vertical-both-white H-border-horizontal-left-white H-border-radius-12 H-overflow-hidden H-center-all H-theme-background-color-white H-theme-font-color9" >
+					行情分析——排行榜
+				</div>
+			</div>
+		</header>
+		
+		<header class="H-display-none H-theme-background-color10" id="null_header"style="display:none;"></header>
+		<div class="H-main H-flex-item H-position-relative H-overflow-hidden H-overflow-scrolling"></div>
+		<footer class="H-footer H-flexbox-horizontal H-theme-background-color-white H-border-vertical-top-after" id="footer">
+			<div class="H-flex-item H-center-all H-text-align-center H-theme-font-color-999 H-touch-active swipe-item">
+				<div>
+					<span class="H-icon H-display-block H-line-height-normal"><i class="H-iconfont H-icon-tools H-font-size-26"></i></span>
+					<strong class="H-font-size-11 H-display-block H-font-weight-normal H-margin-vertical-bottom-2">职位</strong>
+				</div>
+			</div>
+			<div class="H-flex-item H-center-all H-text-align-center H-theme-font-color-999 H-touch-active swipe-item">
+				<div>
+					<span class="H-icon H-display-block H-line-height-normal"><i class="H-iconfont H-icon-level H-font-size-26"></i></span>
+					<strong class="H-font-size-11 H-display-block H-font-weight-normal H-margin-vertical-bottom-2">分析</strong>
+				</div>
+			</div>
+			<div class="H-flex-item H-center-all H-text-align-center H-theme-font-color-white H-touch-active swipe-item">
+				<div>
+					<span class="H-icon H-display-block H-line-height-normal H-center-all H-theme-background-color5 H-border-radius-circle H-position-relative H-z-index-100" style="height:46px;width:46px;"><i class="H-iconfont H-icon-earth H-font-size-40"></i></span>
+				</div>
+			</div>
+			<div class="H-flex-item H-center-all H-text-align-center  H-theme-font-color-999 H-touch-active swipe-item">
+				<div>
+					<span class="H-icon H-display-block H-line-height-normal"><i class="H-iconfont H-icon-review-fill H-font-size-24"></i></span>
+					<strong class="H-font-size-11 H-display-block H-font-weight-normal H-margin-vertical-top-3">消息</strong>
+				</div>
+			</div>
+			<div class="H-flex-item H-center-all H-text-align-center H-theme-font-color-999 H-touch-active swipe-item">
+				<div>
+					<span class="H-icon H-display-block H-line-height-normal"><i class="H-iconfont H-icon-user2 H-font-size-26"></i></span>
+					<strong class="H-font-size-11 H-display-block H-font-weight-normal H-margin-vertical-top-3">我的</strong>
+				</div>
+			</div>
+		</footer>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script type="text/javascript" src="../../script/jquery.js" ></script>
+		<script type="text/javascript" src="../../script/H.js" ></script>
+		<script type="text/javascript">
+			var rtcApi = null;
+			//设置相关发送监听器
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//自己手机的图像宽高
+			var x1 = 0;
+			var y1 = 0;
+			var w1 = 120;
+			var h1 = 160;
+			//接收图像的宽高
+			var x2 = 0;
+			var y2 = 0;
+			var w2 = 300;
+			var h2 = 400;
+			var v=0,w=0,x=0,y=0,z=0;
+			var callId,callName,callInfo,callType;
+			
+		function ttt() {
+			api.openFrame({
+				name : 'call_win',
+				url : '../call_System/calling.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : api.winWidth,
+					h : api.winHeight
+				},
+				bgColor : 'rgba(51,51,51,0)',
+				animation : {
+					type : "fade",
+					duration : 700
+				}
+			});
+		}
+			function onGlobalStatus(data) {
+			
+			//alert(data);
+		/* 		if (data == "ConnectionListener:onDisconnect,code=200"||data == "ConnectionListener:onDisconnect,code=487"){
+				api.closeFrame({
+						name : 'call_win'
+					});
+				api.closeFrame({
+						name : 'call_win2'
+					});
+				}*/
+			/* 	ConnectionListener:onVideo
+				ConnectionListener:onConnected
+				StateChanged,result=200*/
+			if(data == "ConnectionListener:onVideo"){
+			
+			setTimeout('ttt()', 3000);
+			}	
+				
+				
+		 	  if(data.indexOf("DeviceListener:onNewCall,call={")>=0){
+		 	     w=data.indexOf("id");
+ 				 x=data.indexOf("uri");
+ 				 y=data.indexOf("ci");
+ 				 z=data.indexOf("t\"");
+		 	     v=data.indexOf("dir");
+		 	 
+		 	 	callId=data.substring(w+5,x-3);
+		 	 	callName=data.substring(x+6,y-3);
+		 	 	callInfo=data.substring(y+5,z-3);
+		 	 	callType=data.substr(v+5,1);
+		 	 
+		 	 api.sendEvent({
+				name : 'callmsg',
+				extra:{
+					callId:callId,
+					callName:callName,
+					callInfo:callInfo,
+					callType:callType	
+				}
+			});
+		 	 
+		 	 
+		 	
+		 	   /*  alert(data.split("id:")[1]);
+					alert(data.split("uri:")[1]);	
+					alert(data.split("ci:")[1]);
+					alert(data.split("dir:")[1]);		*/
+				}
+				 
+					
+					
+				var bool = data.indexOf("ConnectionListener:onDisconnect");
+				if (bool>=0){
+					api.closeFrame({
+						name : 'call_win'
+					});
+				}	
+				
+					
+					
+			}
+
+			function cbLogStatus(data) {
+				if ("OK" == data.substring(0, 2)) {
+					var status = data.split("OK:")[1];
+					var showStr = "";
+					if ("LOGIN" == status) {
+						showStr = "Logout";
+					} else if ("LOGOUT" == status) {
+						showStr = "Login";
+					}
+					//	alert(showStr);
+				} else {
+					alert(data);
+				}
+			}
+
+			function cbCallStatus(data) {
+				if ("OK" == data.substring(0, 2)) {
+					var status = data.split("OK:")[1];
+					if ("NORMAL" == status) {
+						//	alert("Call");
+					} else if ("INCOMING" == status) {
+						//	alert("Accept");
+						var url = '../call_System/be_called.html';
+						api.openFrame({
+							name : 'call_win',
+							url : url,
+							rect : {
+								x : 0,
+								y : 0,
+								w : api.winWidth,
+								h : api.winHeight
+							},
+							pageParam: {
+       								callId:callId,
+									callName:callName,
+									callInfo:callInfo,
+									callType:callType	
+   							 },
+							animation : {
+								type : "fade",
+								duration : 500
+							}
+						});
+					} else if ("CALLING" == status) {
+						//			alert("Calling");
+					}
+				} else {
+					alert(data);
+				}
+			}
+
+			function cbMessageStatus(data) {
+				//	alert(data);
+			}
+
+			function logResponse() {
+				rtcApi.logout();
+			}
+
+			//呼叫         //状态     呼叫/接听     //呼叫类型      //被呼叫者
+			function callResponse(status, callType, calledUserName) {
+				//附加信息
+				var callInfo = '测试员';
+				if (1 == status) {
+					rtcApi.call({
+						callType : callType,
+						callName : calledUserName,
+						callInfo : callInfo
+					});
+				} else if (2 == status) {
+					rtcApi.acceptCall({
+						callType : callType
+					});
+				}
+			}
+
+			function login() {
+				rtcApi.logout();
+				y1 = api.winHeight - 260;
+				w2 = api.winWidth;
+				h2 = api.winHeight;
+				var jsonObj1 = {};
+				jsonObj1.x = x1;
+				jsonObj1.y = y1;
+				jsonObj1.w = w1;
+				jsonObj1.h = h1;
+				var jsonObj2 = {};
+				jsonObj2.x = x2;
+				jsonObj2.y = y2;
+				jsonObj2.w = w2;
+				jsonObj2.h = h2;
+				var json = {};
+				json.localView = jsonObj1;
+				json.remoteView = jsonObj2;
+				var jsonStr = JSON.stringify(json);
+				var userName = '13022297135';
+				rtcApi.login({
+					jsonViewConfig : jsonStr,
+					userName : userName
+				});
+			}
+
+			function setVideoAttr() {
+				var videoAttr = 2;
+				rtcApi.setVideoAttr({
+					value : videoAttr
+				});
+			}
+
+			function setAppKeyAndAppId() {
+				var appId = '123';
+				var appKey = '123456';
+				rtcApi.setAppKeyAndAppId({
+					appId : appId,
+					appKey : appKey
+				});
+			}
+
+			function sendMsg() {
+				var calledUserName = "13022297135";
+				var message = document.getElementById("message").value;
+				rtcApi.sendMessage({
+					userName : calledUserName,
+					msg : message
+				});
+			}
+
+			function showDropMenu() {
+				var openStatu = H.D("#drop-menu").getAttribute("data-open");
+				if (openStatu == "false") {
+					H.fixStatusBar(function(offset) {
+						H.openFrame('more_info_index', 'more_info_index.html', null, {
+							rect : {
+								x : 0,
+								y : offset.h - 30,
+								w : H.winWidth,
+								h : H.winHeight - offset.h
+							},
+							bounces : false
+						});
+						H.D("#drop-menu").setAttribute("data-open", "true");
+					}, '#index_1');
+				} else {
+					H.execScript(H.winName, "more_info_index", "showShare();");
+					H.D("#drop-menu").setAttribute("data-open", "false");
+				}
+			}
+
+			// 绑定点击
+			H.D("#drop-menu").addEventListener("touchstart", function(e) {
+				if (H.isAPICloud()) {
+					showDropMenu();
+				} else {
+					H.swiperShare(".show-menu", ".more-info-menu", "show-menu");
+				}
+			});
+			
+			
+			
+			
+			
+			H.ready(function() {
+				//	天翼RCT
+				/////////////////////////////////////////////////////////////
+				//设置相关接收监听器
+				rtcApi = api.require('tyRTC');
+				//设置回调函数，监听客户端全局状态
+				rtcApi.setGlobalStatusListener(onGlobalStatus);
+				//设置客户端注册至RTC平台的回调函数
+				rtcApi.setLogStatusListener(cbLogStatus);
+				//设置呼叫状态的回调函数
+				rtcApi.setCallStatusListener(cbCallStatus);
+				//设置回调函数，监听文本消息状态
+				rtcApi.setMessageListener(cbMessageStatus);
+				api.addEventListener({
+					name : 'hangUp'
+				}, function(ret, err) {
+					rtcApi.hangUp();
+					api.closeFrame({
+						name : 'call_win'
+					});
+				});
+				api.addEventListener({
+					name : 'mute'
+				}, function(ret, err) {
+					rtcApi.mute({
+						value : "true"
+					});
+				});
+				api.addEventListener({
+					name : 'unmute'
+				}, function(ret, err) {
+					rtcApi.mute({
+						value : "false"
+					});
+				});
+				api.addEventListener({
+					name : 'loudSpeaker'
+				}, function(ret, err) {
+					rtcApi.loudSpeaker({
+						value : "true"
+					});
+				});
+				api.addEventListener({
+					name : 'phoneSpeaker'
+				}, function(ret, err) {
+					rtcApi.loudSpeaker({
+						value : "false"
+					});
+				});		
+				api.addEventListener({
+					name : 'switchCamera'
+				}, function(ret, err) {
+					rtcApi.switchCamera({
+						value : camera
+					});
+				});
+				api.addEventListener({
+					name : 'accept'
+				}, function(ret, err) {
+					callResponse(2, 2, '');
+					
+					
+				});
+				api.addEventListener({
+					name : 'Call'
+				}, function(ret, err) {
+					var url = '../call_System/to_call.html';
+					api.openFrame({
+						name : 'call_win',
+						url : url,
+						rect : {
+							x : 0,
+							y : 0,
+							w : api.winWidth,
+							h : api.winHeight
+						},
+						animation : {
+							type : "fade", 
+							duration : 500
+						}
+					});
+					//	alert(ret.value.status+ret.value.callType+ret.value.calledUserName);
+					callResponse(ret.value.status, ret.value.callType, ret.value.calledUserName);
+				});
+				setAppKeyAndAppId();
+				login();
+				H.D("#ser").addEventListener("touchend", function(e) {
+					H.openWin('search_select', 'search_select.html');
+				});
+				H.openFrameIndexByClick([{
+					name : "index_1",
+					url : "UIListView2.html",
+					header : "#index_1",
+					bounces : false
+				}, {
+					name : "common_index",
+					url : "../analyze_System/html/industry_analyze.html",//../other_System/body.html
+					header : "#analyze_header"//#common_header
+				}, {
+					name : "msg_header",
+					url : "../news_System/news.html",
+//					http://wap.cithr.cn/
+					header : "#news_header"
+				}, {
+					name : "index_3",
+					url : "footer_tab_3.html",
+					header : "#msg_header",
+					bounces : false,
+					allowEdit : true
+				}, {
+					name : "index_4",
+					url : "pic.html",
+					header : "#null_header",
+					bounces : false
+				}], "H-display-none", "#footer", ".swipe-item", "H-theme-font-color5");
+				H.wanCloseApp();
+				//监听二维码扫描器
+				api.addEventListener({
+					name : 'scannercode'
+				}, function(ret, err) {
+					var FNScanner = api.require('FNScanner');
+					FNScanner.openScanner({
+    					autorotation: true
+					}, function(ret, err){        
+    					if(ret.eventType=='success'){
+        					GetJobInfoById(ret.content);	
+    					}
+    				});
+				
+				});
+				
+			});
+			
+			
+			function GetJobInfoById(jobId) {
+			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+			"<GetJobInfoById   xmlns='http://tempuri.org/'>" + 
+			"<jobId>" + jobId + "</jobId>" + 
+			"</GetJobInfoById >" + "</soap:Body>" + "</soap:Envelope>";
+			$.ajax({
+				url : "http://58.215.179.167/JobManageInterface.asmx?op=GetJobInfoById",
+				type : "POST",
+				dataType : "xml",
+				contentType : "text/xml; charset=utf-8",
+				data : soapXML,
+				complete : endGetJobInfoByIdResult
+			});
+		}
+
+		function endGetJobInfoByIdResult(xmlHttpRequest, status) {
+			var json = $(xmlHttpRequest.responseXML).find('GetJobInfoByIdResult').text();
+			
+			//alert(json);
+			while (new RegExp('<div').test(json)){
+				  var x=json.indexOf("<div");
+		 	 	  var y=json.indexOf("</div>");
+		 	 	  json=json.substring(0,x)+json.substring(y+6,json.length);
+		 	 	 
+				
+				}
+
+			
+			var jobdata = JSON.parse(json);
+				
+							api.openWin({
+							name : 'list_win',
+							url : 'list_win.html',
+							pageParam : {
+							detail : jobdata,
+							scanner: 1,
+							type : 0
+							},
+							animation : {
+							type : "push",
+							subType : "from_right",
+							duration : 300
+							}
+							});
+		}
+//		function GetComInfoById(companyId) {
+//			var soapXML = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" + "<soap:Body>" + 
+//			"<GetComInfoById  xmlns='http://tempuri.org/'>" + 
+//			"<companyId>" + companyId + "</companyId>" + 
+//			"</GetComInfoById>" + "</soap:Body>" + "</soap:Envelope>";
+//			$.ajax({
+//				url : "http://58.215.179.167/JobManageInterface.asmx?op=GetComInfoById",
+//				type : "POST",
+//				dataType : "xml",
+//				contentType : "text/xml; charset=utf-8",
+//				data : soapXML,
+//				complete : endGetJobInfoByIdResult
+//			});
+//		}
+//
+//		function endGetJobInfoByIdResult(xmlHttpRequest, status) {
+//			var json = $(xmlHttpRequest.responseXML).find('GetComInfoByIdResult').text();
+//			comdata="";
+//			comdata = JSON.parse(json);
+//			
+//		}
+		</script>
+	</body>
+</html>

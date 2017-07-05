@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui-iconfont.css" />
+	</head>
+	<style>
+		.my-header {
+			background-color: #2EA5A5;
+			position: relative;
+			margin-bottom: 0;
+		}
+		.my-info {
+			position: relative;
+			padding: 20px 0;
+			width: 100%;
+			bottom: 0;
+			text-align: center;
+			vertical-align: center;
+		}
+		.my-info img {
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+		}
+		.my-info p.nickname {
+			margin-top: 5px;
+			color: #ffffff;
+			font-size: 18px;
+		}
+		.aui-list-view-cell {
+			line-height: 26px;
+		}
+		.amount-info {
+			background-color: #ffffff;
+			overflow: hidden;
+		}
+		.amount-info p {
+			font-size: 0.75em;
+		}
+		.amount-info p strong {
+			font-size: 18px;
+		}
+		.aui-list-view-cell {
+			line-height: 26px;
+		}
+		.amount-info .aui-col-xs-4 {
+			padding: 15px 0;
+			position: relative;
+			height: 80px;
+		}
+		.amount-info .aui-col-xs-4:after {
+			border-left: 1px solid #ddd;
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			-webkit-transform-origin: 0 0;
+			-webkit-transform: scale(1);
+			pointer-events: none;
+		}
+		.amount-info .aui-col-xs-4:first-child:after {
+			border: none;
+		}
+		@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+			.amount-info .aui-col-xs-4:after {
+				right: -100%;
+				bottom: -100%;
+				-webkit-transform: scale(0.5);
+			}
+		}
+	</style>
+	<body>
+		<div class="aui-content my-header">
+			<div class="my-info">
+				<img src="../../image/noavatar.gif" />
+				<p class="nickname">
+					流浪男
+				</p>
+			</div>
+		</div>
+		<div class="aui-content">
+			<ul class="aui-list-view aui-in">
+				<li class="aui-list-view-cell">
+					<i class="aui-iconfont aui-icon-resume aui-bg-info"></i>我的简历
+				</li>
+				<li class="aui-list-view-cell">
+					<i class="aui-iconfont aui-icon-extra aui-bg-danger"></i>附件简历
+				</li>
+				<li class="aui-list-view-cell">
+					<i class="aui-iconfont aui-icon-release aui-bg-success"></i>我已发布的职位
+				</li>
+				<li class="aui-list-view-cell">
+					<i class="aui-iconfont aui-icon-favor aui-bg-info"></i>我的收藏
+				</li>
+				<li class="aui-list-view-cell" onclick="change_win()">
+					<i class="aui-iconfont aui-icon-favor aui-bg-info" ></i>切换入口
+				</li>
+				<li class="aui-list-view-cell" onclick="logout()">
+					<i class="aui-iconfont aui-icon-favor aui-bg-info" ></i>登出账号
+				</li>
+				<li class="aui-list-view-cell" onclick="map()">
+					<i class="aui-iconfont aui-icon-favor aui-bg-info" ></i>导航测试
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript" src="../../script/close_logout.js" ></script>
+	<script type="text/javascript">
+		apiready = function() {
+			api.parseTapmode();
+		}
+		function map(){
+			api.openWin({
+	            name: 'map',
+	            url: '../bmap_System/bmap_win.html'
+            });
+		
+		}
+
+	</script>
+</html>

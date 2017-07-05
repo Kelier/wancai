@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>轻户外</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	</head>
+	<style type="text/css">
+		.page {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			font-size: 100px;
+			text-align: center;
+		}
+		.page img {
+			-webkit-animation: fadeIn .5s ease both;
+			animation: fadeIn .5s ease both;
+			/*margin-top: 20px;*/
+			width: 100%;
+			height: 100%;
+		}
+		.hide {
+			display: none;
+		}
+		.page-current {
+			z-index: 1;
+		}
+		.page-1-1 {
+			background: #1abc9c;
+		}
+		.page-2-1 {
+			background: #b071fe;
+		}
+		.page-3-1 {
+			background: #ff9900;
+		}
+		.page-4-1 {
+			background: #1abc9c;
+		}
+		.btn {
+			width: 200px;
+			height: 50px;
+			background: #ff9900;
+			line-height: 50px;
+			color: #ffffff;
+			font-size: 18px;
+			text-align: center;
+			position: absolute;
+			left: 50%;
+			top: 65%;
+			margin-left: -100px;
+			border-radius: 6px;
+		}
+		.pt-page-moveToLeft {
+			-webkit-animation: moveToLeft .6s ease both;
+			animation: moveToLeft .6s ease both;
+		}
+		.pt-page-moveFromLeft {
+			-webkit-animation: moveFromLeft .6s ease both;
+			animation: moveFromLeft .6s ease both;
+		}
+		.pt-page-moveToRight {
+			-webkit-animation: moveToRight .6s ease both;
+			animation: moveToRight .6s ease both;
+		}
+		.pt-page-moveFromRight {
+			-webkit-animation: moveFromRight .6s ease both;
+			animation: moveFromRight .6s ease both;
+		}
+		.pt-page-moveToTop {
+			-webkit-animation: moveToTop .6s ease both;
+			animation: moveToTop .6s ease both;
+		}
+		.pt-page-moveFromTop {
+			-webkit-animation: moveFromTop .6s ease both;
+			animation: moveFromTop .6s ease both;
+		}
+		.pt-page-moveToBottom {
+			-webkit-animation: moveToBottom .6s ease both;
+			animation: moveToBottom .6s ease both;
+		}
+		.pt-page-moveFromBottom {
+			-webkit-animation: moveFromBottom .6s ease both;
+			animation: moveFromBottom .6s ease both;
+		}
+		@-webkit-keyframes fadeIn {
+		from {
+			opacity: 0.3;
+		}
+		to {
+		}
+		}
+		/* move from / to  */
+		@-webkit-keyframes
+		moveToLeft {from {
+		}
+		to {
+			-webkit-transform: translateX(-100%);
+		}
+		}
+		@keyframes
+		moveToLeft {from {
+		}
+		to {
+			-webkit-transform: translateX(-100%);
+			transform: translateX(-100%);
+		}
+		}
+		@-webkit-keyframes
+		moveFromLeft {from {
+			-webkit-transform: translateX(-100%);
+		}
+		}
+		@keyframes
+		moveFromLeft {from {
+			-webkit-transform: translateX(-100%);
+			transform: translateX(-100%);
+		}
+		}
+		@-webkit-keyframes
+		moveToRight {from {
+		}
+		to {
+			-webkit-transform: translateX(100%);
+		}
+		}
+		@keyframes
+		moveToRight {from {
+		}
+		to {
+			-webkit-transform: translateX(100%);
+			transform: translateX(100%);
+		}
+		}
+		@-webkit-keyframes
+		moveFromRight {from {
+			-webkit-transform: translateX(100%);
+		}
+		}
+		@keyframes
+		moveFromRight {from {
+			-webkit-transform: translateX(100%);
+			transform: translateX(100%);
+		}
+		}
+		@-webkit-keyframes
+		moveToTop {from {
+		}
+		to {
+			-webkit-transform: translateY(-100%);
+		}
+		}
+		@keyframes
+		moveToTop {from {
+		}
+		to {
+			-webkit-transform: translateY(-100%);
+			transform: translateY(-100%);
+		}
+		}
+		@-webkit-keyframes
+		moveFromTop {from {
+			-webkit-transform: translateY(-100%);
+		}
+		}
+		@keyframes
+		moveFromTop {from {
+			-webkit-transform: translateY(-100%);
+			transform: translateY(-100%);
+		}
+		}
+		@-webkit-keyframes
+		moveToBottom {from {
+		}
+		to {
+			-webkit-transform: translateY(100%);
+		}
+		}
+		@keyframes
+		moveToBottom {from {
+		}
+		to {
+			-webkit-transform: translateY(100%);
+			transform: translateY(100%);
+		}
+		}
+		@-webkit-keyframes
+		moveFromBottom {from {
+			-webkit-transform: translateY(100%);
+		}
+		}
+		@keyframes
+		moveFromBottom {from {
+			-webkit-transform: translateY(100%);
+			transform: translateY(100%);
+		}
+		}
+	</style>
+	<body>
+		<div class="page page-1-1 page-current">
+			<img src="../image/1.png">
+		</div>
+		<div class="page page-2-1 hide">
+			<img src="../image/2.png">
+		</div>
+		<div class="page page-3-1 hide">
+			<img src="../image/5.png">
+		</div>
+		<div class="page page-4-1 hide">
+			<img src="../image/mybg.png">
+			<div class="btn" tapmode onclick="go()">
+				马上体验
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/touch.js"></script>
+	<script type="text/javascript" src="../script/guide.js"></script>
+	<script type="text/javascript">
+		function go() {
+			$api.setStorage('showGuide', '1');
+			api.openFrame({
+				name : "login",
+				url : '../login2.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : "auto",
+					h : 'auto'
+				},
+				animation : {
+					type : "movein", 
+					subType : "from_bottom",
+					duration : 650 
+				}
+			})
+		}
+
+		apiready = function() {
+			api.parseTapmode();
+		};
+	</script>
+</html>

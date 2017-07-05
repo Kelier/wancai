@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				background: url('../../image/bg_image/bg001.jpg') no-repeat;
+				
+				background-size: cover;
+			
+			}
+		</style>
+	</head>
+	<body id="BackgroundArea">
+	<input type="button" value="" onclick="doing()" />
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		var imgArr = [
+		"../../image/bg_image/bg001.jpg", 
+		"../../image/bg_image/bg002.jpg", 
+		"../../image/bg_image/bg003.jpg", 
+		"../../image/bg_image/bg004.jpg",
+		"../../image/bg_image/bg005.jpg",
+		"../../image/bg_image/bg006.jpg",
+		"../../image/bg_image/bg007.jpg",
+		"../../image/bg_image/bg008.jpg",
+		"../../image/bg_image/bg009.jpg",
+		"../../image/bg_image/bg010.jpg",
+		"../../image/bg_image/bg011.jpg",
+		"../../image/bg_image/bg012.jpg",
+		"../../image/bg_image/bg013.jpeg",
+		"../../image/bg_image/bg014.jpg",
+		"../../image/bg_image/bg015.jpeg",
+		"../../image/bg_image/bg016.jpg",
+		"../../image/bg_image/bg017.jpg",
+		"../../image/bg_image/bg018.jpg",
+		"../../image/bg_image/bg019.jpg",
+		"../../image/bg_image/bg020.jpg",
+		"../../image/bg_image/bg021.jpg",
+		];
+		var index=0;
+		function doing(){
+			if(index==20)index=0;
+			else index++;
+			var currentImage=imgArr[index];
+			document.getElementById("BackgroundArea").style.backgroundImage="url("+currentImage+")";
+		}
+	</script>
+</html>
